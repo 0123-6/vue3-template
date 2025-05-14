@@ -1,4 +1,4 @@
-import {baseFetch, IBaseFetch} from "@/util/api";
+import {baseFetch, IBaseFetch, IResponseData} from "@/util/api";
 import {useResetRef} from "@/util/hooks/useResetState";
 import {isFalse} from "@/util/validator.ts";
 
@@ -8,7 +8,7 @@ export interface IUseBaseFetch {
 	// 因为这是要多次执行的,所以不能传递一个一次性值,而是一个函数,获取当时的期待值
 	fetchOptionFn: () => IBaseFetch,
 	// 对response.data的自定义处理函数
-	transformResponseDataFn?: (responseData: any) => void,
+	transformResponseDataFn?: (responseData: any, responseDataAll: IResponseData) => void,
 	// 立即加入微任务队列
 	microTask?: boolean,
 }
@@ -70,7 +70,7 @@ export const useBaseFetch = (props: IUseBaseFetch)
 			return false
 		}
 		if (transformResponseDataFn) {
-			transformResponseDataFn(fetchObject.responseData?.data)
+			transformResponseDataFn(fetchObject.responseData?.data, fetchObject.responseData)
 		}
 		resetIsFetching()
 		return true

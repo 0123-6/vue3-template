@@ -65,7 +65,7 @@ export interface IBaseFetch {
 	permission?: boolean | (() => boolean),
 }
 
-interface IResponseData {
+export interface IResponseData {
 	// 正常情况下为200
 	code: number
 	// 描述信息
