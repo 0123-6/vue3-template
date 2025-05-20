@@ -1,16 +1,12 @@
-export interface IFileItem {
-	file: File,
-	id: string | number,
-	status: 'pending' | 'uploading' | 'success' | 'failed',
-}
-
 interface ISelectFile {
 	// 接收的文件类型，同input元素的accept属性,''代表所有类型
 	accept: string,
 	// 最大文件大小
 	maxSize?: number,
+	// 多选吗,默认单选
+	multiple?: boolean,
 	// 选中文件后的回调函数
-	callback: (file: IFileItem) => Promise<void>,
+	callback: (params: {file: File, fileList: File[]}) => Promise<void>,
 	// 选中文件，但是存在错误后的回调函数
 	callbackError: (text: string) => void,
 }
@@ -22,7 +18,7 @@ export interface ISelectFileProps extends ISelectFile {
 }
 
 interface IParseFile extends ISelectFile {
-	file: File,
+	fileList: File[],
 }
 
 /**
@@ -48,32 +44,29 @@ const isValidFileType = (accept: string, file: File): boolean => {
 	return fileTypeMatches || fileExtensionMatches;
 }
 
-let id = 1;
-
 const parseFile = (props: IParseFile): void => {
 	const {
-		file,
+		fileList,
 		accept = '',
 		maxSize = Infinity,
 		callback = () => {},
 		callbackError = () => {},
 	} = props
-	if (!file) {
+	if (!fileList.length) {
 		callbackError('文件读取失败')
 		return
 	}
-	if (file.size > maxSize) {
+	if (fileList.some(file => file.size > maxSize)) {
 		callbackError('文件大小超出最大限制,请检查文件')
 		return
 	}
-	if (accept && !isValidFileType(accept, file)) {
+	if (accept && fileList.some(file => !isValidFileType(accept, file))) {
 		callbackError('选中的文件格式错误')
 		return
 	}
 	callback({
-		file,
-		id: crypto?.randomUUID?.() ?? ++id,
-		status: 'pending',
+		file: fileList[0],
+		fileList,
 	})
 }
 
@@ -83,6 +76,7 @@ export const ableSelectFileByClick = (props: ISelectFileProps)
 	let {
 		element,
 		accept,
+		multiple = false,
 	} = props
 	if (element instanceof Function) {
 		element = element()
@@ -91,10 +85,11 @@ export const ableSelectFileByClick = (props: ISelectFileProps)
 	const inputElement = document.createElement('input')
 	inputElement.type = 'file'
 	inputElement.accept = accept
+	inputElement.multiple = multiple
 	const handleChange = () => {
 		parseFile({
 			...props,
-			file: inputElement.files?.[0],
+			fileList: inputElement.files ? [...inputElement.files] : [],
 		})
 	}
 
@@ -137,7 +132,7 @@ export const ableSelectFileByDrag = (props: ISelectFileProps)
 		e.preventDefault()
 		parseFile({
 			...props,
-			file: e.dataTransfer?.files[0],
+			fileList: e.dataTransfer?.files ? [...e.dataTransfer?.files] : [],
 		})
 	}
 
