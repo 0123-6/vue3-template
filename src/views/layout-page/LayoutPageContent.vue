@@ -38,7 +38,7 @@ const clickLogout = () => {
 </script>
 
 <template>
-	<div class="w-full h-full flex flex-col"
+	<div class="w-full h-full flex flex-col shrink-0-children"
 			 :style="{padding: isChildWeb
 			  ? '4px 24px 0 16px'
 			  : projectConfig.isShowMenu ? '' : '16px 24px 0 16px',
@@ -106,6 +106,15 @@ const clickLogout = () => {
 			</div>
 		</div>
 		<!--内容-->
-		<RouterView></RouterView>
+		<div class="w-full flex-grow flex">
+			<!--左边菜单-->
+			<div class="w-[222px] h-full flex flex-col bg-white border-r border-disabled">
+
+			</div>
+			<div class="flex-grow h-full flex flex-col">
+				<RouterView></RouterView>
+				<div class="h-[16px] shrink-0"></div>
+			</div>
+		</div>
 	</div>
 </template>

@@ -21,6 +21,5 @@ if (isChildWeb) {
 <template>
 	<div class="w-full min-w-[1440px] h-full min-h-[700px] flex flex-col">
 		<RouterView></RouterView>
-		<div class="h-[16px] shrink-0"></div>
 	</div>
 </template>
