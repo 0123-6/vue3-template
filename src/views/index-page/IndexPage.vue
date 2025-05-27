@@ -14,7 +14,6 @@ const getData = async () => {
 	console.log('resData: ', resData)
 }
 getData();
-0
 onMounted(() => {
 	// 测试echarts
 	var chartDom = document.getElementById('test-echarts');

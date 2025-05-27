@@ -8,7 +8,6 @@ import overlayScrollbar from "@/util/overlayScrollbar.ts";
 import '@/index.css'
 import LayoutPage from '@/views/layout-page/LayoutPage.vue'
 import {watchLocationPathname} from "@/util/watchLocationPathname.ts";
-alert(window.innerWidth)
 // 使用Vue
 const app = createApp(LayoutPage)
 // 设置指令
