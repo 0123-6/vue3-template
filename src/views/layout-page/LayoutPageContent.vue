@@ -14,7 +14,7 @@ const isChildWeb = window !== window.parent
 const fetchLogout = useBaseFetch({
 	fetchOptionFn: () => ({
 		mockUrl: 'logout',
-		url: 'mock_',
+		url: 'logout',
 	}),
 	transformResponseDataFn: _responseData => {
 		router.replace('/auth/login')

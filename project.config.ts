@@ -56,7 +56,7 @@ export const projectConfig: IProjectConfig = {
 		proxy: {
 			'/api': {
 				// 实际应为线上后端地址,因为模板项目我自己实现后端,所以指向本地地址
-				target: 'http://localhost:3001',
+				target: 'http://localhost:8080',
 				changeOrigin: true,
 				rewrite: (str: string) => str.replace(/^\/api/, ''),
 			},
