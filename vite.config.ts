@@ -300,8 +300,8 @@ export default defineConfig({
 	},
 	// 开发服务器
 	server: {
-		// 如何父子网站调试,需要改为localhost
-		host: '0.0.0.0',
+		// 0.0.0.0 如何父子网站调试,需要改为localhost
+		host: 'localhost',
 		// 指定运行的端口
 		port: projectConfig.viteConfig.port ?? 4000,
 		// 默认如果port被占用,会自动尝试下一个可用的端口,设置为true则会启动失败,而不是尝试下一个可用端口.

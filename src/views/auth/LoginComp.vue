@@ -36,8 +36,9 @@ const formObject = useElForm({
 const fetchLogin = useBaseFetch({
 	fetchOptionFn: () => ({
     // 登录相关接口直接调用线上接口,而不是mock接口
-    mockProd: true,
+    // mockProd: true,
 		url: 'login',
+		mockUrl: 'login',
 		data: formObject.data,
 	}),
 	transformResponseDataFn: () => {
