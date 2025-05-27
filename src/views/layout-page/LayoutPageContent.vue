@@ -8,6 +8,8 @@ import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
 import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import router from "@/plugin/vue-router.ts";
+import {ref} from "vue";
+import {watchLocationPathname} from "@/util/watchLocationPathname.ts";
 
 const isChildWeb = window !== window.parent
 
@@ -35,6 +37,13 @@ const renderLogoutDialog = useRenderComp(PromptDialog, {
 const clickLogout = () => {
 	renderLogoutDialog()
 }
+
+// 菜单相关逻辑
+const activeMenu = ref(location.pathname)
+watchLocationPathname(pathname => {
+	console.log(pathname)
+	activeMenu.value = pathname
+})
 </script>
 
 <template>
@@ -109,26 +118,38 @@ const clickLogout = () => {
 		<div class="w-full flex-grow flex">
 			<!--左边菜单-->
 			<div class="w-[222px] h-full flex flex-col bg-white border-r border-disabled">
-				<el-menu>
+				<el-menu :router="true"
+								 :default-active="activeMenu"
+				>
+					<el-menu-item index="/index"
+												route="/index">
+						<template v-slot:title>
+							<el-icon><House /></el-icon>
+							<span>首页</span>
+						</template>
+					</el-menu-item>
 					<el-sub-menu index="系统管理">
 						<template v-slot:title>
 							<el-icon><Operation /></el-icon>
 							<span>系统管理</span>
 						</template>
 						<template v-slot:default>
-							<el-menu-item index="用户管理">
+							<el-menu-item index="/system-manage/user-manage"
+														route="/system-manage/user-manage">
 								<template v-slot:title>
 									<el-icon><User /></el-icon>
 									<span>用户管理</span>
 								</template>
 							</el-menu-item>
-							<el-menu-item index="角色管理">
+							<el-menu-item index="/system-manage/role-manage"
+														route="/system-manage/role-manage">
 								<template v-slot:title>
 									<el-icon><Discount /></el-icon>
 									<span>角色管理</span>
 								</template>
 							</el-menu-item>
-							<el-menu-item index="权限管理">
+							<el-menu-item index="/system-manage/permission-manage"
+														route="/system-manage/permission-manage">
 								<template v-slot:title>
 									<el-icon><Key /></el-icon>
 									<span>权限管理</span>
@@ -145,3 +166,9 @@ const clickLogout = () => {
 		</div>
 	</div>
 </template>
+
+<style lang="scss" scoped>
+.el-menu {
+	border-right: unset;
+}
+</style>

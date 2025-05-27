@@ -53,6 +53,23 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('@views/index-page/IndexPage.vue'),
 			},
 			{
+				path: 'system-manage',
+				children: [
+					{
+						path: 'user-manage',
+						component: () => import('@views/system-manage/user-manage/UserManage.vue'),
+					},
+					{
+						path: 'role-manage',
+						component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
+					},
+					{
+						path: 'permission-manage',
+						component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
+					},
+				],
+			},
+			{
 				path: '/module-two',
 				component: () => import('@views/module-two/ModuleTwo.vue'),
 			},
