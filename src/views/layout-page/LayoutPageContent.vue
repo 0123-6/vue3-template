@@ -109,7 +109,34 @@ const clickLogout = () => {
 		<div class="w-full flex-grow flex">
 			<!--左边菜单-->
 			<div class="w-[222px] h-full flex flex-col bg-white border-r border-disabled">
-
+				<el-menu>
+					<el-sub-menu index="系统管理">
+						<template v-slot:title>
+							<el-icon><Operation /></el-icon>
+							<span>系统管理</span>
+						</template>
+						<template v-slot:default>
+							<el-menu-item index="用户管理">
+								<template v-slot:title>
+									<el-icon><User /></el-icon>
+									<span>用户管理</span>
+								</template>
+							</el-menu-item>
+							<el-menu-item index="角色管理">
+								<template v-slot:title>
+									<el-icon><Discount /></el-icon>
+									<span>角色管理</span>
+								</template>
+							</el-menu-item>
+							<el-menu-item index="权限管理">
+								<template v-slot:title>
+									<el-icon><Key /></el-icon>
+									<span>权限管理</span>
+								</template>
+							</el-menu-item>
+						</template>
+					</el-sub-menu>
+				</el-menu>
 			</div>
 			<div class="flex-grow h-full flex flex-col">
 				<RouterView></RouterView>
