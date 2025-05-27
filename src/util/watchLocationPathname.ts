@@ -7,14 +7,11 @@ export const watchLocationPathname = (callback: (pathname: string) => void) => {
 	let lastPathname = location.pathname
 
 	const triggerCallback = () => {
-		// 确保 pathname 更新后再触发回调
-		setTimeout(() => {
-			if (lastPathname === location.pathname) {
-				return
-			}
-			lastPathname = location.pathname
-			callback(location.pathname)
-		}, 0);
+		if (lastPathname === location.pathname) {
+			return
+		}
+		lastPathname = location.pathname
+		callback(location.pathname)
 	}
 
 	// 覆盖 pushState
