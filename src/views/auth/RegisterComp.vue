@@ -63,7 +63,8 @@ const {
 } = useResetRef((): boolean => false)
 const fetchRegister = useBaseFetch({
 	fetchOptionFn: () => ({
-		url: 'mock_',
+		url: 'register',
+		mockProd: true,
 		data: formObject.data,
 	}),
 	transformResponseDataFn: () => {
