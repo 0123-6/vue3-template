@@ -10,9 +10,9 @@ import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
 const formObject = useElForm({
 	list: [
 		{
-			label: '用户名',
+			label: '账号',
 			hiddenLabel: true,
-			prop: 'username',
+			prop: 'account',
 			type: 'input',
 			required: true,
 		},

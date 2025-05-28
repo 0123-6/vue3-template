@@ -41,7 +41,6 @@ onMounted(() => {
 	const day = dayjs('2018-05-05').locale('zh-cn').format()
 	console.log(day)
 });
-const value1 = ref(true);
 const list = ref([])
 </script>
 
@@ -50,13 +49,9 @@ const list = ref([])
 	<span class="text-red-500 text-3xl">你好,vue-ts</span>
 	<div id="test-echarts"
 	     class="w-[500px] h-[500px]"></div>
-	<div v-scrollbar class="w-[200px] h-[200px] flex items-center">
-		<span style="font-size: 100px;line-height: 100px;">五星红旗迎风飘扬</span>
-	</div>
-	<el-switch v-model="value1"></el-switch>
-	<el-button type="danger">危险</el-button>
-  <div class="w-[360px] h-[20px] bg-[blue]"></div>
-  <div class="mt-4 w-[423px] h-[20px] bg-[blue]"></div>
+<!--	<div v-scrollbar class="w-[200px] h-[200px]">-->
+<!--		<span style="font-size: 100px;line-height: 100px;">五星红旗迎风飘扬</span>-->
+<!--	</div>-->
 	<div class="w-full flex flex-col">
 		<div v-for="(item, index) in list"
 		     :key="index"

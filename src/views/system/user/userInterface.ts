@@ -4,7 +4,7 @@ export interface IUserInfo {
 	// 系统的唯一标识
 	id: string,
 	// 用户名,不可重复
-	username: string,
+	account: string,
 	// 密码
 	password: string,
 	// 状态

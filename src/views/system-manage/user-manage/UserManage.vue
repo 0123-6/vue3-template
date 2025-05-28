@@ -24,8 +24,8 @@ const sexList: ISelectOption[] = [
 const formObject = useElForm({
 	list: [
 		{
-			label: '姓名',
-			prop: 'username',
+			label: '账号',
+			prop: 'account',
 			type: 'input',
 		},
 		{
@@ -41,6 +41,7 @@ const formObject = useElForm({
 const tableObject = useElTable({
 	fetchOptionFn: () => ({
 		url: 'user/getList',
+		mockProd: true,
 		data: formObject.data,
 	}),
 	list: [
@@ -48,13 +49,16 @@ const tableObject = useElTable({
 			type: 'selection',
 		},
 		{
-			label: 'ID',
-			prop: 'id',
-			width: 70,
+			prop: 'index',
 		},
 		{
-			label: '姓名',
-			prop: 'username',
+			label: '账号',
+			prop: 'account',
+			width: 150,
+		},
+		{
+			label: '昵称',
+			prop: 'nickname',
 			width: 150,
 		},
 		{
@@ -63,8 +67,13 @@ const tableObject = useElTable({
 			list: sexList,
 		},
 		{
+			label: '手机号',
+			prop: 'phone',
+			width: 200,
+		},
+		{
 			label: '简介',
-			prop: 'desc',
+			prop: 'description',
 			minWidth: 200,
 		},
 	],

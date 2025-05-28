@@ -13,13 +13,15 @@ const formObject = useElForm({
 	list: [
 		{
 			label: '账号',
+			placeholder: '请输入账号,admin可用',
 			hiddenLabel: true,
-			prop: 'username',
+			prop: 'account',
 			type: 'input',
 			required: true,
 		},
 		{
 			label: '密码',
+			placeholder: '请输入密码,123456可用',
 			hiddenLabel: true,
 			prop: 'password',
 			type: 'input-password',
@@ -36,7 +38,7 @@ const formObject = useElForm({
 const fetchLogin = useBaseFetch({
 	fetchOptionFn: () => ({
     // 登录相关接口直接调用线上接口,而不是mock接口
-    // mockProd: true,
+    mockProd: true,
 		url: 'login',
 		mockUrl: 'login',
 		data: formObject.data,
