@@ -1,5 +1,6 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
+import {IUserInfo} from "@views/system/user/userInterface.ts";
 
 export const useCounterStore = defineStore('counter', () => {
 	const count = ref(0)
@@ -14,7 +15,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
 export const useUserStore = defineStore('user', () => {
-	const user = ref({})
+	const user = ref(null as IUserInfo)
 
 	return {
 		user,

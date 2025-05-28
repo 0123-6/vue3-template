@@ -11,8 +11,17 @@ import router from "@/plugin/vue-router.ts";
 import {onMounted, ref, useTemplateRef} from "vue";
 import {watchLocationPathname} from "@/util/watchLocationPathname.ts";
 import overlayScrollbar from "@/util/overlayScrollbar.ts";
+import {useUserStore} from "@/plugin/pinia.ts";
+import {ElMessage} from "element-plus";
 
 const isChildWeb = window !== window.parent
+
+// 用户相关
+const userStore = useUserStore()
+if (!userStore.user) {
+	ElMessage.warning('请先登录')
+	router.replace('/auth/login')
+}
 
 const fetchLogout = useBaseFetch({
 	fetchOptionFn: () => ({
@@ -113,9 +122,9 @@ onMounted(() => {
 								</div>
 								<div class="grow h-[48px] flex flex-col justify-between">
 									<base-span-tooltip style="width: 100px;"
-																text="韩佩江韩佩江韩佩江"/>
+																:text="userStore.user?.account"/>
 									<span class="w-full line-clamp-1 break-all text-xs"
-												style="display: -webkit-box!important;">909458209@qq.com</span>
+												style="display: -webkit-box!important;">{{userStore.user?.phone}}</span>
 								</div>
 							</div>
 							<div class="m-1 h-[40px] p-1.5 rounded flex items-center gap-x-1 text-text-title cursor-pointer hover:bg-disabled"
