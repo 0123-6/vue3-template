@@ -1,4 +1,5 @@
 // 监听location.pathname的变化
+// 需要优化为单例模式
 export const watchLocationPathname = (callback: (pathname: string) => void) => {
 	// 保存原生 pushState 和 replaceState 方法
 	const originalPushState = history.pushState;
