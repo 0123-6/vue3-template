@@ -19,7 +19,8 @@ if (isChildWeb) {
 </script>
 
 <template>
-	<div class="w-full min-w-[1440px] h-full min-h-[700px] flex flex-col">
-		<RouterView></RouterView>
-	</div>
+	<RouterView></RouterView>
+<!--	<div class="w-full min-w-[1440px] h-full min-h-[700px] flex flex-col">-->
+<!--		-->
+<!--	</div>-->
 </template>

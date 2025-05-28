@@ -8,8 +8,9 @@ import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
 import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import router from "@/plugin/vue-router.ts";
-import {ref} from "vue";
+import {onMounted, ref, useTemplateRef} from "vue";
 import {watchLocationPathname} from "@/util/watchLocationPathname.ts";
+import overlayScrollbar from "@/util/overlayScrollbar.ts";
 
 const isChildWeb = window !== window.parent
 
@@ -43,6 +44,22 @@ const activeMenu = ref(location.pathname)
 watchLocationPathname(pathname => {
 	console.log(pathname)
 	activeMenu.value = pathname
+})
+
+// Vue无关，将滚动条改为好看的样式
+const appElement = useTemplateRef('appElement')
+onMounted(() => {
+	const instance = overlayScrollbar({
+		element: appElement.value,
+		autoHide: false,
+	})
+
+	watchLocationPathname(() => {
+		instance.elements()?.scrollOffsetElement?.scrollTo({
+			top: 0,
+			left: 0,
+		})
+	})
 })
 </script>
 
@@ -115,7 +132,9 @@ watchLocationPathname(pathname => {
 			</div>
 		</div>
 		<!--内容-->
-		<div class="w-full flex-grow flex">
+		<div class="w-full flex shrink-0-children"
+				 style="height: calc(100% - 50px);"
+		>
 			<!--左边菜单-->
 			<div class="w-[222px] h-full flex flex-col bg-white border-r border-disabled">
 				<el-menu :router="true"
@@ -159,9 +178,16 @@ watchLocationPathname(pathname => {
 					</el-sub-menu>
 				</el-menu>
 			</div>
-			<div class="flex-grow h-full flex flex-col">
-				<RouterView></RouterView>
-				<div class="h-[16px] shrink-0"></div>
+			<div class="h-full"
+					 ref="appElement"
+					 style="width: calc(100% - 222px);"
+			>
+				<div class="w-full min-w-[1440px] h-full min-h-[700px] flex flex-col"
+						 style="padding: 16px 24px 0 16px;"
+				>
+					<RouterView></RouterView>
+					<div class="h-[16px] shrink-0"></div>
+				</div>
 			</div>
 		</div>
 	</div>
