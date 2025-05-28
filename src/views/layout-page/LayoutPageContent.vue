@@ -77,12 +77,10 @@ onMounted(() => {
 				<img src="/logo.webp" alt="" style="width: 32px;height: 32px;" class="object-cover">
 				<span class="ml-2 text-text-title text-lg font-semibold">Vue3模板网站</span>
 				<div class="ml-[50px] flex items-center gap-x-2">
-					<span>概览</span>
+					<span>首页</span>
 					<span>/</span>
-					<span>分析页</span>
+					<span>首页</span>
 				</div>
-				<base-span-tooltip style="width: 100px;"
-											text="韩佩江"/>
 			</div>
 			<!--右-->
 			<div class="flex items-center gap-x-3">
