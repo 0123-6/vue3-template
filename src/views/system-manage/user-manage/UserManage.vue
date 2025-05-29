@@ -1,26 +1,17 @@
 <script setup lang="ts">
 import {useElForm} from "@/components/base-form/useElForm.ts";
-import {ISelectOption} from "@/components/base-form/useElSelect.ts";
 import {useElTable} from "@/components/base-table/useElTable.ts";
 import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
 import BaseFormFold from "@/components/base-form/BaseFormFold.vue";
 import {RefreshRight, Search} from "@element-plus/icons-vue";
 import BaseTableColumnList from "@/components/base-table/BaseTableColumnList.vue";
 import TableNoData from "@/components/base-table/TableNoData.vue";
+import {useResetRef} from "@/util/hooks/useResetState.ts";
+import {useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
+import {sexList} from "@views/system-manage/user-manage/userManageCommon.ts";
+import UserManageAddAndEditDrawer from "@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue";
 
 // 表格部分
-const sexList: ISelectOption[] = [
-	{
-		label: '男',
-		value: 'man',
-		type: 'primary',
-	},
-	{
-		label: '女',
-		value: 'woman',
-		type: 'warning',
-	},
-]
 const formObject = useElForm({
 	list: [
 		{
@@ -90,6 +81,23 @@ const clickReset = () => {
 	formObject.reset()
 	tableObject.doFetch()
 }
+
+// 批量删除
+const clickBatchDelete = null;
+
+// 新增
+const {
+	state: isAddOrEdit,
+	resetState: resetIsAddOrEdit,
+} = useResetRef((): 'add' | 'edit' => 'add')
+const clickBatchAdd = () => {
+	tableObject.resetType('batch')
+	resetIsAddOrEdit('add')
+	drawerObject.isShow = true
+}
+const drawerObject = useElFeedback({
+	okHook: tableObject.doFetch,
+})
 </script>
 
 <template>
@@ -119,6 +127,22 @@ const clickReset = () => {
 				<base-form-fold :form-object="formObject"/>
 			</div>
 		</div>
+		<!--操作行-->
+		<div v-if="true"
+				 class="flex items-center gap-x-4">
+			<el-button v-if="true"
+								 type="primary"
+								 style="width: 80px;height: 32px;"
+								 @click="clickBatchAdd"
+			>新增</el-button>
+			<el-button v-if="true"
+								 type="danger"
+								 plain
+								 style="width: 90px;height: 32px;"
+								 :disabled="!tableObject.selectItemList.length"
+								 @click="clickBatchDelete"
+			>批量删除</el-button>
+		</div>
 		<!--表格-->
 		<el-table :ref="tableObject.refName"
 							:data="tableObject.data.list"
@@ -146,5 +170,79 @@ const clickReset = () => {
 										 @change="tableObject.doFetch"
 			/>
 		</div>
+		<!--feedback组件-->
+		<el-drawer v-model="drawerObject.isShow"
+							 :append-to-body="true"
+							 :title="isAddOrEdit === 'add' ? '新增' : '编辑'"
+							 :close-on-click-modal="true"
+							 :close-on-press-escape="false"
+							 :destroy-on-close="true"
+							 :size="500"
+							 @close="drawerObject.onCancel"
+							 modal-class="hpj"
+		>
+			<UserManageAddAndEditDrawer :props="{
+				list: tableObject.type === 'single' ? [tableObject.selectItem] : tableObject.selectItemList,
+				isAddOrEdit,
+			}"
+																	@ok="drawerObject.onOk"
+																	@cancel="drawerObject.onCancel"
+			/>
+		</el-drawer>
 	</div>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
