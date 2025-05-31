@@ -12,6 +12,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import router from "@/plugin/vue-router.ts";
 import {createPinia} from "pinia";
+import {createPersistedState} from 'pinia-plugin-persistedstate'
 
 // 支持季度
 dayjs.extend(quarterOfYear)
@@ -29,5 +30,9 @@ export const setPluginForApp = (app: App) => {
 	// 使用路由
 	app.use(router)
 	// 使用pinia
-	app.use(createPinia())
+	const pinia = createPinia()
+	pinia.use(createPersistedState({
+		auto: true,
+	}))
+	app.use(pinia)
 }
