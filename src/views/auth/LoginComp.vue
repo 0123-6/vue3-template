@@ -22,7 +22,7 @@ const formObject = useElForm({
 		},
 		{
 			label: '密码',
-			placeholder: '请输入密码,123456可用',
+			placeholder: '请输入密码,password可用',
 			hiddenLabel: true,
 			prop: 'password',
 			type: 'input-password',
