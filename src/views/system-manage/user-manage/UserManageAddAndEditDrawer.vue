@@ -24,6 +24,7 @@ const formObject = useElForm({
 			prop: 'account',
 			type: 'input',
 			required: true,
+			disabled: props.isAddOrEdit === 'edit',
 		},
 		{
 			label: '密码',
@@ -41,9 +42,10 @@ const formObject = useElForm({
 					trigger: 'change',
 				},
 			],
+			hidden: props.isAddOrEdit === 'edit',
 		},
 		{
-			label: '密码',
+			label: '确认密码',
 			prop: 'password2',
 			type: 'input-password',
 			placeholder: '请再次确认密码，只能包含数字，字母，下划线，8-16位',
@@ -61,6 +63,7 @@ const formObject = useElForm({
 					trigger: 'change',
 				},
 			],
+			hidden: props.isAddOrEdit === 'edit',
 		},
 		{
 			label: '昵称',

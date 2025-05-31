@@ -80,6 +80,8 @@ const tableObject = useElTable({
 					type: 'primary',
 					onClick: (item: any) => {
 						tableObject.resetType(item)
+						resetIsAddOrEdit('edit')
+						drawerObject.isShow = true
 					},
 				},
 				{
