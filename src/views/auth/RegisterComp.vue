@@ -63,7 +63,7 @@ const {
 } = useResetRef((): boolean => false)
 const fetchRegister = useBaseFetch({
 	fetchOptionFn: () => ({
-		url: 'register',
+		url: 'user/addUser',
 		mockProd: true,
 		data: formObject.data,
 	}),
