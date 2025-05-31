@@ -15,6 +15,7 @@ import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
 import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {ElMessage} from "element-plus";
+import {useUserStore} from "@/plugin/pinia.ts";
 
 // 表格部分
 const formObject = useElForm({
@@ -91,6 +92,7 @@ const tableObject = useElTable({
 						tableObject.resetType(item)
 						renderDeleteDialog()
 					},
+					disabled: item => item.account === useUserStore().user.account,
 					hidden: false,
 				},
 			],
@@ -145,6 +147,7 @@ const renderDeleteDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
 const fetchDeleteObject = useBaseFetch({
 	fetchOptionFn: () => ({
 		url: 'user/deleteUser',
+		mockProd: true,
 		data: {
 			accountList: tableObject.type === 'single'
 				? [tableObject.selectItem.account]
@@ -198,7 +201,8 @@ const fetchDeleteObject = useBaseFetch({
 								 type="danger"
 								 plain
 								 style="width: 90px;height: 32px;"
-								 :disabled="!tableObject.selectItemList.length"
+								 :disabled="!(tableObject.selectItemList.length
+								  && !tableObject.selectItemList.some(item => item.account === useUserStore().user.account))"
 								 @click="clickBatchDelete"
 			>批量删除</el-button>
 		</div>
