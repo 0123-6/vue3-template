@@ -37,7 +37,7 @@ const formObject = useElForm({
 // 表格部分
 const tableObject = useElTable({
 	fetchOptionFn: () => ({
-		url: 'user/getList',
+		url: 'user/getUserList',
 		mockProd: true,
 		data: formObject.data,
 	}),
