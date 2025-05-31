@@ -22,7 +22,7 @@ export const userStatusList: ISelectOption[] = [
 	},
 	{
 		label: '禁用',
-		value: 'disabeld',
+		value: 'disabled',
 		type: 'error',
 	},
 ]
