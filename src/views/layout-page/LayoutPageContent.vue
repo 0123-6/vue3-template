@@ -29,6 +29,7 @@ const fetchLogout = useBaseFetch({
 		url: 'logout',
 	}),
 	transformResponseDataFn: _responseData => {
+		userStore.user = null
 		router.replace('/auth/login')
 	},
 })
