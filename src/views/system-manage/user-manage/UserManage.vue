@@ -202,7 +202,7 @@ const fetchDeleteObject = useBaseFetch({
 								 plain
 								 style="width: 90px;height: 32px;"
 								 :disabled="!(tableObject.selectItemList.length
-								  && !tableObject.selectItemList.some(item => item.account === useUserStore().user.account))"
+								  && tableObject.selectItemList.every(item => item.account !== useUserStore().user.account))"
 								 @click="clickBatchDelete"
 			>批量删除</el-button>
 		</div>
