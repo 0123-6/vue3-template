@@ -3,6 +3,8 @@ import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router
 import NProgress from 'nprogress'
 import '@/plugin/nprogress.css'
 import {projectConfig} from "../../project.config.ts";
+import {ElMessage} from "element-plus";
+import {useUserStore} from "@/plugin/pinia.ts";
 
 NProgress.configure({ showSpinner: false })
 
@@ -152,6 +154,18 @@ const router: Router = createRouter({
 // 全局前置守卫
 router.beforeEach((to, from) => {
 	if (to.matched.some(record => record.meta.requiresAuth)) {
+		const userStore = useUserStore()
+		if (userStore.user) {
+			return
+		}
+
+		if (history.length > 1) {
+			ElMessage.warning('账号超时,请重新登录')
+		}
+		return {
+			path: '/auth/login',
+			replace: true,
+		}
 	}
 })
 
