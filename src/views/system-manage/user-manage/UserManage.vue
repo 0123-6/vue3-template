@@ -26,10 +26,30 @@ const formObject = useElForm({
 			type: 'input',
 		},
 		{
+			label: '昵称',
+			prop: 'nickname',
+			type: 'input',
+		},
+		{
 			label: '性别',
 			prop: 'sex',
 			type: 'select',
 			selectObject: sexList,
+		},
+		{
+			label: '手机号',
+			prop: 'phone',
+			type: 'input',
+		},
+		{
+			label: '创建时间',
+			prop: ['createTimeBegin', 'createTimeEnd'],
+			type: 'daterange',
+		},
+		{
+			label: '简介',
+			prop: 'description',
+			type: 'input'
 		},
 	],
 })
