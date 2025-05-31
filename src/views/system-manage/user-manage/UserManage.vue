@@ -281,8 +281,8 @@ const fetchDeleteObject = useBaseFetch({
 							 modal-class="hpj"
 		>
 			<UserManageAddAndEditDrawer :props="{
-				list: tableObject.type === 'single' ? [tableObject.selectItem] : tableObject.selectItemList,
 				isAddOrEdit,
+				item: tableObject.selectItem,
 			}"
 																	@ok="drawerObject.onOk"
 																	@cancel="drawerObject.onCancel"

@@ -10,8 +10,8 @@ import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
 
 interface IProps {
 	props: {
-		list: any[],
 		isAddOrEdit: 'add' | 'edit',
+		item: any,
 	},
 }
 const {props} = defineProps<IProps>()
@@ -103,8 +103,8 @@ const formObject = useElForm({
 		},
 	],
 })
-if (props.isAddOrEdit === 'edit' && props.list.length === 1) {
-	formObject.reset(props.list[0])
+if (props.isAddOrEdit === 'edit') {
+	formObject.reset(props.item)
 }
 
 const clickOk = async () => {
