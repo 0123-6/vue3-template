@@ -7,6 +7,7 @@ import {ElMessage} from "element-plus";
 import BaseDrawerComp from "@/components/base-drawer/BaseDrawerComp.vue";
 import BaseTitle from "@/components/base-drawer/BaseTitle.vue";
 import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
+import {useUserStore} from "@/plugin/pinia.ts";
 
 interface IProps {
 	props: {
@@ -93,6 +94,8 @@ const formObject = useElForm({
 			multiple: false,
 			selectObject: userStatusList,
 			required: true,
+			// 不允许修改当前用户自己的状态
+			disabled: props.item.account === useUserStore().user.account,
 		},
 		{
 			label: '简介',
