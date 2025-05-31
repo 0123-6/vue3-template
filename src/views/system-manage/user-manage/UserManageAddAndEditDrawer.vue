@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useElForm} from "@/components/base-form/useElForm.ts";
 import {isPasswordRegExp, isPhoneRegExp} from "@/util/validator.ts";
-import {sexList} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {sexList, userStatusList} from "@views/system-manage/user-manage/userManageCommon.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {ElMessage} from "element-plus";
 import BaseDrawerComp from "@/components/base-drawer/BaseDrawerComp.vue";
@@ -85,6 +85,14 @@ const formObject = useElForm({
 				trigger: 'change',
 				message: '手机格式不正确',
 			},
+		},
+		{
+			label: '状态',
+			prop: 'status',
+			type: 'radio',
+			multiple: false,
+			selectObject: userStatusList,
+			required: true,
 		},
 		{
 			label: '简介',

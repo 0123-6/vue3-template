@@ -8,7 +8,7 @@ import BaseTableColumnList from "@/components/base-table/BaseTableColumnList.vue
 import TableNoData from "@/components/base-table/TableNoData.vue";
 import {useResetRef} from "@/util/hooks/useResetState.ts";
 import {useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
-import {sexList} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {sexList, userStatusList} from "@views/system-manage/user-manage/userManageCommon.ts";
 import UserManageAddAndEditDrawer from "@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue";
 import {useRenderComp} from "@/components/base-dialog/useRenderComp.ts";
 import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
@@ -51,6 +51,12 @@ const formObject = useElForm({
 			prop: 'description',
 			type: 'input'
 		},
+		{
+			label: '状态',
+			prop: 'status',
+			type: 'select',
+			selectObject: userStatusList,
+		},
 	],
 })
 
@@ -89,14 +95,19 @@ const tableObject = useElTable({
 			width: 200,
 		},
 		{
-			label: '创建时间',
-			prop: 'createTime',
-			width: 200,
+			label: '状态',
+			prop: 'status',
+			list: userStatusList,
 		},
 		{
 			label: '简介',
 			prop: 'description',
 			minWidth: 200,
+		},
+		{
+			label: '创建时间',
+			prop: 'createTime',
+			width: 200,
 		},
 		{
 			label: '操作',

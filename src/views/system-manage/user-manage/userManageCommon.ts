@@ -12,3 +12,17 @@ export const sexList: ISelectOption[] = [
 		type: 'warning',
 	},
 ]
+
+// 用户状态
+export const userStatusList: ISelectOption[] = [
+	{
+		label: '正常',
+		value: 'normal',
+		type: 'success',
+	},
+	{
+		label: '禁用',
+		value: 'disabeld',
+		type: 'error',
+	},
+]
