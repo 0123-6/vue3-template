@@ -18,6 +18,8 @@ export interface IPromptDialog {
 	dialogObject?: IUseElFeedbackReturn,
 	// 点击确认按钮触发的事件
 	fetchObject?: IUseBaseFetchReturn,
+	// 按钮是否和fetchObject关联
+	buttonConnectFetchObject?: boolean,
 }
 
 export interface IPromptDialogOkButton {

@@ -26,6 +26,8 @@ let {
 	cancel,
 	fetchObject,
 	dialogObject = useElFeedback() as IUseElFeedbackReturn,
+	// 按钮是否和fetchObject关联
+	buttonConnectFetchObject = true,
 } = defineProps<IPromptDialog>()
 // 初始化text和textList
 if (text && textList.length
@@ -50,13 +52,16 @@ okButton.fetchText = okButton.fetchText ?? '确定'
 dialogObject.isShow = true
 
 const clickOk = async () => {
-	if (fetchObject) {
-		const isOk = await fetchObject.doFetch()
-		if (!isOk) {
-			return
-		}
+	if (!fetchObject) {
 		dialogObject.onOk()
-	} else {
+		return
+	}
+
+	if (!buttonConnectFetchObject) {
+		dialogObject.onOk()
+	}
+	const isOk = await fetchObject.doFetch()
+	if (isOk && buttonConnectFetchObject) {
 		dialogObject.onOk()
 	}
 }
