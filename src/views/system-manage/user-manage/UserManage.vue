@@ -10,6 +10,11 @@ import {useResetRef} from "@/util/hooks/useResetState.ts";
 import {useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
 import {sexList} from "@views/system-manage/user-manage/userManageCommon.ts";
 import UserManageAddAndEditDrawer from "@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue";
+import {useRenderComp} from "@/components/base-dialog/useRenderComp.ts";
+import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
+import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
+import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
+import {ElMessage} from "element-plus";
 
 // 表格部分
 const formObject = useElForm({
@@ -67,6 +72,27 @@ const tableObject = useElTable({
 			prop: 'description',
 			minWidth: 200,
 		},
+		{
+			label: '操作',
+			operatorList: [
+				{
+					text: '编辑',
+					type: 'primary',
+					onClick: (item: any) => {
+						tableObject.resetType(item)
+					},
+				},
+				{
+					text: '删除',
+					type: 'error',
+					onClick: (item: any) => {
+						tableObject.resetType(item)
+						renderDeleteDialog()
+					},
+					hidden: false,
+				},
+			],
+		},
 	],
 })
 formObject.addResetHook(tableObject.reset)
@@ -82,9 +108,6 @@ const clickReset = () => {
 	tableObject.doFetch()
 }
 
-// 批量删除
-const clickBatchDelete = null;
-
 // 新增
 const {
 	state: isAddOrEdit,
@@ -97,6 +120,40 @@ const clickBatchAdd = () => {
 }
 const drawerObject = useElFeedback({
 	okHook: tableObject.doFetch,
+})
+
+// 删除
+const clickBatchDelete = () => {
+	tableObject.resetType('batch')
+	renderDeleteDialog()
+}
+const renderDeleteDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
+	width: 500,
+	title: '删除用户',
+	textList: tableObject.type === 'single'
+		? ['确定删除', {text: tableObject.selectItem.account as string, color: 'primary',}, '吗?', ]
+		: ['确定批量删除', {text: tableObject.selectItemList.length, color: 'primary', }, '个账号吗?', ],
+	okButton: {
+		text: '确定删除',
+		fetchText: '删除中',
+		type: 'danger',
+	},
+	fetchObject: fetchDeleteObject,
+}))
+const fetchDeleteObject = useBaseFetch({
+	fetchOptionFn: () => ({
+		url: 'user/deleteUser',
+		data: {
+			accountList: tableObject.type === 'single'
+				? [tableObject.selectItem.account]
+				: tableObject.selectItemList.map(item => item.account)
+		},
+	}),
+	transformResponseDataFn: () => {
+		ElMessage.success('删除成功')
+		tableObject.reset('pageNum')
+		tableObject.doFetch()
+	},
 })
 </script>
 
