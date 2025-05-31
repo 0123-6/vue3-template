@@ -69,6 +69,11 @@ const tableObject = useElTable({
 			width: 200,
 		},
 		{
+			label: '创建时间',
+			prop: 'createTime',
+			width: 200,
+		},
+		{
 			label: '简介',
 			prop: 'description',
 			minWidth: 200,
