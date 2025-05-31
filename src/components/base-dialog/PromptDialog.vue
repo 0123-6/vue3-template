@@ -85,7 +85,7 @@ const clickOk = async () => {
 								color: typeof item === 'object' ? (styleMap[item.color] ?? styleMap['default']) : styleMap['default'],
 								fontWeight: (typeof item !== 'object' || item.color === 'default') ? 400: 600,
 							}"
-				>{{typeof item === 'object' ? (typeof item.text === 'string' ? item.text : ` ${item.text} `) : item}}</span>
+				>{{typeof item === 'object' ? ` ${item.text} ` : item}}</span>
 			</div>
 			<!--按钮-->
 			<div class="flex justify-end items-center">
