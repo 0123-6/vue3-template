@@ -18,20 +18,16 @@ const isChildWeb = window !== window.parent
 
 // 用户相关
 const userStore = useUserStore()
-if (!userStore.user) {
-	ElMessage.warning('请先登录')
-	router.replace('/auth/login')
-}
 
 const fetchLogout = useBaseFetch({
+	beforeFetchResetFn: async () => {
+		await router.replace('/auth/login')
+		userStore.user = null
+	},
 	fetchOptionFn: () => ({
 		mockUrl: 'logout',
 		url: 'logout',
 	}),
-	transformResponseDataFn: _responseData => {
-		userStore.user = null
-		router.replace('/auth/login')
-	},
 })
 
 const renderLogoutDialog = useRenderComp(PromptDialog, {
@@ -43,6 +39,7 @@ const renderLogoutDialog = useRenderComp(PromptDialog, {
 		text: '退出',
 		fetchText: '退出中',
 	},
+	buttonConnectFetchObject: false,
 } as IPromptDialog)
 
 const clickLogout = () => {
