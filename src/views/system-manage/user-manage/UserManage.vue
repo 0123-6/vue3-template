@@ -42,9 +42,10 @@ const formObject = useElForm({
 			type: 'input',
 		},
 		{
-			label: '创建时间',
-			prop: ['createTimeBegin', 'createTimeEnd'],
-			type: 'daterange',
+			label: '状态',
+			prop: 'status',
+			type: 'select',
+			selectObject: userStatusList,
 		},
 		{
 			label: '简介',
@@ -52,10 +53,9 @@ const formObject = useElForm({
 			type: 'input'
 		},
 		{
-			label: '状态',
-			prop: 'status',
-			type: 'select',
-			selectObject: userStatusList,
+			label: '创建时间',
+			prop: ['createTimeBegin', 'createTimeEnd'],
+			type: 'daterange',
 		},
 	],
 })
