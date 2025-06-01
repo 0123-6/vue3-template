@@ -12,11 +12,6 @@ import {projectConfig} from "./project.config.ts";
 const cdnMap = new Map();
 
 // 通用库
-cdnMap.set('lodash', {
-	name: 'lodash',
-	var: '_',
-	path: 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
-});
 cdnMap.set('echarts', {
 	name: 'echarts',
 	var: 'echarts',
@@ -166,7 +161,6 @@ const customElementList = [
 
 // 插件设置
 const commonCdnList: string[] = [
-	'lodash',
 	'echarts',
 	'vanilla-lazyload',
 	'nprogress',

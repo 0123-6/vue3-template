@@ -1,19 +1,9 @@
 <script setup lang="ts">
-import {cloneDeep} from "lodash";
 import {onMounted, ref} from "vue";
 import * as echarts from 'echarts';
 import {copyTextToClipboard} from "@/util/copyTextToClipboard.ts";
 import dayjs from "dayjs";
 
-const obj = cloneDeep({});
-console.log(obj);
-
-const getData = async () => {
-	const res = await fetch('https://mock.apipark.cn/m1/1998724-1718330-default/pet/1')
-	const resData = await res.json()
-	console.log('resData: ', resData)
-}
-getData();
 onMounted(() => {
 	// 测试echarts
 	var chartDom = document.getElementById('test-echarts');
