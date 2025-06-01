@@ -46,10 +46,39 @@ const selectFileObject: ISelectFileProps = {
 			await excelParse({
 				file: params.fileList[i],
 				expectedKeyList: ['账号', '密码', '昵称', '性别', '手机号', '状态', '简介', ],
-				callback: (list: IUserInfo[]) => {
+				callback: (list: any[]) => {
+					const newUserList: IUserInfo[] = []
+					for (let j = 0; j < list.length; j++) {
+						// 验证信息是否完整
+						if (!(
+							list[j]['账号'] != null
+							&& list[j]['密码'] != null
+							&& (list[j]['状态'] === '正常' || list[j]['状态'] === '禁用')
+						)) {
+							ElMessage({
+								type: 'error',
+								duration: 10000,
+								message: `${params.fileList[i].name}数据不规范,导入失败`,
+								showClose: true,
+							})
+							return
+						}
+
+						const newUser: IUserInfo = {
+							account: list[j]['账号'] + '',
+							password: list[j]['密码'] + '',
+							nickname: list[j]['昵称'] ? list[j]['昵称']+'' : undefined,
+							sex: list[j]['性别'] ? (list[j]['性别'] === '男' ? 'man' : 'woman') : undefined,
+							phone: list[j]['手机号'] ? list[j]['手机号']+'' : undefined,
+							status: list[j]['状态'] === '正常' ? 'normal' : 'disabled',
+							description: list[j]['简介'] ? list[j]['简介']+'' : undefined,
+						}
+						newUserList.push(newUser)
+					}
+
 					fileList.value.push({
 						file: params.fileList[i],
-						list,
+						list: newUserList,
 					})
 				},
 				callbackError: _text => {
