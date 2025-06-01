@@ -16,6 +16,7 @@ import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {ElMessage} from "element-plus";
 import {useUserStore} from "@/plugin/pinia.ts";
+import {excelExport} from "@/util/excel.ts";
 
 // 表格部分
 const formObject = useElForm({
@@ -148,7 +149,7 @@ const clickReset = () => {
 	tableObject.doFetch()
 }
 
-// 新增
+// 新增和编辑
 const {
 	state: isAddOrEdit,
 	resetState: resetIsAddOrEdit,
@@ -196,6 +197,44 @@ const fetchDeleteObject = useBaseFetch({
 		tableObject.doFetch()
 	},
 })
+
+// 导入
+const clickBatchImport = () => {
+
+}
+
+// 导出
+const clickBatchExport = () => {
+	tableObject.resetType('batch')
+	renderExportDialog()
+}
+const renderExportDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
+	text: '确认导出当前页面数据吗?',
+	okButton: {
+		text: '导出',
+		fetchText: '导出中',
+		type: 'success',
+	},
+	dialogObject: exportDialogObject,
+}))
+const exportDialogObject = useElFeedback({
+	okHook: () => {
+		try {
+			excelExport({
+				fileName: '用户管理列表',
+				data: tableObject.data.list,
+				callback() {
+					ElMessage.success('导出成功')
+				},
+				callbackError(text) {
+					ElMessage.error(text)
+				},
+			})
+		} catch (error) {
+			ElMessage.error('导出失败')
+		}
+	},
+})
 </script>
 
 <template>
@@ -230,17 +269,24 @@ const fetchDeleteObject = useBaseFetch({
 				 class="flex items-center gap-x-4">
 			<el-button v-if="true"
 								 type="primary"
-								 style="width: 80px;height: 32px;"
 								 @click="clickBatchAdd"
 			>新增</el-button>
 			<el-button v-if="true"
 								 type="danger"
 								 plain
-								 style="width: 90px;height: 32px;"
 								 :disabled="!(tableObject.selectItemList.length
 								  && tableObject.selectItemList.every(item => item.account !== useUserStore().user.account))"
 								 @click="clickBatchDelete"
 			>批量删除</el-button>
+			<el-button v-if="true"
+								 type="primary"
+								 @click="clickBatchImport"
+			>批量导入</el-button>
+			<el-button v-if="true"
+								 type="success"
+								 :disabled="tableObject.data.total === 0"
+								 @click="clickBatchExport"
+			>批量导出</el-button>
 		</div>
 		<!--表格-->
 		<el-table :ref="tableObject.refName"
