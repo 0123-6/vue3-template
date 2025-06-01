@@ -17,6 +17,7 @@ import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {ElMessage} from "element-plus";
 import {useUserStore} from "@/plugin/pinia.ts";
 import {excelExport} from "@/util/excel.ts";
+import UserManageUploadDialog from "@views/system-manage/user-manage/UserManageUploadDialog.vue";
 
 // 表格部分
 const formObject = useElForm({
@@ -200,8 +201,11 @@ const fetchDeleteObject = useBaseFetch({
 
 // 导入
 const clickBatchImport = () => {
-
+	uploadFileDialogObject.isShow = true
 }
+const uploadFileDialogObject = useElFeedback({
+	okHook: clickSearch,
+})
 
 // 导出
 const clickBatchExport = () => {
@@ -334,6 +338,22 @@ const exportDialogObject = useElFeedback({
 																	@cancel="drawerObject.onCancel"
 			/>
 		</el-drawer>
+		<el-dialog v-model="uploadFileDialogObject.isShow"
+							 title="上传文件"
+							 width="560"
+							 :close-on-click-modal="true"
+							 :close-on-press-escape="false"
+							 :draggable="true"
+							 :align-center="true"
+							 :destroy-on-close="true"
+							 @close="uploadFileDialogObject.onCancel"
+							 modal-class="hpj"
+		>
+			<UserManageUploadDialog :props="{}"
+															@ok="uploadFileDialogObject.onOk"
+															@cancel="uploadFileDialogObject.onCancel"
+			/>
+		</el-dialog>
 	</div>
 </template>
 
