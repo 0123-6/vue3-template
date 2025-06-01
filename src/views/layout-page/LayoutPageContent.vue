@@ -12,7 +12,6 @@ import {onMounted, ref, useTemplateRef} from "vue";
 import {watchLocationPathname} from "@/util/watchLocationPathname.ts";
 import overlayScrollbar from "@/util/overlayScrollbar.ts";
 import {useUserStore} from "@/plugin/pinia.ts";
-import {ElMessage} from "element-plus";
 
 const isChildWeb = window !== window.parent
 
@@ -27,6 +26,7 @@ const fetchLogout = useBaseFetch({
 	fetchOptionFn: () => ({
 		mockUrl: 'logout',
 		url: 'logout',
+		mockProd: true,
 	}),
 })
 
