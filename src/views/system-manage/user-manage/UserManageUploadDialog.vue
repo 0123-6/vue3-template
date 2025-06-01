@@ -5,19 +5,28 @@ import {ableSelectFileByClick, ableSelectFileByDrag, ISelectFileProps} from "@/u
 import {ElMessage} from "element-plus";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {Delete} from "@element-plus/icons-vue";
+import {IUserInfo} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {excelParse} from "@/util/excel.ts";
 
 const emits = defineEmits(['ok', 'cancel'])
+
+interface IFileAndData {
+	file: File,
+	list: IUserInfo[],
+}
 
 const {
 	state: fileList,
 	resetState: _resetFileList,
-} = useResetRef((): File[] => [])
+} = useResetRef((): IFileAndData[] => [])
 
 const fetchUploadFile = useBaseFetch({
 	fetchOptionFn: () => ({
 		url: 'user/addUserList',
 		mockProd: true,
-		data: fileList.value,
+		data: {
+			list: fileList.value.map(item => item.list).flat(),
+		},
 	}),
 	transformResponseDataFn: _responseData => {
 		ElMessage.success('新增用户成功')
@@ -33,7 +42,25 @@ const selectFileObject: ISelectFileProps = {
 	multiple: true,
 	callback: async (params) => {
 		for (let i = 0; i < params.fileList.length; i++) {
-			fileList.value.push(params.fileList[i])
+			// 解析文件
+			await excelParse({
+				file: params.fileList[i],
+				expectedKeyList: ['账号', '密码', '昵称', '性别', '手机号', '状态', '简介', ],
+				callback: (list: IUserInfo[]) => {
+					fileList.value.push({
+						file: params.fileList[i],
+						list,
+					})
+				},
+				callbackError: _text => {
+					ElMessage({
+						type: 'error',
+						duration: 10000,
+						message: `${params.fileList[i].name}数据不规范,导入失败`,
+						showClose: true,
+					})
+				}
+			})
 		}
 	},
 	callbackError: text => {
@@ -51,7 +78,7 @@ onUnmounted(() => {
 })
 
 const clickOk = async () => {
-	ElMessage.success('点击了上传文件')
+	fetchUploadFile.doFetch()
 }
 const clickCancel = () => {
 	emits('cancel')
@@ -87,7 +114,7 @@ const clickCancel = () => {
 		<div class="w-full h-[300px]"
 				 v-scrollbar>
 			<div class="w-full flex flex-col gap-y-4">
-				<div v-for="(file, index) in fileList"
+				<div v-for="(file, index) in fileList.map(item => item.file)"
 						 :key="index"
 						 class="w-full h-[88px] px-6 bg-[#f8f8f8] rounded flex justify-between items-center">
 					<div class="grow h-[40px] pr-6 flex items-center gap-x-3">
