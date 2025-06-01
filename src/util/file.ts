@@ -94,6 +94,7 @@ export const ableSelectFileByClick = (props: ISelectFileProps)
 	}
 
 	const handleClick = () => {
+		inputElement.value = ''
 		inputElement.click()
 	}
 
