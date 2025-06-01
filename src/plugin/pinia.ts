@@ -1,6 +1,6 @@
 import {ref} from 'vue'
 import {defineStore} from 'pinia'
-import {IUserInfo} from "@views/system-manage/user-manage/userInterface.ts";
+import {IUserInfo} from "@views/system-manage/user-manage/userManageCommon.ts";
 
 export const useUserStore = defineStore('user', () => {
 	const user = ref(null as IUserInfo)
