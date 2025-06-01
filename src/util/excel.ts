@@ -9,7 +9,7 @@ export interface IExcelParse {
 	expectedKeyList?: string[]
 
 	// 正确回调
-	callback: (data: any[]) => void
+	callback: (list: any[]) => void
 	// Excel文件不符合期待时的错误回调
 	callbackError: (text: string) => void
 }
