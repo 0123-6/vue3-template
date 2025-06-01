@@ -4,6 +4,8 @@ import {ISelectOption} from "@/components/base-form/useElSelect.ts";
 export interface IUserInfo {
 	// 账号,系统的唯一标识,不可重复
 	account: string,
+	// 新建时需要
+	password?: string,
 	// 昵称
 	nickname?: string,
 	// 性别
