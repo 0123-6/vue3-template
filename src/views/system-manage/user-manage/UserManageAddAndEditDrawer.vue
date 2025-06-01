@@ -95,7 +95,7 @@ const formObject = useElForm({
 			selectObject: userStatusList,
 			required: true,
 			// 不允许修改当前用户自己的状态
-			disabled: props.item.account === useUserStore().user.account,
+			disabled: props.isAddOrEdit === 'edit' && props.item.account === useUserStore().user.account,
 		},
 		{
 			label: '简介',
@@ -106,7 +106,13 @@ const formObject = useElForm({
 		},
 	],
 })
-if (props.isAddOrEdit === 'edit') {
+
+// 新增和编辑的初始化
+if (props.isAddOrEdit === 'add') {
+	formObject.reset({
+		status: 'normal',
+	})
+} else {
 	formObject.reset(props.item)
 }
 
