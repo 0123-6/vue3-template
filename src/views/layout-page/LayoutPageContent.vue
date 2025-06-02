@@ -148,34 +148,34 @@ onMounted(() => {
 					<el-menu-item index="/index"
 												route="/index">
 						<template v-slot:title>
-							<el-icon><House /></el-icon>
+							<el-icon><component is="House"/></el-icon>
 							<span>首页</span>
 						</template>
 					</el-menu-item>
 					<el-sub-menu index="系统管理">
 						<template v-slot:title>
-							<el-icon><Operation /></el-icon>
+							<el-icon><component is="Operation"/></el-icon>
 							<span>系统管理</span>
 						</template>
 						<template v-slot:default>
 							<el-menu-item index="/system-manage/user-manage"
 														route="/system-manage/user-manage">
 								<template v-slot:title>
-									<el-icon><User /></el-icon>
+									<el-icon><component is="User"/></el-icon>
 									<span>用户管理</span>
 								</template>
 							</el-menu-item>
 							<el-menu-item index="/system-manage/role-manage"
 														route="/system-manage/role-manage">
 								<template v-slot:title>
-									<el-icon><Discount /></el-icon>
+									<el-icon><component is="Discount"/></el-icon>
 									<span>角色管理</span>
 								</template>
 							</el-menu-item>
 							<el-menu-item index="/system-manage/permission-manage"
 														route="/system-manage/permission-manage">
 								<template v-slot:title>
-									<el-icon><Key /></el-icon>
+									<el-icon><component is="Key"/></el-icon>
 									<span>权限管理</span>
 								</template>
 							</el-menu-item>
