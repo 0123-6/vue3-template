@@ -91,6 +91,16 @@ cdnMap.set('vue-router', {
 	var: 'VueRouter',
 	path: 'https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js',
 })
+cdnMap.set('pinia', {
+	name: 'pinia',
+	var: 'Pinia',
+	path: 'https://cdn.jsdelivr.net/npm/pinia@3.0.2/dist/pinia.iife.prod.js',
+})
+cdnMap.set('pinia-plugin-persistedstate', {
+	name: 'pinia-plugin-persistedstate',
+	var: 'piniaPluginPersistedstate',
+	path: 'https://cdn.jsdelivr.net/npm/pinia-plugin-persistedstate@4.3.0/dist/index.global.min.js',
+})
 cdnMap.set('@vueuse/core', {
 	name: '@vueuse/core',
 	var: 'VueUse',
@@ -177,6 +187,8 @@ const vueCdnList: string[] = [
 	'element-plus',
 	'@element-plus/icons-vue',
 	'vue-router',
+	'pinia',
+	'pinia-plugin-persistedstate',
 	'@vueuse/core',
 	'vue-draggable-plus',
 ]
