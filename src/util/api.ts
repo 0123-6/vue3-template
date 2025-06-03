@@ -153,7 +153,13 @@ export async function baseFetch(props: IBaseFetch)
 			} else if (isFormData) {
 				const formData = new FormData()
 				for (const [key, value] of Object.entries(data)) {
-					formData.set(key, value)
+					if (Array.isArray(value)) {
+						for (const item of value) {
+							formData.append(key, item)
+						}
+					} else {
+						formData.set(key, value)
+					}
 				}
 				body = formData
 			} else {
