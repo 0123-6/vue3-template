@@ -46,14 +46,14 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
 							width: `${14 * Math.max(...(item.list.map(_item => _item.label.length))) + 16*2}px`,
 						 }"
 				 :class="[
-							 item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.type === 'primary' ? 'bg-primary-light text-primary' : '',
-							 item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.type === 'success' ? 'bg-success-light text-success' : '',
-							 item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.type === 'warning' ? 'bg-warning-light text-warning' : '',
-							 item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.type === 'error' ? 'bg-error-light text-error' : '',
-							 item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.type === 'text' ? 'bg-text-ligth text-text-desc' : '',
+							 item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'primary' ? 'bg-primary-light text-primary' : '',
+							 item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'success' ? 'bg-success-light text-success' : '',
+							 item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'warning' ? 'bg-warning-light text-warning' : '',
+							 item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'error' ? 'bg-error-light text-error' : '',
+							 item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'text' ? 'bg-text-ligth text-text-desc' : '',
 						 ]"
 		>
-			<span>{{item.list[item.list.findIndex(_item => _item.value == scope.row[item.prop])]?.label}}</span>
+			<span>{{item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.label}}</span>
 		</div>
 	</div>
 	<div v-else-if="item.operatorList?.length"
