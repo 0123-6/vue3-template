@@ -4,6 +4,7 @@ import {exportFile} from "@/util/file";
 import {ElMessage} from "element-plus";
 import {projectConfig} from "../../project.config.ts";
 import {isFalse} from "@/util/validator.ts";
+import {ISelectOption} from "@/components/base-form/useElSelect.ts";
 
 // 防抖函数
 export function debounce(fn: () => void, delay: number = 1000) {
@@ -262,4 +263,90 @@ export async function baseFetch(props: IBaseFetch)
 			}
 		}
 	}
+}
+
+// 常见数据结构,可以提取mock和formatter
+export interface IBaseItem {
+	label?: string,
+	prop?: string,
+	children?: IBaseItem[],
+	formatter?: (value: any) => (string | number),
+	mock?: any,
+	// 适用于{label: '', value: ''}类固定信息展示
+	list?: ISelectOption[],
+}
+
+const dfsGenerateMockObject = (item: IBaseItem, mockObject: Record<string, any>) => {
+	if (!item) {
+		return
+	}
+	if (Array.isArray(item.children)) {
+		// 嵌套column
+		item.children.forEach(item => dfsGenerateMockObject(item, mockObject))
+		return
+	}
+	// 单个column
+	if (!(item.label && item.prop)) {
+		return
+	}
+	// {label: '', value: ''}格式
+	if (item.list?.length) {
+		mockObject[item.prop] = [
+			'',
+			...(item.list.map(_item => _item.value)),
+		]
+		return
+	}
+	mockObject[item.prop] = item.mock
+		?? [
+			'',
+			item.label,
+			Array(20).fill(item.label).join(),
+		]
+}
+
+export const generateMockObject = (list: IBaseItem[]) => {
+	const mockObject = Object.create(null)
+	for (let i = 0; i < list.length; i++) {
+		dfsGenerateMockObject(list[i], mockObject)
+	}
+	return mockObject
+}
+
+const dfsGenerateformatterMap = (item: IBaseItem, map: Record<string, any>) => {
+	if (!item) {
+		return
+	}
+	if (Array.isArray(item.children)) {
+		// 嵌套column
+		item.children.forEach(item => dfsGenerateformatterMap(item, map))
+		return
+	}
+	// 单个column
+	if (!(item.label && item.prop)) {
+		return
+	}
+	if (item.formatter) {
+		map[item.prop] = item
+	}
+}
+
+const generateFormatterMap = (list: IBaseItem[]): Record<string, any> => {
+	const map = Object.create(null)
+	for (let i = 0; i < list.length; i++) {
+		dfsGenerateformatterMap(list[i], map)
+	}
+	return map
+}
+
+// 使用formatter转换
+export const formatterValue = (rawValue: Record<string, any>, list: IBaseItem[])
+	: Record<string, any> => {
+	const listMap = generateFormatterMap(list)
+	return Object.fromEntries(
+		Object.entries(rawValue).map(([key, value]) => [
+			key,
+			listMap[key]?.formatter?.(value) ?? value,
+		])
+	)
 }
