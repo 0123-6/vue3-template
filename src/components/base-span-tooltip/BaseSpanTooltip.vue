@@ -4,7 +4,7 @@ import {nextTick, onMounted, onScopeDispose, ref, watch} from "vue";
 interface IProps {
 	lineHeight?: number,
 	lineClamp?: number,
-	text: string,
+	text: any,
 }
 const props = defineProps<IProps>()
 
@@ -41,7 +41,7 @@ onMounted(() => {
 		<el-tooltip effect="dark"
 								placement="top"
 								:disabled="!isOverflow"
-								:content="text"
+								:content="typeof text === 'object' && text !== null ? JSON.stringify(text) : text+''"
 								popper-class="hpj"
 		>
 			<span
