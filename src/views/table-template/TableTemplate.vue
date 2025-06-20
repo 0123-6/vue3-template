@@ -344,7 +344,7 @@ const clickBatchDelete = () => {
 			>删除</el-button>
 		</div>
 		<!--表格-->
-		<el-table :ref="tableObject.tableRef"
+		<el-table :ref="el => tableObject.tableRef = el"
 							:data="tableObject.data.list"
 							v-loading="tableObject.isFetching"
 							@selection-change="tableObject.resetSelectItemList($event)"
