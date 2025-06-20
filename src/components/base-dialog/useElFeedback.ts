@@ -1,13 +1,13 @@
 import {useResetRef} from "@/util/hooks/useResetState.ts";
 
 export interface IUseElFeedbackProps {
-	okHook?: () => void,
+	okHook?: (...args: any[]) => void,
 	cancelHook?: () => void,
 }
 
 export interface IUseElFeedbackReturn {
 	isShow: boolean,
-	onOk: () => void,
+	onOk: (...args: any[]) => void,
 	onCancel: () => void,
 }
 
@@ -24,8 +24,8 @@ export const useElFeedback = (props: IUseElFeedbackProps = {})
 		resetState: resetIsShow,
 	} = useResetRef((): boolean => false)
 
-	const onOk = () => {
-		okHook()
+	const onOk = (...args: any[]) => {
+		okHook(...args)
 		onCancel()
 	}
 

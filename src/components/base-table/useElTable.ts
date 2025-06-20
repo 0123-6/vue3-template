@@ -1,4 +1,4 @@
-import {useTemplateRef} from "vue";
+import {Ref, ref} from "vue";
 import {ElMessage, TableInstance} from "element-plus";
 import {formatterValue, generateMockObject, IBaseFetch, IBaseItem} from "@/util/api.ts";
 import {IUseBaseFetchReturn, useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
@@ -27,7 +27,6 @@ export interface IOperatorItem {
 }
 
 export interface IUseElTableProps {
-	ref?: string,
 	// 行高
 	rowHeight?: number,
 	// 分页
@@ -51,7 +50,7 @@ type IParams = {
 }
 
 export interface IUseElTableReturn {
-	refName: string,
+	tableRef: Ref<TableInstance>,
 	rowHeight: number,
 	pageSizeList: number[],
 	list: IBaseTableColumn[],
@@ -85,8 +84,7 @@ export const useElTable = (props: IUseElTableProps)
 		list,
 		preparedData,
 	} = props
-	const refName = props.ref ?? 'tableRef'
-	const tableRef = useTemplateRef<TableInstance>(refName)
+	const tableRef = ref<TableInstance>(null)
 
 	const {
 		state: params,
@@ -248,7 +246,7 @@ export const useElTable = (props: IUseElTableProps)
 	}
 
 	return {
-		refName,
+		tableRef,
 		rowHeight,
 		pageSizeList,
 		list,

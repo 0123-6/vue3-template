@@ -82,7 +82,7 @@ const clickOk = async () => {
 	>
 		<div class="flex flex-col gap-y-4">
 			<!--文本-->
-			<div class="w-full">
+			<div class="w-full whitespace-pre-line">
 				<span v-for="(item, index) in textList"
 							:key="index"
 							class="text-text break-all"

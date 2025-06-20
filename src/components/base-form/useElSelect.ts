@@ -109,6 +109,15 @@ export const useElSelect = (props: IUseElSelectProps)
 				resetSelectOptionList()
 				return
 			}
+			// 转换和兼容非对象值
+			for (let i = 0; i < (responseData as Array<any>).length; i++) {
+				if (!(typeof responseData[i] === 'object' && responseData[i] !== null)) {
+					responseData[i] = {
+						[config.labelName as string]: responseData[i],
+						[config.valueName]: responseData[i],
+					}
+				}
+			}
 			responseData = (responseData as Array<Record<string, any>>)
 				.filter(Boolean)
 				.filter(item => labelFn(item) != null && item[config.valueName] != null)
