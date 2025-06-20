@@ -293,7 +293,7 @@ const exportDialogObject = useElFeedback({
 			>批量导出</el-button>
 		</div>
 		<!--表格-->
-		<el-table :ref="tableObject.refName"
+		<el-table :ref="tableObject.tableRef"
 							:data="tableObject.data.list"
 							v-loading="tableObject.isFetching"
 							@selection-change="tableObject.resetSelectItemList($event)"
