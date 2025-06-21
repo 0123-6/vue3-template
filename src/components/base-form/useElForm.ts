@@ -1,5 +1,5 @@
 import {FormInstance, FormItemRule} from "element-plus";
-import {ref, Ref, useTemplateRef} from "vue";
+import {ref, Ref} from "vue";
 import {useResetReactive} from "@/util/hooks/useResetState.ts";
 import {ISelectOption, IUseElSelectReturn} from "@/components/base-form/useElSelect.ts";
 import {isFalse} from "@/util/validator.ts";
@@ -34,13 +34,12 @@ export interface IElFormItem {
 }
 
 export interface IUseElFormProps {
-	ref?: string,
 	list: IElFormItem[],
 	foldNumber?: number,
 }
 
 export interface IUseElFormReturn {
-	refName: string,
+	formRef: Ref<FormInstance>,
 	list: IElFormItem[],
 	canFold: boolean,
 	isFold: Ref<boolean>,
@@ -57,8 +56,7 @@ export const useElForm = (props: IUseElFormProps)
 		list = [] as IElFormItem[],
 		foldNumber = 4,
 	} = props
-	const refName: string = props.ref ?? 'formRef'
-	const formRef = useTemplateRef<FormInstance>(refName)
+	const formRef = ref<FormInstance>(null)
 
 	list = list.filter(Boolean).filter(_item => isFalse(_item.hidden))
 
@@ -124,7 +122,7 @@ export const useElForm = (props: IUseElFormProps)
 	}
 
 	return {
-		refName,
+		formRef,
 		list,
 		canFold,
 		isFold,
