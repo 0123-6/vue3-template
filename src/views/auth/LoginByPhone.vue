@@ -79,7 +79,7 @@ const clickReturn = () => {
 	<div class="hpj w-[640px] h-[470px] px-[100px] py-[64px] bg-white shadow-2xl rounded-3xl flex flex-col">
 		<span class="text-text-title font-bold text-[36px] leading-[36px]">欢迎回来 📲 </span>
 		<span class="mt-4 text-text ">请输入您的手机号码以开始管理您的项目</span>
-		<el-form :ref="formObject.refName"
+		<el-form :ref="el => formObject.formRef = el"
 						 :model="formObject.data"
 						 label-position="right"
 						 :label-width="0"

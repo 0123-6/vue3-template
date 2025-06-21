@@ -46,7 +46,7 @@ const clickReturn = () => {
 	<div class="hpj w-[640px] h-[400px] px-[100px] py-[64px] bg-white shadow-2xl rounded-3xl flex flex-col">
 		<span class="text-text-title font-bold text-[36px] leading-[36px]">忘记密码? 🤦🏻‍♂️ </span>
 		<span class="mt-4 text-text ">输入您的电子邮件，我们将向您发送重置密码的连接</span>
-		<el-form :ref="formObject.refName"
+		<el-form :ref="el => formObject.formRef = el"
 						 :model="formObject.data"
 						 label-position="right"
 						 :label-width="0"

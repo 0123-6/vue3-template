@@ -248,7 +248,7 @@ const exportDialogObject = useElFeedback({
 		<!--form表单-->
 		<div class="rounded bg-[#f6f7fc] p-4 flex flex-col">
 			<!--上-->
-			<el-form :ref="formObject.refName"
+			<el-form :ref="el => formObject.formRef = el"
 							 :model="formObject.data"
 							 inline
 							 label-position="right"

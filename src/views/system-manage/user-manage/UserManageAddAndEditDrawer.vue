@@ -157,7 +157,7 @@ const fetchUpdate = useBaseFetch({
 	<base-drawer-comp>
 		<template v-slot:default>
 			<base-title title="用户信息"/>
-			<el-form :ref="formObject.refName"
+			<el-form :ref="el => formObject.formRef = el"
 							 :model="formObject.data"
 							 label-position="right"
 							 :label-width="90"
