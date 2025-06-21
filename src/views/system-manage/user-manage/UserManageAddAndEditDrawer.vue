@@ -3,7 +3,7 @@ import {useElForm} from "@/components/base-form/useElForm.ts";
 import {isPasswordRegExp, isPhoneRegExp} from "@/util/validator.ts";
 import {sexList, userStatusList} from "@views/system-manage/user-manage/userManageCommon.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance} from "element-plus";
 import BaseDrawerComp from "@/components/base-drawer/BaseDrawerComp.vue";
 import BaseTitle from "@/components/base-drawer/BaseTitle.vue";
 import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
@@ -157,7 +157,7 @@ const fetchUpdate = useBaseFetch({
 	<base-drawer-comp>
 		<template v-slot:default>
 			<base-title title="用户信息"/>
-			<el-form :ref="el => formObject.formRef = el"
+			<el-form :ref="(el: FormInstance) => formObject.formRef.value = el"
 							 :model="formObject.data"
 							 label-position="right"
 							 :label-width="90"

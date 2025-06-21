@@ -14,7 +14,7 @@ import {useRenderComp} from "@/components/base-dialog/useRenderComp.ts";
 import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
 import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance, TableInstance} from "element-plus";
 import {useUserStore} from "@/plugin/pinia.ts";
 import {excelExport} from "@/util/excel.ts";
 import UserManageUploadDialog from "@views/system-manage/user-manage/UserManageUploadDialog.vue";
@@ -248,7 +248,7 @@ const exportDialogObject = useElFeedback({
 		<!--form表单-->
 		<div class="rounded bg-[#f6f7fc] p-4 flex flex-col">
 			<!--上-->
-			<el-form :ref="el => formObject.formRef = el"
+			<el-form :ref="(el: FormInstance) => formObject.formRef.value = el"
 							 :model="formObject.data"
 							 inline
 							 label-position="right"
@@ -293,7 +293,7 @@ const exportDialogObject = useElFeedback({
 			>批量导出</el-button>
 		</div>
 		<!--表格-->
-		<el-table :ref="el => tableObject.tableRef = el"
+		<el-table :ref="(el: TableInstance) => tableObject.tableRef.value = el"
 							:data="tableObject.data.list"
 							v-loading="tableObject.isFetching"
 							@selection-change="tableObject.resetSelectItemList($event)"

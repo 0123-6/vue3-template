@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance, TableInstance} from "element-plus";
 import {useElForm} from "@/components/base-form/useElForm.ts";
 import {useElTable} from "@/components/base-table/useElTable.ts";
 import {RefreshRight, Search} from "@element-plus/icons-vue";
@@ -309,7 +309,7 @@ const clickBatchDelete = () => {
 		<!--form表单-->
 		<div class="rounded bg-[#f6f7fc] p-4 flex flex-col">
 			<!--上-->
-			<el-form :ref="el => formObject.formRef = el"
+			<el-form :ref="(el: FormInstance) => formObject.formRef.value = el"
 							 :model="formObject.data"
 							 inline
 							 label-position="right"
@@ -344,7 +344,7 @@ const clickBatchDelete = () => {
 			>删除</el-button>
 		</div>
 		<!--表格-->
-		<el-table :ref="el => tableObject.tableRef = el"
+		<el-table :ref="(el: TableInstance) => tableObject.tableRef.value = el"
 							:data="tableObject.data.list"
 							v-loading="tableObject.isFetching"
 							@selection-change="tableObject.resetSelectItemList($event)"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance} from "element-plus";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import router from "@/plugin/vue-router.ts";
 import IconWeiXin from "@views/auth/icon/IconWeiXin.vue";
@@ -76,7 +76,7 @@ const clickRegister = () => {
 	<div class="hpj w-[640px] h-[670px] px-[100px] py-[64px] bg-white shadow-2xl rounded-3xl flex flex-col">
 		<span class="text-text-title font-bold text-[36px] leading-[36px]">欢迎回来 👋🏻</span>
 		<span class="mt-4">请输入你的账户信息以开始管理你的项目</span>
-		<el-form :ref="el => formObject.formRef = el"
+		<el-form :ref="(el: FormInstance) => formObject.formRef.value = el"
 						 :model="formObject.data"
 						 label-position="right"
 						 :label-width="0"
