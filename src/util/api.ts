@@ -265,12 +265,15 @@ export async function baseFetch(props: IBaseFetch)
 	}
 }
 
-// 常见数据结构,可以提取mock和formatter
+// 常见数据结构,可以提取mock和transform
 export interface IBaseItem {
 	label?: string,
 	prop?: string,
 	children?: IBaseItem[],
+	// 展示时使用,不改变原数据
 	formatter?: (value: any) => (string | number),
+	// 数据转换,处理脏数据,改变原数据
+	transform?: (value: any) => any,
 	mock?: any,
 	// 适用于{label: '', value: ''}类固定信息展示
 	list?: ISelectOption[],
@@ -313,40 +316,35 @@ export const generateMockObject = (list: IBaseItem[]) => {
 	return mockObject
 }
 
-const dfsGenerateformatterMap = (item: IBaseItem, map: Record<string, any>) => {
+const dfsGenerateTransformMap = (item: IBaseItem, map: Record<string, any>) => {
 	if (!item) {
 		return
 	}
 	if (Array.isArray(item.children)) {
 		// 嵌套column
-		item.children.forEach(item => dfsGenerateformatterMap(item, map))
+		item.children.forEach(item => dfsGenerateTransformMap(item, map))
 		return
 	}
 	// 单个column
 	if (!(item.label && item.prop)) {
 		return
 	}
-	if (item.formatter) {
+	if (item.transform) {
 		map[item.prop] = item
 	}
 }
 
-const generateFormatterMap = (list: IBaseItem[]): Record<string, any> => {
-	const map = Object.create(null)
-	for (let i = 0; i < list.length; i++) {
-		dfsGenerateformatterMap(list[i], map)
-	}
-	return map
-}
-
-// 使用formatter转换
-export const formatterValue = (rawValue: Record<string, any>, list: IBaseItem[])
+// 使用transform转换
+export const transformValue = (rawValue: Record<string, any>, list: IBaseItem[])
 	: Record<string, any> => {
-	const listMap = generateFormatterMap(list)
+	const listMap = Object.create(null)
+	for (let i = 0; i < list.length; i++) {
+		dfsGenerateTransformMap(list[i], listMap)
+	}
 	return Object.fromEntries(
 		Object.entries(rawValue).map(([key, value]) => [
 			key,
-			listMap[key]?.formatter?.(value) ?? value,
+			listMap[key]?.transform?.(value) ?? value,
 		])
 	)
 }

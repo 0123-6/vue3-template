@@ -1,6 +1,6 @@
 import {Ref, ref} from "vue";
 import {ElMessage, TableInstance} from "element-plus";
-import {formatterValue, generateMockObject, IBaseFetch, IBaseItem} from "@/util/api.ts";
+import {generateMockObject, IBaseFetch, IBaseItem, transformValue} from "@/util/api.ts";
 import {IUseBaseFetchReturn, useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {camelToSnake} from "@/util/stringUtil.ts";
 import {useResetReactive, useResetRef} from "@/util/hooks/useResetState.ts";
@@ -156,7 +156,7 @@ export const useElTable = (props: IUseElTableProps)
 		responseData.list = (responseData.list as Array<Record<string, any>>)
 			.filter(Boolean)
 			.map((item, index) => ({
-				...formatterValue(item, list),
+				...transformValue(item, list),
 				index: index + 1 + params.pageSize * (params.pageNum - 1)
 			}))
 		resetData(responseData)
