@@ -107,7 +107,6 @@ export const useElTable = (props: IUseElTableProps)
 	const reset = (newValue?: Partial<IParams> | 'pageNum' | boolean) => {
 		// 重置位置
 		tableRef.value!.setScrollTop(0)
-		tableRef.value!.setScrollLeft(0)
 		tableRef.value!.clearSelection()
 		resetType()
 		// undefined: 重置一切
