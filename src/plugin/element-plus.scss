@@ -202,9 +202,12 @@
 		.el-input-number {
 			width: 100% !important;
 			min-width: 150px !important;
-			.el-input__inner {
-				text-align: left !important;
-			}
+		}
+	}
+
+	.el-input-number {
+		.el-input__inner {
+			text-align: left !important;
 		}
 	}
 
