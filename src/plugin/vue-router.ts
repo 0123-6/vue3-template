@@ -8,14 +8,120 @@ import {useUserStore} from "@/plugin/pinia.ts";
 
 NProgress.configure({ showSpinner: false })
 
+const allRouteMap: RouteRecordRaw[] = [
+	{
+		name: '首页',
+		path: '/index',
+		component: () => import('@views/index-page/IndexPage.vue'),
+		meta: {
+			icon: 'House',
+		},
+	},
+	{
+		name: '系统管理',
+		path: '/system-manage',
+		meta: {
+			icon: 'Operation',
+		},
+		children: [
+			{
+				name: '用户管理',
+				path: 'user-manage',
+				component: () => import('@views/system-manage/user-manage/UserManage.vue'),
+				meta: {
+					icon: 'User',
+				},
+			},
+			{
+				name: '角色管理',
+				path: 'role-manage',
+				component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
+				meta: {
+					icon: 'Discount',
+				},
+			},
+			{
+				name: '权限管理',
+				path: 'permission-manage',
+				component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
+				meta: {
+					icon: 'Key',
+				},
+			},
+		],
+	},
+	{
+		name: 'module-two',
+		path: '/module-two',
+		component: () => import('@views/module-two/ModuleTwo.vue'),
+	},
+	{
+		name: 'module-two/detail',
+		path: '/module-two/detail/:id',
+		props: true,
+		component: () => import('@views/module-two/detail/ModuleTwoDetail.vue'),
+	},
+	{
+		name: 'module-three',
+		path: '/module-three',
+		component: () => import('@views/module-three/ModuleThree.vue'),
+	},
+	{
+		name: 'module-four',
+		path: '/module-four',
+		component: () => import('@views/module-four/ModuleFour.vue'),
+	},
+	// 个人中心
+	{
+		name: 'person-center',
+		path: '/person-center',
+		component: () => import('@views/person-center/PersonCenter.vue'),
+	},
+	{
+		name: 'learn-g6',
+		path: '/learn-g6',
+		component: () => import('@views/learn-g6/LearnG6.vue'),
+	},
+	// 管理员页面
+	{
+		name: 'manage',
+		path: '/manage',
+		meta: {
+			onlyAdmin: true,
+		},
+		component: () => import('@views/admin/AdminPage.vue'),
+		// 路由独享守卫
+		// beforeEnter: (to, from) => {
+		// 	const {user} = useUserStore()
+		// 	if (user.value?.isAdmin) {
+		// 		return
+		// 	} else {
+		// 		errorMessage('您没有管理员权限')
+		// 		NProgress.done()
+		// 		return false
+		// 	}
+		// }
+	},
+	// 表格模板
+	{
+		name: 'table-template',
+		path: '/table-template',
+		component: () => import('@views/table-template/TableTemplate.vue'),
+	},
+	{
+		name: 'web-one',
+		path: '/web-one',
+		component: () => import('@views/web-one/WebOne.vue'),
+	},
+]
+
 // VueRouter规定 path最外层以'/'开头,
 // router.push和
-const routes: RouteRecordRaw[] = [
+const baseRouteList: RouteRecordRaw[] = [
 	// 登录相关
 	{
 		path: '/auth',
 		component: () => import('@views/auth/AuthPage.vue'),
-
 		children: [
 			{
 				path: 'login',
@@ -41,101 +147,18 @@ const routes: RouteRecordRaw[] = [
 	},
 	// 普通页面
 	{
+		name: 'common',
 		path: '/',
 		component: () => import('@views/layout-page/LayoutPageContent.vue'),
 		meta: {
 			requiresAuth: true,
 		},
-
 		redirect: '/index',
-		children: [
-			// 首页
-			{
-				path: '/index',
-				component: () => import('@views/index-page/IndexPage.vue'),
-			},
-			{
-				path: 'system-manage',
-				children: [
-					{
-						path: 'user-manage',
-						component: () => import('@views/system-manage/user-manage/UserManage.vue'),
-					},
-					{
-						path: 'role-manage',
-						component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
-					},
-					{
-						path: 'permission-manage',
-						component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
-					},
-				],
-			},
-			{
-				path: '/module-two',
-				component: () => import('@views/module-two/ModuleTwo.vue'),
-			},
-			{
-				path: '/module-two/detail/:id',
-				props: true,
-				component: () => import('@views/module-two/detail/ModuleTwoDetail.vue'),
-			},
-			{
-				path: '/module-three',
-				component: () => import('@views/module-three/ModuleThree.vue'),
-			},
-			{
-				path: '/module-four',
-				component: () => import('@views/module-four/ModuleFour.vue'),
-			},
-			// 个人中心
-			{
-				path: '/person-center',
-				component: () => import('@views/person-center/PersonCenter.vue'),
-			},
-			{
-				path: '/learn-g6',
-				component: () => import('@views/learn-g6/LearnG6.vue'),
-			},
-			// 管理员页面
-			{
-				path: '/manage',
-				meta: {
-					onlyAdmin: true,
-				},
-				component: () => import('@views/admin/AdminPage.vue'),
-				// 路由独享守卫
-				// beforeEnter: (to, from) => {
-				// 	const {user} = useUserStore()
-				// 	if (user.value?.isAdmin) {
-				// 		return
-				// 	} else {
-				// 		errorMessage('您没有管理员权限')
-				// 		NProgress.done()
-				// 		return false
-				// 	}
-				// }
-			},
-			// 表格模板
-			{
-				path: '/table-template',
-				component: () => import('@views/table-template/TableTemplate.vue'),
-			},
-			{
-				path: '/web-one',
-				component: () => import('@views/web-one/WebOne.vue'),
-			},
-		],
 	},
 	// 404
 	{
 		path: '/:pathMatch(.*)*',
 		component: () => import('@views/not-found/NotFound.vue'),
-	},
-	// 测试
-	{
-		path: '/test',
-		component: () => import('@views/test/TestComp.vue'),
 	},
 ]
 
@@ -144,12 +167,25 @@ const router: Router = createRouter({
 	// 部署在非根路径,需要指定createWebHistory的参数,如果不指定,路由会以location.origin,pathname为'/'为基准,
 	// 而网站有前缀'/xxx',会导致路由匹配错误,跳转路由后刷新导致网站前缀丢失,无法匹配nginx的此网站路径,所以404.
 	history: createWebHistory(projectConfig.baseUrl),
-	routes,
+	routes: baseRouteList,
 	scrollBehavior: () => ({
 		left: 0,
 		top: 0,
 	}),
 })
+
+if (import.meta.env.DEV) {
+	// 开发环境
+	router.addRoute({
+		path: '/test',
+		component: () => import('@views/test/TestComp.vue'),
+	})
+	for (const item of allRouteMap) {
+		router.addRoute('common', item)
+	}
+} else {
+	// 生产环境
+}
 
 // 全局前置守卫
 router.beforeEach((to, from) => {
