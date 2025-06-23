@@ -85,6 +85,7 @@ const tableObject = useElTable({
 			label: '账号',
 			prop: 'account',
 			width: 150,
+			fixed: 'left',
 		},
 		{
 			label: '昵称',
@@ -109,7 +110,7 @@ const tableObject = useElTable({
 		{
 			label: '简介',
 			prop: 'description',
-			minWidth: 200,
+			minWidth: 400,
 		},
 		{
 			label: '创建时间',
@@ -248,6 +249,44 @@ const exportDialogObject = useElFeedback({
 		}
 	},
 })
+
+// 改变状态
+const clickSingleChangeStatusButton = (item: any) => {
+	tableObject.resetType(item)
+	renderChangeStatusDialog()
+}
+const renderChangeStatusDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
+	width: 500,
+	title: `${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号`,
+	textList: [
+		'确定',
+		tableObject.selectItem.status === 'normal' ? '停用' : '启用',
+		{
+			text: tableObject.selectItem.account as string,
+			color: 'primary',
+		},
+		'账号吗?'
+	],
+	okButton: {
+		text: tableObject.selectItem.status === 'normal' ? '停用' : '启用',
+		fetchText: tableObject.selectItem.status === 'normal' ? '停用中' : '启用中',
+	},
+	fetchObject: fetchChangeStatusObject,
+}))
+const fetchChangeStatusObject = useBaseFetch({
+	fetchOptionFn: () => ({
+		url: 'user/editUser',
+		mockProd: true,
+		data: {
+			...tableObject.selectItem,
+			status: tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal',
+		},
+	}),
+	transformResponseDataFn: () => {
+		ElMessage.success(`${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号成功`)
+		tableObject.selectItem.status = tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal'
+	},
+})
 </script>
 
 <template>
@@ -310,7 +349,17 @@ const exportDialogObject = useElFeedback({
 							stripe
 							:row-style="{height: `${tableObject.rowHeight}px!important`,}"
 		>
-			<base-table-column-list :list="tableObject.list"/>
+			<base-table-column-list :list="tableObject.list">
+				<template v-slot:status="scope">
+					<el-switch v-if="scope.row.status === 'normal' || scope.row.status === 'disabled'"
+										 active-value="normal"
+										 inactive-value="disabled"
+										 :width="36"
+										 :model-value="scope.row.status"
+										 @click="clickSingleChangeStatusButton(scope.row)"
+					/>
+				</template>
+			</base-table-column-list>
 			<template v-slot:empty>
 				<TableNoData/>
 			</template>
