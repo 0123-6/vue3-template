@@ -82,7 +82,7 @@ export const useElTable = (props: IUseElTableProps)
 		pageSizeList = [10, 20, 30],
 		fetchOptionFn,
 		list,
-		preparedData,
+		preparedData = [],
 	} = props
 	const tableRef = ref<TableInstance>(null)
 
