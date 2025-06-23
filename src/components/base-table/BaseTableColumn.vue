@@ -72,7 +72,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
 						_item?.disabled?.(scope.row) ? 'text-text-desc' : '',
 					]"
 				:disabled="_item?.disabled?.(scope.row)"
-				@click="_item?.onClick?.(scope.row)"
+				@click="_item?.onClick?.(scope.row, scope.$index)"
 			>
 				{{_item.text}}
 			</button>

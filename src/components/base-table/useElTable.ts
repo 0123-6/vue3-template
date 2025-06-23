@@ -23,7 +23,7 @@ export interface IOperatorItem {
 	hidden?: boolean | (() => boolean),
 	disabled?: (item: any) => boolean,
 	disabledText?: string | ((item: any) => string),
-	onClick?: (item: any) => void,
+	onClick?: (item: any, index: number) => void,
 }
 
 export interface IUseElTableProps {

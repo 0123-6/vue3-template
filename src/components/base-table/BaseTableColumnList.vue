@@ -50,7 +50,7 @@ const getColumnProps = (item: IBaseTableColumn) => ({
 			<template v-if="$slots[item2.prop]"
 								v-slot:default="scope">
 				<div class="w-full h-full flex justify-center items-center">
-					<slot :name="item2.prop" :row="scope.row"></slot>
+					<slot :name="item2.prop" v-bind="scope"></slot>
 				</div>
 			</template>
 			<template v-else-if="!Array.isArray(item2.children) && item2.type !== 'selection'"
@@ -62,7 +62,7 @@ const getColumnProps = (item: IBaseTableColumn) => ({
 		<template v-if="$slots[item.prop]"
 							v-slot:default="scope">
 			<div class="w-full h-full flex justify-center items-center">
-				<slot :name="item.prop" :row="scope.row"></slot>
+				<slot :name="item.prop" v-bind="scope"></slot>
 			</div>
 		</template>
 		<template v-else-if="!Array.isArray(item.children) && item.type !== 'selection'"
