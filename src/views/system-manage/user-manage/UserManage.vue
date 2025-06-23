@@ -8,7 +8,11 @@ import BaseTableColumnList from "@/components/base-table/BaseTableColumnList.vue
 import TableNoData from "@/components/base-table/TableNoData.vue";
 import {useResetRef} from "@/util/hooks/useResetState.ts";
 import {useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
-import {sexList, userStatusList} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {
+	getUserAccountListSelectObject,
+	sexList,
+	userStatusList
+} from "@views/system-manage/user-manage/userManageCommon.ts";
 import UserManageAddAndEditDrawer from "@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue";
 import {useRenderComp} from "@/components/base-dialog/useRenderComp.ts";
 import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
@@ -25,7 +29,8 @@ const formObject = useElForm({
 		{
 			label: '账号',
 			prop: 'account',
-			type: 'input',
+			type: 'select',
+			selectObject: getUserAccountListSelectObject,
 		},
 		{
 			label: '昵称',
@@ -194,8 +199,12 @@ const fetchDeleteObject = useBaseFetch({
 	}),
 	transformResponseDataFn: () => {
 		ElMessage.success('删除成功')
+		formObject.reset({
+			account: undefined,
+		})
 		tableObject.reset('pageNum')
 		tableObject.doFetch()
+		getUserAccountListSelectObject.doFetch()
 	},
 })
 

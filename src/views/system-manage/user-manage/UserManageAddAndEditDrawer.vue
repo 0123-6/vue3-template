@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import {useElForm} from "@/components/base-form/useElForm.ts";
 import {isPasswordRegExp, isPhoneRegExp} from "@/util/validator.ts";
-import {sexList, userStatusList} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {
+	getUserAccountListSelectObject,
+	sexList,
+	userStatusList
+} from "@views/system-manage/user-manage/userManageCommon.ts";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {ElMessage, FormInstance} from "element-plus";
 import BaseDrawerComp from "@/components/base-drawer/BaseDrawerComp.vue";
@@ -137,6 +141,7 @@ const fetchAdd = useBaseFetch({
 	}),
 	transformResponseDataFn: _responseData => {
 		ElMessage.success('新增用户成功')
+		getUserAccountListSelectObject.doFetch()
 		emits('ok')
 	},
 })
