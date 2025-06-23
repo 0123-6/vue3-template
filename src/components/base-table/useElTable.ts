@@ -137,6 +137,13 @@ export const useElTable = (props: IUseElTableProps)
 			resetData()
 			return
 		}
+		// 兼容数组类型
+		if (Array.isArray(responseData)) {
+			responseData = {
+				list: responseData,
+				total: responseData.length,
+			}
+		}
 		if (typeof responseData !== 'object') {
 			ElMessage.warning('表格请求接口返回值类型不合法,请检查接口')
 			resetData()
