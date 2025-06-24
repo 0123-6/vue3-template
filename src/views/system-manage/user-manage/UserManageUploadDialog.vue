@@ -5,7 +5,7 @@ import {ableSelectFileByClick, ableSelectFileByDrag, ISelectFileProps} from "@/u
 import {ElMessage} from "element-plus";
 import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
 import {Delete} from "@element-plus/icons-vue";
-import {IUserInfo} from "@views/system-manage/user-manage/userManageCommon.ts";
+import {getUserAccountListSelectObject, IUserInfo} from "@views/system-manage/user-manage/userManageCommon.ts";
 import {excelParse} from "@/util/excel.ts";
 
 const emits = defineEmits(['ok', 'cancel'])
@@ -31,6 +31,7 @@ const fetchUploadFile = useBaseFetch({
 	transformResponseDataFn: _responseData => {
 		ElMessage.success('新增用户成功')
 		emits('ok')
+		getUserAccountListSelectObject.doFetch()
 	},
 })
 

@@ -1,4 +1,4 @@
-import {ISelectOption} from "@/components/base-form/useElSelect.ts";
+import {ISelectOption, useElSelect} from "@/components/base-form/useElSelect.ts";
 
 // 用户的信息
 export interface IUserInfo {
@@ -50,3 +50,11 @@ export const userStatusList: ISelectOption[] = [
 		type: 'error',
 	},
 ]
+
+// 获取账号列表
+export const getUserAccountListSelectObject = useElSelect({
+	fetchOptionFn: () => ({
+		url: 'user/getAccountList',
+		mockProd: true,
+	}),
+})
