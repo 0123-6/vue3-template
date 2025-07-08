@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {defineProps, nextTick, onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 
 const styleMap = {
 	primary: '#3D6FE2',
