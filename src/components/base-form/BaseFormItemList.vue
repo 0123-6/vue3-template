@@ -9,6 +9,7 @@ interface IProps {
 	formObject: IUseElFormReturn,
 	range?: number[],
 }
+
 const props = defineProps<IProps>()
 const emit = defineEmits(['change'])
 
@@ -119,11 +120,12 @@ props.formObject.list
 							 v-loading="!Array.isArray(item.selectObject) ? item.selectObject?.isFetching : false"
 							 @change="emit('change')"
 		>
-			<el-option v-for="(item2, index2) in (!Array.isArray(item.selectObject) ? item.selectObject?.data : item.selectObject)"
-								 :key="index2"
-								 :label="item2.label"
-								 :value="item2.value"
-								 :disabled="item2.disabled"
+			<el-option
+				v-for="(item2, index2) in (!Array.isArray(item.selectObject) ? item.selectObject?.data : item.selectObject)"
+				:key="index2"
+				:label="item2.label"
+				:value="item2.value"
+				:disabled="item2.disabled"
 			/>
 		</el-select>
 		<el-tree-select v-else-if="item.type === 'tree'"
@@ -153,11 +155,12 @@ props.formObject.list
 										:disabled="isTrue(item.disabled)"
 										@change="emit('change')"
 		>
-			<el-radio v-for="(item2, index2) in (!Array.isArray(item.selectObject) ? item.selectObject?.data : item.selectObject)"
-								:key="index2"
-								:label="item2.label"
-								:value="item2.value"
-								:disabled="item2.disabled"
+			<el-radio
+				v-for="(item2, index2) in (!Array.isArray(item.selectObject) ? item.selectObject?.data : item.selectObject)"
+				:key="index2"
+				:label="item2.label"
+				:value="item2.value"
+				:disabled="item2.disabled"
 			/>
 		</el-radio-group>
 		<el-checkbox v-else-if="item.type === 'checkbox'"
