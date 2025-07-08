@@ -116,11 +116,6 @@ const routes: RouteRecordRaw[] = [
 				// 	}
 				// }
 			},
-			// 表格模板
-			{
-				path: '/table-template',
-				component: () => import('@views/table-template/TableTemplate.vue'),
-			},
 			{
 				path: '/web-one',
 				component: () => import('@views/web-one/WebOne.vue'),
