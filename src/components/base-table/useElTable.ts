@@ -34,6 +34,7 @@ export interface IUseElTableProps {
 	// 因为这是要多次执行的,所以不能传递一个一次性值,而是一个函数,获取当时的期待值
 	// 通过接口获取数据时必填
 	fetchOptionFn?: () => IBaseFetch,
+	microTask?: boolean,
 	// 现成的数据
 	preparedData?: any[],
 	// 列属性数组,支持嵌套1次(二维数组)
@@ -81,6 +82,7 @@ export const useElTable = (props: IUseElTableProps)
 		rowHeight = 48,
 		pageSizeList = [10, 20, 30],
 		fetchOptionFn,
+		microTask = true,
 		list,
 		preparedData = [],
 	} = props
@@ -182,7 +184,7 @@ export const useElTable = (props: IUseElTableProps)
 				},
 			}),
 			transformResponseDataFn: solveRawData,
-			microTask: true,
+			microTask,
 		})
 	} else {
 		fetchTable = {

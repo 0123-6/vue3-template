@@ -93,18 +93,18 @@ props.formObject.list
 							:rows="item.rows"
 							@change="emit('change')"
 		/>
-    <el-input-number v-else-if="item.type === 'number'"
-                     v-model="formObject.data[item.prop as string]"
-                     :placeholder="item.placeholder ? item.placeholder : `请输入${item.label}`"
-                     :min="0"
-                     :step="1"
-                     :step-strictly="true"
-                     :precision="0"
-                     :size="item.size"
-                     :disabled="isTrue(item.disabled)"
-                     :controls="false"
-                     @change="emit('change')"
-    />
+		<el-input-number v-else-if="item.type === 'number'"
+										 v-model="formObject.data[item.prop as string]"
+										 :placeholder="item.placeholder ? item.placeholder : `请输入${item.label}`"
+										 :min="0"
+										 :step="1"
+										 :step-strictly="true"
+										 :precision="0"
+										 :size="item.size"
+										 :disabled="isTrue(item.disabled)"
+										 :controls="false"
+										 @change="emit('change')"
+		/>
 		<el-select v-else-if="item.type === 'select'"
 							 v-model="formObject.data[item.prop as string]"
 							 :placeholder="item.placeholder ? item.placeholder : `请选择${item.label}`"
@@ -123,6 +123,7 @@ props.formObject.list
 								 :key="index2"
 								 :label="item2.label"
 								 :value="item2.value"
+								 :disabled="item2.disabled"
 			/>
 		</el-select>
 		<el-tree-select v-else-if="item.type === 'tree'"
@@ -156,6 +157,7 @@ props.formObject.list
 								:key="index2"
 								:label="item2.label"
 								:value="item2.value"
+								:disabled="item2.disabled"
 			/>
 		</el-radio-group>
 		<el-checkbox v-else-if="item.type === 'checkbox'"

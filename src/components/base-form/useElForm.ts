@@ -36,6 +36,7 @@ export interface IElFormItem {
 export interface IUseElFormProps {
 	list: IElFormItem[],
 	foldNumber?: number,
+	mode?: 'query' | 'edit',
 }
 
 export interface IUseElFormReturn {
@@ -50,11 +51,26 @@ export interface IUseElFormReturn {
 	validate: (propertyList?: string[]) => Promise<boolean>,
 }
 
+const getItemDefaultValue = (item: IElFormItem): any => {
+	const {
+		type,
+		multiple,
+	} = item
+	if (type === 'input' || type === 'input-password' || type === 'textarea') {
+		return ''
+	}
+	if (type === 'select') {
+		return multiple ? [] : null
+	}
+	return null
+}
+
 export const useElForm = (props: IUseElFormProps)
 	: IUseElFormReturn => {
 	let {
 		list = [] as IElFormItem[],
 		foldNumber = 4,
+		mode = 'query',
 	} = props
 	const formRef = ref<FormInstance>(null)
 
@@ -66,7 +82,9 @@ export const useElForm = (props: IUseElFormProps)
 			if (Array.isArray(item.prop)) {
 				item.prop.forEach(_item => data[_item] = undefined)
 			} else {
-				data[item.prop] = undefined
+				data[item.prop] = mode === 'query'
+					? undefined
+					: getItemDefaultValue(item)
 			}
 		}
 		return data
