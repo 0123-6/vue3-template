@@ -18,8 +18,14 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
-  tseslint.configs.recommended,
-  pluginVue.configs["flat/recommended"],
+  ...tseslint.configs.recommended,
+  ...pluginVue.configs["flat/recommended"],
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
+    },
+  },
   {
     files: ["**/*.vue"],
     languageOptions: {
