@@ -73,10 +73,12 @@ const parseFile = (props: IParseFile): void => {
 // 选择文件实用函数
 export const ableSelectFileByClick = (props: ISelectFileProps)
 	: () => void => {
-	let {
-		element,
+	const {
 		accept,
 		multiple = false,
+	} = props
+	let {
+		element,
 	} = props
 	if (element instanceof Function) {
 		element = element()
