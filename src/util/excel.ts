@@ -16,13 +16,14 @@ export interface IExcelParse {
 
 // 解析Excel文件
 export async function excelParse(props: IExcelParse) {
-	let {
+	const {
 		file,
-		sheetName = '',
 		expectedKeyList = [],
-
 		callback,
 		callbackError,
+	} = props
+	let {
+		sheetName = '',
 	} = props
 
 	try {
@@ -58,7 +59,7 @@ export async function excelParse(props: IExcelParse) {
 
 		// 判断文件是否符合预期
 		const keyList = sheetList[0] as string[]
-		let isExpected = expectedKeyList.length === 0 ||
+		const isExpected = expectedKeyList.length === 0 ||
 			expectedKeyList.length === keyList.length &&
 			expectedKeyList.every(key => keyList.includes(key))
 		// 不符合预期
@@ -84,7 +85,7 @@ export interface IExcelExportProps {
 	// 要创建的sheet名
 	sheetName?: string
 	// 要导出的数据
-	data: Object[]
+	data: object[]
 	// 成功回调
 	callback: () => void
 	// 失败回调
