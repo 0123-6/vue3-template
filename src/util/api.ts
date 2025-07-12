@@ -10,14 +10,13 @@ import {ISelectOption} from "@/components/base-form/useElSelect.ts";
 export function debounce(fn: () => void, delay: number = 1000) {
 	let timer: ReturnType<typeof setTimeout> | null = null
 
-	return function () {
+	return function (this: any, ...args: any[]) {
 		if (timer) {
 			clearTimeout(timer)
 			timer = null
 		}
 		timer = setTimeout(() => {
-			// @ts-ignore
-			fn.apply(this, arguments)
+			fn.apply(this, args)
 			clearTimeout(timer!)
 			timer = null
 		}, delay)
@@ -28,10 +27,9 @@ export function debounce(fn: () => void, delay: number = 1000) {
 export function throttle(fn: () => void, delay: number = 1000) {
 	let timer: ReturnType<typeof setTimeout> | null = null
 
-	return function () {
+	return function (this: any, ...args: any[]) {
 		if (!timer) {
-			// @ts-ignore
-			fn.apply(this, arguments)
+			fn.apply(this, args)
 			timer = setTimeout(() => {
 				clearTimeout(timer!)
 				timer = null
