@@ -10,10 +10,12 @@ interface IOpenNewTab {
 
 // 打开新页面
 export const openNewTab = (props: IOpenNewTab) => {
-	let {
+	const {
 		pathnameSuffix,
+		newTab = true,
+	} = props
+	let {
 		search,
-		newTab = true
 	} = props
 	if (search) {
 		search = '?' + new URLSearchParams(search).toString()
