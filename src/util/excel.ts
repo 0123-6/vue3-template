@@ -94,13 +94,14 @@ export interface IExcelExportProps {
 
 // 将数据导出为Excel文件
 export function excelExport(props: IExcelExportProps) {
-	let {
-		fileName,
+	const {
 		sheetName = 'Sheet1',
 		data,
-
 		callback,
-		callbackError
+		callbackError,
+	} = props
+	let {
+		fileName,
 	} = props
 
 	// 兼容fileName
