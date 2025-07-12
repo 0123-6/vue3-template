@@ -87,24 +87,22 @@ interface IBaseFetchReturn {
 // 没有重试机制
 export async function baseFetch(props: IBaseFetch)
 	: Promise<IBaseFetchReturn> {
-	let {
+	const {
 		mockUrl = '',
 		mockObject = undefined,
 		mockProd = false,
-
 		prefix = projectConfig.apiPrefix.DEFAULT,
-		url,
-
 		method = projectConfig.fetchDefaultMethod,
-		headers = {},
 		signal,
-
-		data,
-		isJson = true,
 		isFormData = false,
 		isFile = false,
-
 		permission = true,
+	} = props
+	let {
+		url,
+		headers = {},
+		data,
+		isJson = true,
 	} = props
 	if (isFormData) {
 		isJson = false
