@@ -107,7 +107,7 @@ export async function baseFetch(props: IBaseFetch)
 	if (isFormData) {
 		isJson = false
 	}
-	let body: string | object | undefined = undefined
+	let body: string | Blob | FormData = undefined
 	const isFetchProd = import.meta.env.PROD || mockProd
 	if (!url) {
 		ElMessage.error("url不可以为'',请设置初始值为'mock_'")
@@ -160,8 +160,8 @@ export async function baseFetch(props: IBaseFetch)
 				}
 				body = formData
 			} else {
-				// 不是json，比如FormData
-				body = data
+				// 不是json，也不是FormData
+				body = data as string | Blob
 			}
 		}
 	}
@@ -169,11 +169,9 @@ export async function baseFetch(props: IBaseFetch)
 	try {
 		const resource = isFetchProd ? (prefix + url) : ('/mock/' + mockUrl)
 		// 添加前缀，通过代理方式解决跨域报错
-		// @ts-ignore
 		const response = await fetch(resource, {
 			method,
 			headers,
-			// @ts-ignore
 			body,
 			signal,
 		})
