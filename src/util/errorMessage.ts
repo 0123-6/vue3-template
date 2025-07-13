@@ -1,9 +1,9 @@
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
 
 export default function (message: string) {
-	ElMessage({
-		type: 'error',
-		message,
-		showClose: true,
-	})
+  ElMessage({
+    type: 'error',
+    message,
+    showClose: true,
+  })
 }
