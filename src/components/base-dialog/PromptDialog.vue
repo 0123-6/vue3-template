@@ -37,26 +37,25 @@ if (text && textList.length
   }
   console.error('PromptDialog组件： text和textList需要有且只有1项')
 }
-const _textList = [...textList]
 if (text) {
-  _textList.push(text)
+  // eslint-disable-next-line vue/no-mutating-props
+  textList.push(text)
 } else {
   // 啥都不用做
 }
 // 初始化okButton
-const _okButton = {
-  ...okButton,
-}
-_okButton.type = okButton.type ?? 'primary'
-_okButton.plain = okButton.plain ?? false
-_okButton.width = okButton.width ?? 88
-_okButton.text = okButton.text ?? '确定'
-_okButton.fetchText = okButton.fetchText ?? '确定'
-
-const _dialogObject = {
-  ...dialogObject,
-}
-_dialogObject.isShow = true
+// eslint-disable-next-line vue/no-mutating-props
+okButton.type = okButton.type ?? 'primary'
+// eslint-disable-next-line vue/no-mutating-props
+okButton.plain = okButton.plain ?? false
+// eslint-disable-next-line vue/no-mutating-props
+okButton.width = okButton.width ?? 88
+// eslint-disable-next-line vue/no-mutating-props
+okButton.text = okButton.text ?? '确定'
+// eslint-disable-next-line vue/no-mutating-props
+okButton.fetchText = okButton.fetchText ?? '确定'
+// eslint-disable-next-line vue/no-mutating-props
+dialogObject.isShow = true
 
 const clickOk = async () => {
   if (!fetchObject) {
@@ -75,8 +74,9 @@ const clickOk = async () => {
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-mutating-props -->
   <el-dialog
-    v-model="_dialogObject.isShow"
+    v-model="dialogObject.isShow"
     :title="title"
     :width="width"
     :close-on-click-modal="true"
@@ -92,7 +92,7 @@ const clickOk = async () => {
       <!--文本-->
       <div class="w-full whitespace-pre-line">
         <span
-          v-for="(item, index) in _textList"
+          v-for="(item, index) in textList"
           :key="index"
           class="text-text break-all"
           :style="{
@@ -110,15 +110,15 @@ const clickOk = async () => {
           取消
         </el-button>
         <el-button
-          :type="_okButton.type"
+          :type="okButton.type"
           style="margin-left: 8px;"
           :style="{
-            width: _okButton.width + 'px',
+            width: okButton.width + 'px',
           }"
           :loading="fetchObject?.isFetching"
           @click="clickOk"
         >
-          {{ !fetchObject?.isFetching ? _okButton.text : (_okButton.fetchText ?? _okButton.text) }}
+          {{ !fetchObject?.isFetching ? okButton.text : (okButton.fetchText ?? okButton.text) }}
         </el-button>
       </div>
     </div>
