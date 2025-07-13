@@ -135,7 +135,7 @@ export const ableSelectFileByDrag = (props: ISelectFileProps)
 		e.preventDefault()
 		parseFile({
 			...props,
-			fileList: e.dataTransfer?.files ? [...e.dataTransfer?.files] : [],
+			fileList: e.dataTransfer?.files ? [...e.dataTransfer.files] : [],
 		})
 	}
 
