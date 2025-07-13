@@ -123,6 +123,7 @@ export const useElTable = (props: IUseElTableProps)
 				pageNum: 1,
 			})
 		} else if (newValue === true) {
+			// do nothing
 		}
 	}
 
@@ -193,7 +194,7 @@ export const useElTable = (props: IUseElTableProps)
 			beforeFetch: () => {},
 			doFetch: async ()
 				: Promise<boolean> => {
-				return new Promise((resolve, _reject) => {
+				return new Promise((resolve) => {
 					// 需要等待dom结构出来后再渲染数据,否则组件判断文字是否溢出有bug,永远为溢出.
 					setTimeout(() => {
 						reset(true)

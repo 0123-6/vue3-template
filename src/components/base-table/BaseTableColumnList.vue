@@ -26,49 +26,70 @@ const getColumnProps = (item: IBaseTableColumn) => ({
 </script>
 
 <template>
-	<el-table-column v-for="(item, index) in list
-		.filter(Boolean)
-		.filter(_item => isFalse(_item.hidden))
-		.filter(_item => (_item.type || _item.prop || _item.label))
-		.filter(_item => !(_item.operatorList?.length && _item.operatorList.filter(__item => isFalse(__item.hidden)).length === 0))
-	"
-									 :key="index"
-									 v-bind="getColumnProps(item)"
-									 class="hpj"
-	>
-		<el-table-column v-if="Array.isArray(item.children)"
-										 v-for="(item2, index2) in item.children
-			.filter(Boolean)
-			.filter(_item => isFalse(_item.hidden))
-			.filter(_item => (_item.type || _item.prop || _item.label || _item.operatorList?.length))
-			.filter(_item => !(_item.operatorList?.length && _item.operatorList.filter(__item => isFalse(__item.hidden)).length === 0))
-		"
-										 :key="index2"
-										 v-bind="getColumnProps(item2)"
-		>
-			<!--3层嵌套暂不考虑-->
-			<template v-if="$slots[item2.prop]"
-								v-slot:default="scope">
-				<div class="w-full h-full flex justify-center items-center">
-					<slot :name="item2.prop" v-bind="scope"></slot>
-				</div>
-			</template>
-			<template v-else-if="!Array.isArray(item2.children) && item2.type !== 'selection'"
-								v-slot:default="scope2">
-				<base-table-column :item="item2"
-													 :scope="scope2"/>
-			</template>
-		</el-table-column>
-		<template v-if="$slots[item.prop]"
-							v-slot:default="scope">
-			<div class="w-full h-full flex justify-center items-center">
-				<slot :name="item.prop" v-bind="scope"></slot>
-			</div>
-		</template>
-		<template v-else-if="!Array.isArray(item.children) && item.type !== 'selection'"
-							v-slot:default="scope">
-			<base-table-column :item="item"
-												 :scope="scope"/>
-		</template>
-	</el-table-column>
+  <el-table-column
+    v-for="(item, index) in list
+      .filter(Boolean)
+      .filter(_item => isFalse(_item.hidden))
+      .filter(_item => (_item.type || _item.prop || _item.label))
+      .filter(_item => !(_item.operatorList?.length && _item.operatorList.filter(__item => isFalse(__item.hidden)).length === 0))
+    "
+    :key="index"
+    v-bind="getColumnProps(item)"
+    class="hpj"
+  >
+    <template v-if="Array.isArray(item.children)">
+      <el-table-column
+        v-for="(item2, index2) in item.children
+          .filter(Boolean)
+          .filter(_item => isFalse(_item.hidden))
+          .filter(_item => (_item.type || _item.prop || _item.label || _item.operatorList?.length))
+          .filter(_item => !(_item.operatorList?.length && _item.operatorList.filter(__item => isFalse(__item.hidden)).length === 0))
+        "
+        :key="index2"
+        v-bind="getColumnProps(item2)"
+      >
+        <!--3层嵌套暂不考虑-->
+        <template
+          v-if="$slots[item2.prop]"
+          #default="scope"
+        >
+          <div class="w-full h-full flex justify-center items-center">
+            <slot
+              :name="item2.prop"
+              v-bind="scope"
+            />
+          </div>
+        </template>
+        <template
+          v-else-if="!Array.isArray(item2.children) && item2.type !== 'selection'"
+          #default="scope2"
+        >
+          <base-table-column
+            :item="item2"
+            :scope="scope2"
+          />
+        </template>
+      </el-table-column>
+    </template>
+    <template
+      v-if="$slots[item.prop]"
+      #default="scope"
+    >
+      <div class="w-full h-full flex justify-center items-center">
+        <slot
+          :name="item.prop"
+          v-bind="scope"
+        />
+      </div>
+    </template>
+    <template
+      v-else-if="!Array.isArray(item.children) && item.type !== 'selection'"
+      #default="scope"
+    >
+      <base-table-column
+        :item="item"
+        :scope="scope"
+      />
+    </template>
+  </el-table-column>
 </template>
