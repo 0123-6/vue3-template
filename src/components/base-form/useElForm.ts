@@ -67,10 +67,12 @@ const getItemDefaultValue = (item: IElFormItem): any => {
 
 export const useElForm = (props: IUseElFormProps)
 	: IUseElFormReturn => {
-	let {
-		list = [] as IElFormItem[],
+	const {
 		foldNumber = 4,
 		mode = 'query',
+	} = props
+	let {
+		list = [] as IElFormItem[],
 	} = props
 	const formRef = ref<FormInstance>(null)
 
