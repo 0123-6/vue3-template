@@ -3,9 +3,9 @@
 </script>
 
 <template>
-	<div class="hpj base-bg w-screen h-screen fixed top-0 left-0 bg-white -z-10">
-		<div class="bg w-full h-full"></div>
-	</div>
+  <div class="hpj base-bg w-screen h-screen fixed top-0 left-0 bg-white -z-10">
+    <div class="bg w-full h-full" />
+  </div>
 </template>
 
 <style>
