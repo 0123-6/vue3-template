@@ -8,6 +8,7 @@ interface IProps {
 const props = defineProps<IProps>()
 
 const changeFold = () => {
+  // eslint-disable-next-line vue/no-mutating-props
 	props.formObject.isFold.value = !props.formObject.isFold.value
 }
 </script>
