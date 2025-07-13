@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {nextTick, onMounted, ref} from "vue";
+import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
 
 const styleMap = {
 	primary: '#3D6FE2',
@@ -54,42 +55,47 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="hpj flex items-stretch border-b border-[#F1F3F9] text-sm leading-5"
-			 style="transition: all 0.3s ease;"
-	>
-		<div class="py-2.5 bg-[#F9FAFD] flex justify-center items-center"
-				 :style="{
-					width: props.leftWidth + 'px',
-				 }"
-		>
-			<span class="text-text">{{ props.label ?? '' }}</span>
-		</div>
-		<div class="px-6 py-2.5 flex"
-				 :style="{
-					 width: `calc(100% - ${props.leftWidth}px)`,
-				 }"
-		>
-			<span ref="textElement"
-						class="text-text-title break-all whitespace-pre-wrap"
-						:style="{
-							width: isOverflow ? 'calc(100% - 46px)' : '100%',
-							color: styleMap[props?.color || 'text'],
-						}"
-						:class="{
-							'line-clamp-2': hasCheckedOverflow && !isExpanded,
-						}"
-			>{{ props.value ?? '' }}</span>
-			<!--文字按钮-->
-			<div v-if="isOverflow"
-					 class="pl-1 cursor-pointer select-none text-primary flex items-center hover:text-primary-hover"
-					 @click="toggleExpand"
-			>
-				<span>{{ isExpanded ? '收起' : '展开' }}</span>
-				<el-icon>
-					<ArrowUp v-if="isExpanded"/>
-					<ArrowDown v-else/>
-				</el-icon>
-			</div>
-		</div>
-	</div>
+  <div
+    class="hpj flex items-stretch border-b border-[#F1F3F9] text-sm leading-5"
+    style="transition: all 0.3s ease;"
+  >
+    <div
+      class="py-2.5 bg-[#F9FAFD] flex justify-center items-center"
+      :style="{
+        width: props.leftWidth + 'px',
+      }"
+    >
+      <span class="text-text">{{ props.label ?? '' }}</span>
+    </div>
+    <div
+      class="px-6 py-2.5 flex"
+      :style="{
+        width: `calc(100% - ${props.leftWidth}px)`,
+      }"
+    >
+      <span
+        ref="textElement"
+        class="text-text-title break-all whitespace-pre-wrap"
+        :style="{
+          width: isOverflow ? 'calc(100% - 46px)' : '100%',
+          color: styleMap[props?.color || 'text'],
+        }"
+        :class="{
+          'line-clamp-2': hasCheckedOverflow && !isExpanded,
+        }"
+      >{{ props.value ?? '' }}</span>
+      <!--文字按钮-->
+      <div
+        v-if="isOverflow"
+        class="pl-1 cursor-pointer select-none text-primary flex items-center hover:text-primary-hover"
+        @click="toggleExpand"
+      >
+        <span>{{ isExpanded ? '收起' : '展开' }}</span>
+        <el-icon>
+          <ArrowUp v-if="isExpanded" />
+          <ArrowDown v-else />
+        </el-icon>
+      </div>
+    </div>
+  </div>
 </template>
