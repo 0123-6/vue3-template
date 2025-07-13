@@ -37,22 +37,23 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="hpj w-full flex items-center">
-		<el-tooltip effect="dark"
-								placement="top"
-								:disabled="!isOverflow"
-								:content="typeof text === 'object' && text !== null ? JSON.stringify(text) : text+''"
-								popper-class="hpj"
-		>
-			<span
-				ref="textRef"
-				class="text-left tracking-tight break-all overflow-hidden"
-				style="display: -webkit-box!important;-webkit-box-orient: vertical;"
-				:style="{
-					'-webkit-line-clamp': lineClamp,
-					'line-height': `${lineHeight ?? 20}px`,
-				}"
-			>{{ text }}</span>
-		</el-tooltip>
-	</div>
+  <div class="hpj w-full flex items-center">
+    <el-tooltip
+      effect="dark"
+      placement="top"
+      :disabled="!isOverflow"
+      :content="typeof text === 'object' && text !== null ? JSON.stringify(text) : text+''"
+      popper-class="hpj"
+    >
+      <span
+        ref="textRef"
+        class="text-left tracking-tight break-all overflow-hidden"
+        style="display: -webkit-box!important;-webkit-box-orient: vertical;"
+        :style="{
+          '-webkit-line-clamp': lineClamp,
+          'line-height': `${lineHeight ?? 20}px`,
+        }"
+      >{{ text }}</span>
+    </el-tooltip>
+  </div>
 </template>
