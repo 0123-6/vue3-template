@@ -185,12 +185,11 @@ props.formObject.list
       :type="item.type"
       :disabled="isTrue(item.disabled)"
       range-separator="至"
-      :start-placeholder="(item.type === 'date' || item.type === 'daterange') ? '开始日期' : '开始时间'"
-      :end-placeholder="(item.type === 'date' || item.type === 'daterange') ? '结束日期' : '结束时间'"
+      :start-placeholder="(item.type === 'date') ? '开始日期' : '开始时间'"
+      :end-placeholder="(item.type === 'date') ? '结束日期' : '结束时间'"
       unlink-panels
-      :shortcuts="(item.type === 'daterange' || item.type === 'datetimerange') ? dateShortcutsWeekAndMonthAndYear : undefined"
-      :format="(item.type === 'date' || item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
-      :value-format="(item.type === 'date' || item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
+      :format="(item.type === 'date') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
+      :value-format="(item.type === 'date') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
       @change="emit('change')"
     />
     <el-date-picker
@@ -202,12 +201,12 @@ props.formObject.list
       :type="item.type"
       :disabled="isTrue(item.disabled)"
       range-separator="至"
-      :start-placeholder="(item.type === 'date' || item.type === 'daterange') ? '开始日期' : '开始时间'"
-      :end-placeholder="(item.type === 'date' || item.type === 'daterange') ? '结束日期' : '结束时间'"
+      :start-placeholder="(item.type === 'daterange') ? '开始日期' : '开始时间'"
+      :end-placeholder="(item.type === 'daterange') ? '结束日期' : '结束时间'"
       unlink-panels
       :shortcuts="(item.type === 'daterange' || item.type === 'datetimerange') ? dateShortcutsWeekAndMonthAndYear : undefined"
-      :format="(item.type === 'date' || item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
-      :value-format="(item.type === 'date' || item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
+      :format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
+      :value-format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
       @change="emit('change')"
     />
   </el-form-item>
