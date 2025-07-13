@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import {nextTick, onMounted, ref} from "vue";
-import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
+import {nextTick, onMounted, ref} from 'vue'
+import {ArrowDown, ArrowUp} from '@element-plus/icons-vue'
 
 const styleMap = {
-	primary: '#3D6FE2',
-	success: '#3AC295',
-	warning: '#F89741',
-	error: '#E34D59',
-	text: '#333333',
+  primary: '#3D6FE2',
+  success: '#3AC295',
+  warning: '#F89741',
+  error: '#E34D59',
+  text: '#333333',
 }
 
 interface IProps {
-	leftWidth: number,
-	label: string,
-	value?: any,
-	color?: string,
+  leftWidth: number,
+  label: string,
+  value?: any,
+  color?: string,
 }
 
 const props = defineProps<IProps>()
@@ -30,26 +30,26 @@ const textElement = ref<HTMLSpanElement>()
 
 // 切换展开/收起
 const toggleExpand = () => {
-	isExpanded.value = !isExpanded.value
+  isExpanded.value = !isExpanded.value
 }
 
 // 检测文本是否溢出
 const checkOverflow = () => {
-	if (!textElement.value) {
-		return
-	}
+  if (!textElement.value) {
+    return
+  }
 
-	const lineHeight = parseFloat(getComputedStyle(textElement.value!).lineHeight)
-	const maxLines = 2
-	const maxHeight = lineHeight * maxLines
+  const lineHeight = parseFloat(getComputedStyle(textElement.value!).lineHeight)
+  const maxLines = 2
+  const maxHeight = lineHeight * maxLines
 
-	isOverflow.value = (textElement.value!).offsetHeight > maxHeight
-	hasCheckedOverflow.value = true
+  isOverflow.value = (textElement.value!).offsetHeight > maxHeight
+  hasCheckedOverflow.value = true
 }
 
 
 onMounted(() => {
-	nextTick(checkOverflow)
+  nextTick(checkOverflow)
 })
 
 </script>

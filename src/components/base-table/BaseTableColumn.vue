@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import {isFalse} from "@/util/validator.ts";
-import {IBaseTableColumn} from "@/components/base-table/useElTable.ts";
-import {nextTick, onMounted, ref, watch} from "vue";
+import {isFalse} from '@/util/validator.ts'
+import {IBaseTableColumn} from '@/components/base-table/useElTable.ts'
+import {nextTick, onMounted, ref, watch} from 'vue'
 
 interface IProps {
-	item: IBaseTableColumn,
-	scope: Record<string, any>,
+  item: IBaseTableColumn,
+  scope: Record<string, any>,
 }
+
 const props = defineProps<IProps>()
 
 const textRef = ref<HTMLElement>()
@@ -15,25 +16,25 @@ const isOverflow = ref(false)
 const lineClamp = ref(-1)
 
 const checkOverflow = () => {
-	if (!(textRef.value && divRef.value)) {
-		return
-	}
-	const lineHeight = 20
-	// - .el-table__cell的padding-top + padding-bottom - border-bottom = 15
-	if (lineClamp.value === -1) {
-		lineClamp.value = Math.floor((divRef.value.parentElement.parentElement.clientHeight - 15) / lineHeight)
-	}
-	const maxHeight = lineClamp.value * lineHeight
-	isOverflow.value = textRef.value.scrollHeight > maxHeight
+  if (!(textRef.value && divRef.value)) {
+    return
+  }
+  const lineHeight = 20
+  // - .el-table__cell的padding-top + padding-bottom - border-bottom = 15
+  if (lineClamp.value === -1) {
+    lineClamp.value = Math.floor((divRef.value.parentElement.parentElement.clientHeight - 15) / lineHeight)
+  }
+  const maxHeight = lineClamp.value * lineHeight
+  isOverflow.value = textRef.value.scrollHeight > maxHeight
 }
 
 if (!(props.item?.list?.length || props.item.operatorList?.length)) {
-	watch(() => props.scope.row[props.item.prop], async () => {
-		await nextTick()
-		checkOverflow()
-	})
+  watch(() => props.scope.row[props.item.prop], async () => {
+    await nextTick()
+    checkOverflow()
+  })
 
-	onMounted(checkOverflow)
+  onMounted(checkOverflow)
 }
 </script>
 

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {nextTick, onMounted, onScopeDispose, ref, watch} from "vue";
+import {nextTick, onMounted, onScopeDispose, ref, watch} from 'vue'
 
 interface IProps {
-	lineHeight?: number,
-	lineClamp?: number,
-	text: any,
+  lineHeight?: number,
+  lineClamp?: number,
+  text: any,
 }
+
 const props = defineProps<IProps>()
 
 const textRef = ref<HTMLElement>()
@@ -13,25 +14,25 @@ const isOverflow = ref(false)
 const lineClamp = ref(props.lineClamp ?? 1)
 
 const checkOverflow = () => {
-	if (!(textRef.value)) {
-		return
-	}
-	const maxHeight = lineClamp.value * (props.lineHeight ?? 20)
-	isOverflow.value = textRef.value.scrollHeight > maxHeight
+  if (!(textRef.value)) {
+    return
+  }
+  const maxHeight = lineClamp.value * (props.lineHeight ?? 20)
+  isOverflow.value = textRef.value.scrollHeight > maxHeight
 }
 
 watch(() => props.text, async () => {
-	await nextTick()
-	checkOverflow()
+  await nextTick()
+  checkOverflow()
 })
 
 onMounted(() => {
-	const observer = new ResizeObserver(checkOverflow)
-	if (textRef.value) {
-		observer.observe(textRef.value)
-	}
+  const observer = new ResizeObserver(checkOverflow)
+  if (textRef.value) {
+    observer.observe(textRef.value)
+  }
 
-	onScopeDispose(() => observer.disconnect())
+  onScopeDispose(() => observer.disconnect())
 })
 
 </script>

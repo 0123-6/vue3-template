@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import {IUseElFormReturn} from "@/components/base-form/useElForm.ts";
-import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
+import {IUseElFormReturn} from '@/components/base-form/useElForm.ts'
+import {ArrowDown, ArrowUp} from '@element-plus/icons-vue'
 
 interface IProps {
-	formObject: IUseElFormReturn,
+  formObject: IUseElFormReturn,
 }
+
 const props = defineProps<IProps>()
 
 const changeFold = () => {
   // eslint-disable-next-line vue/no-mutating-props
-	props.formObject.isFold.value = !props.formObject.isFold.value
+  props.formObject.isFold.value = !props.formObject.isFold.value
 }
 </script>
 

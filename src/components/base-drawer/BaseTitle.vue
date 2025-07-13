@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 interface IProps {
-	title: string
-	size?: 16 | 14,
+  title: string
+  size?: 16 | 14,
 }
 
 const props = defineProps<IProps>()

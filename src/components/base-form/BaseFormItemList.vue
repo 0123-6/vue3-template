@@ -1,75 +1,76 @@
 <script setup lang="ts">
-import {IElFormItem, IUseElFormReturn} from "@/components/base-form/useElForm.ts";
-import {dateShortcutsWeekAndMonthAndYear} from "@/util/date.ts";
-import {isTrue} from "@/util/validator.ts";
-import {FormItemRule} from "element-plus";
-import {computed} from "vue";
+import {IElFormItem, IUseElFormReturn} from '@/components/base-form/useElForm.ts'
+import {dateShortcutsWeekAndMonthAndYear} from '@/util/date.ts'
+import {isTrue} from '@/util/validator.ts'
+import {FormItemRule} from 'element-plus'
+import {computed} from 'vue'
 
 interface IProps {
-	formObject: IUseElFormReturn,
-	range?: number[],
+  formObject: IUseElFormReturn,
+  range?: number[],
 }
+
 
 const props = defineProps<IProps>()
 const emit = defineEmits(['change'])
 
 const getRules = (item: IElFormItem)
-	: FormItemRule[] => {
-	let rules = []
-	if (isTrue(item.required)) {
-		rules.push({
-			required: true,
-			trigger: 'change',
-			message: `${item.label}不能为空`,
-		})
-	}
-	if (item.rules) {
-		if (Array.isArray(item.rules)) {
-			rules = [
-				...rules,
-				...item.rules,
-			]
-		} else {
-			rules = [
-				...rules,
-				item.rules,
-			]
-		}
-	}
-	return rules
+  : FormItemRule[] => {
+  let rules = []
+  if (isTrue(item.required)) {
+    rules.push({
+      required: true,
+      trigger: 'change',
+      message: `${item.label}不能为空`,
+    })
+  }
+  if (item.rules) {
+    if (Array.isArray(item.rules)) {
+      rules = [
+        ...rules,
+        ...item.rules,
+      ]
+    } else {
+      rules = [
+        ...rules,
+        item.rules,
+      ]
+    }
+  }
+  return rules
 }
 
 const computedMap = Object.create(null)
 props.formObject.list
-	.filter(item => ((item.type === 'daterange' || item.type === 'datetimerange')))
-	.forEach(item => {
-		if (!Array.isArray(item.prop)) {
-			return new Error("item.type === 'daterange' || item.type === 'datetimerange'时, item.prop应该为数组")
-		}
-		computedMap[item.label] = computed({
-			get: () => {
-				return [
-					props.formObject.data[item.prop[0]],
-					props.formObject.data[item.prop[1]],
-				]
-			},
-			set: value => {
-				if (!value) {
-					props.formObject.reset({
-						[item.prop[0]]: undefined,
-						[item.prop[1]]: undefined,
-					})
-				} else if (Array.isArray(value)) {
-					props.formObject.reset({
-						[item.prop[0]]: value[0],
-						[item.prop[1]]: value[1],
-					})
-				} else {
-					throw new Error('getModel的set的value不合法,请检查代码!')
-				}
-			},
-		})
-	})
+  .filter(item => ((item.type === 'daterange' || item.type === 'datetimerange')))
+  .forEach(item => {
+    if (!Array.isArray(item.prop)) {
+      return new Error('item.type === \'daterange\' || item.type === \'datetimerange\'时, item.prop应该为数组')
+    }
+    computedMap[item.label] = computed({
+      get: () => {
+        return [
+          props.formObject.data[item.prop[0]],
+          props.formObject.data[item.prop[1]],
+        ]
+      },
+      set: value => {
+        if (!value) {
+          props.formObject.reset({
+            [item.prop[0]]: undefined,
+            [item.prop[1]]: undefined,
+          })
+        } else if (Array.isArray(value)) {
+          props.formObject.reset({
+            [item.prop[0]]: value[0],
+            [item.prop[1]]: value[1],
+          })
+        } else {
+          throw new Error('getModel的set的value不合法,请检查代码!')
+        }
+      },
+    })
+  })
 </script>
 
 <template>

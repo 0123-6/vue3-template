@@ -1,47 +1,47 @@
 <script setup lang="ts">
-import {IUseElFeedbackReturn, useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
-import {ElDialog, ElButton} from 'element-plus';
+import {IUseElFeedbackReturn, useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
+import {ElDialog, ElButton} from 'element-plus'
 import {
-	IPromptDialog,
-	IPromptDialogOkButton,
-	IPromptDialogTextItem
-} from "@/components/base-dialog/PromptDialogInterface.ts";
+  IPromptDialog,
+  IPromptDialogOkButton,
+  IPromptDialogTextItem,
+} from '@/components/base-dialog/PromptDialogInterface.ts'
 
 const styleMap = {
-	default: '#646464',
-	primary: '#3D6FE2',
-	success: '#3AC295',
-	warning: '#F89741',
-	error: '#E34D59',
-	text: '#333333',
-	desc: '#979797',
+  default: '#646464',
+  primary: '#3D6FE2',
+  success: '#3AC295',
+  warning: '#F89741',
+  error: '#E34D59',
+  text: '#333333',
+  desc: '#979797',
 }
 
 let {
-	title = '提示',
-	width = 400,
-	text = undefined,
-	textList = [] as (string | number | IPromptDialogTextItem)[],
-	okButton = {} as IPromptDialogOkButton,
-	cancel,
-	fetchObject,
-	dialogObject = useElFeedback() as IUseElFeedbackReturn,
-	// 按钮是否和fetchObject关联
-	buttonConnectFetchObject = true,
+  title = '提示',
+  width = 400,
+  text = undefined,
+  textList = [] as (string | number | IPromptDialogTextItem)[],
+  okButton = {} as IPromptDialogOkButton,
+  cancel,
+  fetchObject,
+  dialogObject = useElFeedback() as IUseElFeedbackReturn,
+  // 按钮是否和fetchObject关联
+  buttonConnectFetchObject = true,
 } = defineProps<IPromptDialog>()
 // 初始化text和textList
 if (text && textList.length
-	|| !text && (textList.length === 0)) {
-	if (import.meta.env.DEV) {
-		alert('PromptDialog组件： text和textList需要有且只有1项')
-	}
-	console.error('PromptDialog组件： text和textList需要有且只有1项')
+  || !text && (textList.length === 0)) {
+  if (import.meta.env.DEV) {
+    alert('PromptDialog组件： text和textList需要有且只有1项')
+  }
+  console.error('PromptDialog组件： text和textList需要有且只有1项')
 }
 const _textList = [...textList]
 if (text) {
   _textList.push(text)
 } else {
-	// 啥都不用做
+  // 啥都不用做
 }
 // 初始化okButton
 const _okButton = {
@@ -59,18 +59,18 @@ const _dialogObject = {
 _dialogObject.isShow = true
 
 const clickOk = async () => {
-	if (!fetchObject) {
-		dialogObject.onOk()
-		return
-	}
+  if (!fetchObject) {
+    dialogObject.onOk()
+    return
+  }
 
-	if (!buttonConnectFetchObject) {
-		dialogObject.onOk()
-	}
-	const isOk = await fetchObject.doFetch()
-	if (isOk && buttonConnectFetchObject) {
-		dialogObject.onOk()
-	}
+  if (!buttonConnectFetchObject) {
+    dialogObject.onOk()
+  }
+  const isOk = await fetchObject.doFetch()
+  if (isOk && buttonConnectFetchObject) {
+    dialogObject.onOk()
+  }
 }
 </script>
 

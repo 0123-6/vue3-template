@@ -10,9 +10,9 @@
 
 <style>
 .base-bg {
-	.bg {
-		background: linear-gradient(154deg,#07070915 30%,hsl(212 100% 45%/30%) 48%,#07070915 64%);
-		filter: blur(100px);
-	}
+  .bg {
+    background: linear-gradient(154deg, #07070915 30%, hsl(212 100% 45%/30%) 48%, #07070915 64%);
+    filter: blur(100px);
+  }
 }
 </style>

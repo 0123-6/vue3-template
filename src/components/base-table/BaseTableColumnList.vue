@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import {isFalse} from "@/util/validator.ts";
-import BaseTableColumn from "@/components/base-table/BaseTableColumn.vue";
-import {IBaseTableColumn} from "@/components/base-table/useElTable.ts";
+import {isFalse} from '@/util/validator.ts'
+import BaseTableColumn from '@/components/base-table/BaseTableColumn.vue'
+import {IBaseTableColumn} from '@/components/base-table/useElTable.ts'
 
 interface IProps {
-	list: IBaseTableColumn[],
+  list: IBaseTableColumn[],
 }
+
 defineProps<IProps>()
 
 const getColumnProps = (item: IBaseTableColumn) => ({
-	type: item.type ?? 'default',
-	prop: item.prop,
-	label: item.prop !== 'index' ? item.label : '序号',
-	width: item.width ? item.width
-		: item.type === 'selection' ? 38
-			: item.prop === 'index' ? 60
-				: item.list?.length ? Math.max(16 * item.label.length, 14 * Math.max(...(item.list.map(_item => _item.label.length))) + 16*2) + 12 * 2 + 2
-					: item.operatorList?.length ? Math.max(16 * item.label.length, (item.operatorList.filter(__item => isFalse(__item.hidden))?.length - 1) * 8 + item.operatorList.filter(__item => isFalse(__item.hidden)).reduce((acc, _item) => (acc + _item.text.length), 0) * 14) + 12 * 2 + 2 : undefined,
-	minWidth: item.minWidth,
-	align: item.children ? 'left' : (item.align ?? 'center'),
-	fixed: (item.type === 'selection' || item.prop === 'index') ? 'left'
-		: item.operatorList?.length ? 'right'
-			: item.fixed,
+  type: item.type ?? 'default',
+  prop: item.prop,
+  label: item.prop !== 'index' ? item.label : '序号',
+  width: item.width ? item.width
+    : item.type === 'selection' ? 38
+      : item.prop === 'index' ? 60
+        : item.list?.length ? Math.max(16 * item.label.length, 14 * Math.max(...(item.list.map(_item => _item.label.length))) + 16 * 2) + 12 * 2 + 2
+          : item.operatorList?.length ? Math.max(16 * item.label.length, (item.operatorList.filter(__item => isFalse(__item.hidden))?.length - 1) * 8 + item.operatorList.filter(__item => isFalse(__item.hidden)).reduce((acc, _item) => (acc + _item.text.length), 0) * 14) + 12 * 2 + 2 : undefined,
+  minWidth: item.minWidth,
+  align: item.children ? 'left' : (item.align ?? 'center'),
+  fixed: (item.type === 'selection' || item.prop === 'index') ? 'left'
+    : item.operatorList?.length ? 'right'
+      : item.fixed,
 })
 </script>
 

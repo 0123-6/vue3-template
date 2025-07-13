@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {IUseFullscreenReturn, useFullscreen} from "@/components/base-fullscreen/useFullscreen.ts"
-import FullScreenIcon from "@/components/base-fullscreen/icon/FullScreenIcon.vue";
-import NotFullScreenIcon from "@/components/base-fullscreen/icon/NotFullScreenIcon.vue";
+import {IUseFullscreenReturn, useFullscreen} from '@/components/base-fullscreen/useFullscreen.ts'
+import FullScreenIcon from '@/components/base-fullscreen/icon/FullScreenIcon.vue'
+import NotFullScreenIcon from '@/components/base-fullscreen/icon/NotFullScreenIcon.vue'
 
 const fullscreenObject: IUseFullscreenReturn = useFullscreen()
 </script>
