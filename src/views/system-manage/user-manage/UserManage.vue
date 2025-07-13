@@ -1,291 +1,291 @@
 <script setup lang="ts">
-import {useElForm} from "@/components/base-form/useElForm.ts";
-import {useElTable} from "@/components/base-table/useElTable.ts";
-import BaseFormItemList from "@/components/base-form/BaseFormItemList.vue";
-import BaseFormFold from "@/components/base-form/BaseFormFold.vue";
-import {RefreshRight, Search} from "@element-plus/icons-vue";
-import BaseTableColumnList from "@/components/base-table/BaseTableColumnList.vue";
-import TableNoData from "@/components/base-table/TableNoData.vue";
-import {useResetRef} from "@/util/hooks/useResetState.ts";
-import {useElFeedback} from "@/components/base-dialog/useElFeedback.ts";
+import {useElForm} from '@/components/base-form/useElForm.ts'
+import {useElTable} from '@/components/base-table/useElTable.ts'
+import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
+import BaseFormFold from '@/components/base-form/BaseFormFold.vue'
+import {RefreshRight, Search} from '@element-plus/icons-vue'
+import BaseTableColumnList from '@/components/base-table/BaseTableColumnList.vue'
+import TableNoData from '@/components/base-table/TableNoData.vue'
+import {useResetRef} from '@/util/hooks/useResetState.ts'
+import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {
-	getUserAccountListSelectObject,
-	sexList,
-	userStatusList
-} from "@views/system-manage/user-manage/userManageCommon.ts";
-import UserManageAddAndEditDrawer from "@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue";
-import {useRenderComp} from "@/components/base-dialog/useRenderComp.ts";
-import PromptDialog from "@/components/base-dialog/PromptDialog.vue";
-import {IPromptDialog} from "@/components/base-dialog/PromptDialogInterface.ts";
-import {useBaseFetch} from "@/util/hooks/useBaseFetch.ts";
-import {ElMessage, FormInstance, TableInstance} from "element-plus";
-import {useUserStore} from "@/plugin/pinia.ts";
-import {excelExport} from "@/util/excel.ts";
-import UserManageUploadDialog from "@views/system-manage/user-manage/UserManageUploadDialog.vue";
+  getUserAccountListSelectObject,
+  sexList,
+  userStatusList,
+} from '@views/system-manage/user-manage/userManageCommon.ts'
+import UserManageAddAndEditDrawer from '@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue'
+import {useRenderComp} from '@/components/base-dialog/useRenderComp.ts'
+import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
+import {IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
+import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
+import {ElMessage, FormInstance, TableInstance} from 'element-plus'
+import {useUserStore} from '@/plugin/pinia.ts'
+import {excelExport} from '@/util/excel.ts'
+import UserManageUploadDialog from '@views/system-manage/user-manage/UserManageUploadDialog.vue'
 
 // 表格部分
 const formObject = useElForm({
-	list: [
-		{
-			label: '账号',
-			prop: 'account',
-			type: 'select',
-			selectObject: getUserAccountListSelectObject,
-		},
-		{
-			label: '昵称',
-			prop: 'nickname',
-			type: 'input',
-		},
-		{
-			label: '性别',
-			prop: 'sex',
-			type: 'select',
-			selectObject: sexList,
-		},
-		{
-			label: '手机号',
-			prop: 'phone',
-			type: 'input',
-		},
-		{
-			label: '状态',
-			prop: 'status',
-			type: 'select',
-			selectObject: userStatusList,
-		},
-		{
-			label: '简介',
-			prop: 'description',
-			type: 'input'
-		},
-		{
-			label: '创建时间',
-			prop: ['createTimeBegin', 'createTimeEnd'],
-			type: 'daterange',
-		},
-	],
+  list: [
+    {
+      label: '账号',
+      prop: 'account',
+      type: 'select',
+      selectObject: getUserAccountListSelectObject,
+    },
+    {
+      label: '昵称',
+      prop: 'nickname',
+      type: 'input',
+    },
+    {
+      label: '性别',
+      prop: 'sex',
+      type: 'select',
+      selectObject: sexList,
+    },
+    {
+      label: '手机号',
+      prop: 'phone',
+      type: 'input',
+    },
+    {
+      label: '状态',
+      prop: 'status',
+      type: 'select',
+      selectObject: userStatusList,
+    },
+    {
+      label: '简介',
+      prop: 'description',
+      type: 'input',
+    },
+    {
+      label: '创建时间',
+      prop: ['createTimeBegin', 'createTimeEnd'],
+      type: 'daterange',
+    },
+  ],
 })
 
 // 表格部分
 const tableObject = useElTable({
-	fetchOptionFn: () => ({
-		url: 'user/getUserList',
-		mockProd: true,
-		data: formObject.data,
-	}),
-	list: [
-		{
-			type: 'selection',
-		},
-		{
-			prop: 'index',
-		},
-		{
-			label: '账号',
-			prop: 'account',
-			width: 150,
-			fixed: 'left',
-		},
-		{
-			label: '昵称',
-			prop: 'nickname',
-			width: 150,
-		},
-		{
-			label: '性别',
-			prop: 'sex',
-			list: sexList,
-		},
-		{
-			label: '手机号',
-			prop: 'phone',
-			width: 200,
-		},
-		{
-			label: '状态',
-			prop: 'status',
-			list: userStatusList,
-		},
-		{
-			label: '简介',
-			prop: 'description',
-			minWidth: 400,
-		},
-		{
-			label: '创建时间',
-			prop: 'createTime',
-			width: 200,
-		},
-		{
-			label: '操作',
-			operatorList: [
-				{
-					text: '编辑',
-					type: 'primary',
-					onClick: (item: any) => {
-						tableObject.resetType(item)
-						resetIsAddOrEdit('edit')
-						drawerObject.isShow = true
-					},
-				},
-				{
-					text: '删除',
-					type: 'error',
-					onClick: (item: any) => {
-						tableObject.resetType(item)
-						renderDeleteDialog()
-					},
-					disabled: item => item.account === useUserStore().user.account,
-					hidden: false,
-				},
-			],
-		},
-	],
+  fetchOptionFn: () => ({
+    url: 'user/getUserList',
+    mockProd: true,
+    data: formObject.data,
+  }),
+  list: [
+    {
+      type: 'selection',
+    },
+    {
+      prop: 'index',
+    },
+    {
+      label: '账号',
+      prop: 'account',
+      width: 150,
+      fixed: 'left',
+    },
+    {
+      label: '昵称',
+      prop: 'nickname',
+      width: 150,
+    },
+    {
+      label: '性别',
+      prop: 'sex',
+      list: sexList,
+    },
+    {
+      label: '手机号',
+      prop: 'phone',
+      width: 200,
+    },
+    {
+      label: '状态',
+      prop: 'status',
+      list: userStatusList,
+    },
+    {
+      label: '简介',
+      prop: 'description',
+      minWidth: 400,
+    },
+    {
+      label: '创建时间',
+      prop: 'createTime',
+      width: 200,
+    },
+    {
+      label: '操作',
+      operatorList: [
+        {
+          text: '编辑',
+          type: 'primary',
+          onClick: (item: any) => {
+            tableObject.resetType(item)
+            resetIsAddOrEdit('edit')
+            drawerObject.isShow = true
+          },
+        },
+        {
+          text: '删除',
+          type: 'error',
+          onClick: (item: any) => {
+            tableObject.resetType(item)
+            renderDeleteDialog()
+          },
+          disabled: item => item.account === useUserStore().user.account,
+          hidden: false,
+        },
+      ],
+    },
+  ],
 })
 formObject.addResetHook(tableObject.reset)
 const clickSearch = async () => {
-	if (!await formObject.validate()) {
-		return
-	}
-	tableObject.reset()
-	tableObject.doFetch()
+  if (!await formObject.validate()) {
+    return
+  }
+  tableObject.reset()
+  tableObject.doFetch()
 }
 const clickReset = () => {
-	formObject.reset()
-	tableObject.doFetch()
+  formObject.reset()
+  tableObject.doFetch()
 }
 
 // 新增和编辑
 const {
-	state: isAddOrEdit,
-	resetState: resetIsAddOrEdit,
+  state: isAddOrEdit,
+  resetState: resetIsAddOrEdit,
 } = useResetRef((): 'add' | 'edit' => 'add')
 const clickBatchAdd = () => {
-	tableObject.resetType('batch')
-	resetIsAddOrEdit('add')
-	drawerObject.isShow = true
+  tableObject.resetType('batch')
+  resetIsAddOrEdit('add')
+  drawerObject.isShow = true
 }
 const drawerObject = useElFeedback({
-	okHook: tableObject.doFetch,
+  okHook: tableObject.doFetch,
 })
 
 // 删除
 const clickBatchDelete = () => {
-	tableObject.resetType('batch')
-	renderDeleteDialog()
+  tableObject.resetType('batch')
+  renderDeleteDialog()
 }
 const renderDeleteDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
-	width: 500,
-	title: '删除用户',
-	textList: tableObject.type === 'single'
-		? ['确定删除', {text: tableObject.selectItem.account as string, color: 'primary',}, '吗?', ]
-		: ['确定批量删除', {text: tableObject.selectItemList.length, color: 'primary', }, '个账号吗?', ],
-	okButton: {
-		text: '确定删除',
-		fetchText: '删除中',
-		type: 'danger',
-	},
-	fetchObject: fetchDeleteObject,
+  width: 500,
+  title: '删除用户',
+  textList: tableObject.type === 'single'
+    ? ['确定删除', {text: tableObject.selectItem.account as string, color: 'primary'}, '吗?']
+    : ['确定批量删除', {text: tableObject.selectItemList.length, color: 'primary'}, '个账号吗?'],
+  okButton: {
+    text: '确定删除',
+    fetchText: '删除中',
+    type: 'danger',
+  },
+  fetchObject: fetchDeleteObject,
 }))
 const fetchDeleteObject = useBaseFetch({
-	fetchOptionFn: () => ({
-		url: 'user/deleteUser',
-		mockProd: true,
-		data: {
-			accountList: tableObject.type === 'single'
-				? [tableObject.selectItem.account]
-				: tableObject.selectItemList.map(item => item.account)
-		},
-	}),
-	transformResponseDataFn: () => {
-		ElMessage.success('删除成功')
-		formObject.reset({
-			account: undefined,
-		})
-		tableObject.reset('pageNum')
-		tableObject.doFetch()
-		getUserAccountListSelectObject.doFetch()
-	},
+  fetchOptionFn: () => ({
+    url: 'user/deleteUser',
+    mockProd: true,
+    data: {
+      accountList: tableObject.type === 'single'
+        ? [tableObject.selectItem.account]
+        : tableObject.selectItemList.map(item => item.account),
+    },
+  }),
+  transformResponseDataFn: () => {
+    ElMessage.success('删除成功')
+    formObject.reset({
+      account: undefined,
+    })
+    tableObject.reset('pageNum')
+    tableObject.doFetch()
+    getUserAccountListSelectObject.doFetch()
+  },
 })
 
 // 导入
 const clickBatchImport = () => {
-	uploadFileDialogObject.isShow = true
+  uploadFileDialogObject.isShow = true
 }
 const uploadFileDialogObject = useElFeedback({
-	okHook: clickSearch,
+  okHook: clickSearch,
 })
 
 // 导出
 const clickBatchExport = () => {
-	tableObject.resetType('batch')
-	renderExportDialog()
+  tableObject.resetType('batch')
+  renderExportDialog()
 }
 const renderExportDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
-	text: '确认导出当前页面数据吗?',
-	okButton: {
-		text: '导出',
-		fetchText: '导出中',
-		type: 'success',
-	},
-	dialogObject: exportDialogObject,
+  text: '确认导出当前页面数据吗?',
+  okButton: {
+    text: '导出',
+    fetchText: '导出中',
+    type: 'success',
+  },
+  dialogObject: exportDialogObject,
 }))
 const exportDialogObject = useElFeedback({
-	okHook: () => {
-		try {
-			excelExport({
-				fileName: '用户管理列表',
-				data: tableObject.data.list,
-				callback() {
-					ElMessage.success('导出成功')
-				},
-				callbackError(text) {
-					ElMessage.error(text)
-				},
-			})
-		} catch (error) {
-			ElMessage.error('导出失败', error)
-		}
-	},
+  okHook: () => {
+    try {
+      excelExport({
+        fileName: '用户管理列表',
+        data: tableObject.data.list,
+        callback() {
+          ElMessage.success('导出成功')
+        },
+        callbackError(text) {
+          ElMessage.error(text)
+        },
+      })
+    } catch (error) {
+      ElMessage.error('导出失败', error)
+    }
+  },
 })
 
 // 改变状态
 const clickSingleChangeStatusButton = (item: any) => {
-	tableObject.resetType(item)
-	renderChangeStatusDialog()
+  tableObject.resetType(item)
+  renderChangeStatusDialog()
 }
 const renderChangeStatusDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
-	width: 500,
-	title: `${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号`,
-	textList: [
-		'确定',
-		tableObject.selectItem.status === 'normal' ? '停用' : '启用',
-		{
-			text: tableObject.selectItem.account as string,
-			color: 'primary',
-		},
-		'账号吗?'
-	],
-	okButton: {
-		text: tableObject.selectItem.status === 'normal' ? '停用' : '启用',
-		fetchText: tableObject.selectItem.status === 'normal' ? '停用中' : '启用中',
-	},
-	fetchObject: fetchChangeStatusObject,
+  width: 500,
+  title: `${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号`,
+  textList: [
+    '确定',
+    tableObject.selectItem.status === 'normal' ? '停用' : '启用',
+    {
+      text: tableObject.selectItem.account as string,
+      color: 'primary',
+    },
+    '账号吗?',
+  ],
+  okButton: {
+    text: tableObject.selectItem.status === 'normal' ? '停用' : '启用',
+    fetchText: tableObject.selectItem.status === 'normal' ? '停用中' : '启用中',
+  },
+  fetchObject: fetchChangeStatusObject,
 }))
 const fetchChangeStatusObject = useBaseFetch({
-	fetchOptionFn: () => ({
-		url: 'user/editUser',
-		mockProd: true,
-		data: {
-			...tableObject.selectItem,
-			status: tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal',
-		},
-	}),
-	transformResponseDataFn: () => {
-		ElMessage.success(`${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号成功`)
-		tableObject.selectItem.status = tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal'
-	},
+  fetchOptionFn: () => ({
+    url: 'user/editUser',
+    mockProd: true,
+    data: {
+      ...tableObject.selectItem,
+      status: tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal',
+    },
+  }),
+  transformResponseDataFn: () => {
+    ElMessage.success(`${tableObject.selectItem.status === 'normal' ? '停用' : '启用'}账号成功`)
+    tableObject.selectItem.status = tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal'
+  },
 })
 </script>
 
