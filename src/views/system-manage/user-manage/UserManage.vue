@@ -245,7 +245,7 @@ const exportDialogObject = useElFeedback({
 				},
 			})
 		} catch (error) {
-			ElMessage.error('导出失败')
+			ElMessage.error('导出失败', error)
 		}
 	},
 })
@@ -290,129 +290,163 @@ const fetchChangeStatusObject = useBaseFetch({
 </script>
 
 <template>
-	<div class="hpj w-full grow rounded bg-white p-4 flex flex-col gap-y-4">
-		<!--标题-->
-		<span class="text-text-title font-medium text-base">用户管理</span>
-		<!--form表单-->
-		<div class="rounded bg-[#f6f7fc] p-4 flex flex-col">
-			<!--上-->
-			<el-form :ref="(el: FormInstance) => formObject.formRef.value = el"
-							 :model="formObject.data"
-							 inline
-							 label-position="right"
-							 :label-width="120"
-							 :scroll-to-error="true"
-							 style="width: 100%;"
-							 class="grid grid-cols-4"
-			>
-				<base-form-item-list :form-object="formObject"
-														 @change="clickSearch"
-				/>
-			</el-form>
-			<!--下-->
-			<div class="ml-[120px] flex items-center gap-x-4">
-				<el-button type="primary" :icon="Search" @click="clickSearch">查询</el-button>
-				<el-button :icon="RefreshRight" @click="clickReset">重置</el-button>
-				<base-form-fold :form-object="formObject"/>
-			</div>
-		</div>
-		<!--操作行-->
-		<div v-if="true"
-				 class="flex items-center gap-x-4">
-			<el-button v-if="true"
-								 type="primary"
-								 @click="clickBatchAdd"
-			>新增</el-button>
-			<el-button v-if="true"
-								 type="danger"
-								 plain
-								 :disabled="!(tableObject.selectItemList.length
-								  && tableObject.selectItemList.every(item => item.account !== useUserStore().user.account))"
-								 @click="clickBatchDelete"
-			>批量删除</el-button>
-			<el-button v-if="true"
-								 type="primary"
-								 @click="clickBatchImport"
-			>批量导入</el-button>
-			<el-button v-if="true"
-								 type="success"
-								 :disabled="tableObject.data.total === 0"
-								 @click="clickBatchExport"
-			>批量导出</el-button>
-		</div>
-		<!--表格-->
-		<el-table :ref="(el: TableInstance) => tableObject.tableRef.value = el"
-							:data="tableObject.data.list"
-							v-loading="tableObject.isFetching"
-							@selection-change="tableObject.resetSelectItemList($event)"
-							@sort-change="tableObject.changeSort"
-							stripe
-							:row-style="{height: `${tableObject.rowHeight}px!important`,}"
-		>
-			<base-table-column-list :list="tableObject.list">
-				<template v-slot:status="scope">
-					<el-switch v-if="scope.row.status === 'normal' || scope.row.status === 'disabled'"
-										 active-value="normal"
-										 inactive-value="disabled"
-										 :width="36"
-										 :model-value="scope.row.status"
-										 @click="clickSingleChangeStatusButton(scope.row)"
-					/>
-				</template>
-			</base-table-column-list>
-			<template v-slot:empty>
-				<TableNoData/>
-			</template>
-		</el-table>
-		<!--总条数 + 分页器-->
-		<div class="h-[32px] flex justify-between items-center">
-			<span class="text-text">共 {{tableObject.data.total}} 项数据</span>
-			<el-pagination layout="sizes, prev, pager, next, jumper, ->"
-										 size="default"
-										 :background="true"
-										 v-model:current-page="tableObject.params.pageNum"
-										 v-model:page-size="tableObject.params.pageSize"
-										 :total="tableObject.data.total"
-										 :page-sizes="tableObject.pageSizeList"
-										 @change="tableObject.doFetch"
-			/>
-		</div>
-		<!--feedback组件-->
-		<el-drawer v-model="drawerObject.isShow"
-							 :append-to-body="true"
-							 :title="isAddOrEdit === 'add' ? '新增' : '编辑'"
-							 :close-on-click-modal="true"
-							 :close-on-press-escape="false"
-							 :destroy-on-close="true"
-							 :size="500"
-							 @close="drawerObject.onCancel"
-							 modal-class="hpj"
-		>
-			<UserManageAddAndEditDrawer :props="{
-				isAddOrEdit,
-				item: tableObject.selectItem,
-			}"
-																	@ok="drawerObject.onOk"
-																	@cancel="drawerObject.onCancel"
-			/>
-		</el-drawer>
-		<el-dialog v-model="uploadFileDialogObject.isShow"
-							 title="上传文件"
-							 width="560"
-							 :close-on-click-modal="true"
-							 :close-on-press-escape="false"
-							 :draggable="true"
-							 :align-center="true"
-							 :destroy-on-close="true"
-							 @close="uploadFileDialogObject.onCancel"
-							 modal-class="hpj"
-		>
-			<UserManageUploadDialog :props="{}"
-															@ok="uploadFileDialogObject.onOk"
-															@cancel="uploadFileDialogObject.onCancel"
-			/>
-		</el-dialog>
-	</div>
+  <div class="hpj w-full grow rounded bg-white p-4 flex flex-col gap-y-4">
+    <!--标题-->
+    <span class="text-text-title font-medium text-base">用户管理</span>
+    <!--form表单-->
+    <div class="rounded bg-[#f6f7fc] p-4 flex flex-col">
+      <!--上-->
+      <el-form
+        :ref="(el: FormInstance) => formObject.formRef.value = el"
+        :model="formObject.data"
+        inline
+        label-position="right"
+        :label-width="120"
+        :scroll-to-error="true"
+        style="width: 100%;"
+        class="grid grid-cols-4"
+      >
+        <base-form-item-list
+          :form-object="formObject"
+          @change="clickSearch"
+        />
+      </el-form>
+      <!--下-->
+      <div class="ml-[120px] flex items-center gap-x-4">
+        <el-button
+          type="primary"
+          :icon="Search"
+          @click="clickSearch"
+        >
+          查询
+        </el-button>
+        <el-button
+          :icon="RefreshRight"
+          @click="clickReset"
+        >
+          重置
+        </el-button>
+        <base-form-fold :form-object="formObject" />
+      </div>
+    </div>
+    <!--操作行-->
+    <div
+      v-if="true"
+      class="flex items-center gap-x-4"
+    >
+      <el-button
+        v-if="true"
+        type="primary"
+        @click="clickBatchAdd"
+      >
+        新增
+      </el-button>
+      <el-button
+        v-if="true"
+        type="danger"
+        plain
+        :disabled="!(tableObject.selectItemList.length
+          && tableObject.selectItemList.every(item => item.account !== useUserStore().user.account))"
+        @click="clickBatchDelete"
+      >
+        批量删除
+      </el-button>
+      <el-button
+        v-if="true"
+        type="primary"
+        @click="clickBatchImport"
+      >
+        批量导入
+      </el-button>
+      <el-button
+        v-if="true"
+        type="success"
+        :disabled="tableObject.data.total === 0"
+        @click="clickBatchExport"
+      >
+        批量导出
+      </el-button>
+    </div>
+    <!--表格-->
+    <el-table
+      :ref="(el: TableInstance) => tableObject.tableRef.value = el"
+      v-loading="tableObject.isFetching"
+      :data="tableObject.data.list"
+      stripe
+      :row-style="{height: `${tableObject.rowHeight}px!important`,}"
+      @selection-change="tableObject.resetSelectItemList($event)"
+      @sort-change="tableObject.changeSort"
+    >
+      <base-table-column-list :list="tableObject.list">
+        <template #status="scope">
+          <el-switch
+            v-if="scope.row.status === 'normal' || scope.row.status === 'disabled'"
+            active-value="normal"
+            inactive-value="disabled"
+            :width="36"
+            :model-value="scope.row.status"
+            @click="clickSingleChangeStatusButton(scope.row)"
+          />
+        </template>
+      </base-table-column-list>
+      <template #empty>
+        <TableNoData />
+      </template>
+    </el-table>
+    <!--总条数 + 分页器-->
+    <div class="h-[32px] flex justify-between items-center">
+      <span class="text-text">共 {{ tableObject.data.total }} 项数据</span>
+      <el-pagination
+        v-model:current-page="tableObject.params.pageNum"
+        v-model:page-size="tableObject.params.pageSize"
+        layout="sizes, prev, pager, next, jumper, ->"
+        size="default"
+        :background="true"
+        :total="tableObject.data.total"
+        :page-sizes="tableObject.pageSizeList"
+        @change="tableObject.doFetch"
+      />
+    </div>
+    <!--feedback组件-->
+    <el-drawer
+      v-model="drawerObject.isShow"
+      :append-to-body="true"
+      :title="isAddOrEdit === 'add' ? '新增' : '编辑'"
+      :close-on-click-modal="true"
+      :close-on-press-escape="false"
+      :destroy-on-close="true"
+      :size="500"
+      modal-class="hpj"
+      @close="drawerObject.onCancel"
+    >
+      <UserManageAddAndEditDrawer
+        :props="{
+          isAddOrEdit,
+          item: tableObject.selectItem,
+        }"
+        @ok="drawerObject.onOk"
+        @cancel="drawerObject.onCancel"
+      />
+    </el-drawer>
+    <el-dialog
+      v-model="uploadFileDialogObject.isShow"
+      title="上传文件"
+      width="560"
+      :close-on-click-modal="true"
+      :close-on-press-escape="false"
+      :draggable="true"
+      :align-center="true"
+      :destroy-on-close="true"
+      modal-class="hpj"
+      @close="uploadFileDialogObject.onCancel"
+    >
+      <UserManageUploadDialog
+        :props="{}"
+        @ok="uploadFileDialogObject.onOk"
+        @cancel="uploadFileDialogObject.onCancel"
+      />
+    </el-dialog>
+  </div>
 </template>
 
 
