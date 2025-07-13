@@ -44,13 +44,19 @@ if (text) {
 	// 啥都不用做
 }
 // 初始化okButton
-okButton.type = okButton.type ?? 'primary'
-okButton.plain = okButton.plain ?? false
-okButton.width = okButton.width ?? 88
-okButton.text = okButton.text ?? '确定'
-okButton.fetchText = okButton.fetchText ?? '确定'
+const _okButton = {
+  ...okButton,
+}
+_okButton.type = okButton.type ?? 'primary'
+_okButton.plain = okButton.plain ?? false
+_okButton.width = okButton.width ?? 88
+_okButton.text = okButton.text ?? '确定'
+_okButton.fetchText = okButton.fetchText ?? '确定'
 
-dialogObject.isShow = true
+const _dialogObject = {
+  ...dialogObject,
+}
+_dialogObject.isShow = true
 
 const clickOk = async () => {
 	if (!fetchObject) {
@@ -70,7 +76,7 @@ const clickOk = async () => {
 
 <template>
   <el-dialog
-    v-model="dialogObject.isShow"
+    v-model="_dialogObject.isShow"
     :title="title"
     :width="width"
     :close-on-click-modal="true"
@@ -104,15 +110,15 @@ const clickOk = async () => {
           取消
         </el-button>
         <el-button
-          :type="okButton.type"
+          :type="_okButton.type"
           style="margin-left: 8px;"
           :style="{
-            width: okButton.width + 'px',
+            width: _okButton.width + 'px',
           }"
           :loading="fetchObject?.isFetching"
           @click="clickOk"
         >
-          {{ !fetchObject?.isFetching ? okButton.text : (okButton.fetchText ?? okButton.text) }}
+          {{ !fetchObject?.isFetching ? _okButton.text : (_okButton.fetchText ?? _okButton.text) }}
         </el-button>
       </div>
     </div>
