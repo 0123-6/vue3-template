@@ -37,8 +37,9 @@ if (text && textList.length
 	}
 	console.error('PromptDialog组件： text和textList需要有且只有1项')
 }
+const _textList = [...textList]
 if (text) {
-	textList.push(text)
+  _textList.push(text)
 } else {
 	// 啥都不用做
 }
@@ -68,44 +69,52 @@ const clickOk = async () => {
 </script>
 
 <template>
-	<el-dialog v-model="dialogObject.isShow"
-						 :title="title"
-						 :width="width"
-						 :close-on-click-modal="true"
-						 :close-on-press-escape="false"
-						 :draggable="true"
-						 :align-center="true"
-						 :destroy-on-close="true"
-						 @close="dialogObject.onCancel"
-						 @closed="cancel"
-						 modal-class="hpj"
-	>
-		<div class="flex flex-col gap-y-4">
-			<!--文本-->
-			<div class="w-full whitespace-pre-line">
-				<span v-for="(item, index) in textList"
-							:key="index"
-							class="text-text break-all"
-							:style="{
-								color: typeof item === 'object' ? (styleMap[item.color] ?? styleMap['default']) : styleMap['default'],
-								fontWeight: (typeof item !== 'object' || item.color === 'default') ? 400: 600,
-							}"
-				>{{typeof item === 'object' ? ` ${item.text} ` : item}}</span>
-			</div>
-			<!--按钮-->
-			<div class="flex justify-end items-center">
-				<el-button style="width: 60px;"
-									 @click="dialogObject.onCancel"
-				>取消</el-button>
-				<el-button :type="okButton.type"
-									 style="margin-left: 8px;"
-									 :style="{
-										 width: okButton.width + 'px',
-									 }"
-									 :loading="fetchObject?.isFetching"
-									 @click="clickOk"
-				>{{!fetchObject?.isFetching ? okButton.text : (okButton.fetchText ?? okButton.text)}}</el-button>
-			</div>
-		</div>
-	</el-dialog>
+  <el-dialog
+    v-model="dialogObject.isShow"
+    :title="title"
+    :width="width"
+    :close-on-click-modal="true"
+    :close-on-press-escape="false"
+    :draggable="true"
+    :align-center="true"
+    :destroy-on-close="true"
+    modal-class="hpj"
+    @close="dialogObject.onCancel"
+    @closed="cancel"
+  >
+    <div class="flex flex-col gap-y-4">
+      <!--文本-->
+      <div class="w-full whitespace-pre-line">
+        <span
+          v-for="(item, index) in _textList"
+          :key="index"
+          class="text-text break-all"
+          :style="{
+            color: typeof item === 'object' ? (styleMap[item.color] ?? styleMap['default']) : styleMap['default'],
+            fontWeight: (typeof item !== 'object' || item.color === 'default') ? 400: 600,
+          }"
+        >{{ typeof item === 'object' ? ` ${item.text} ` : item }}</span>
+      </div>
+      <!--按钮-->
+      <div class="flex justify-end items-center">
+        <el-button
+          style="width: 60px;"
+          @click="dialogObject.onCancel"
+        >
+          取消
+        </el-button>
+        <el-button
+          :type="okButton.type"
+          style="margin-left: 8px;"
+          :style="{
+            width: okButton.width + 'px',
+          }"
+          :loading="fetchObject?.isFetching"
+          @click="clickOk"
+        >
+          {{ !fetchObject?.isFetching ? okButton.text : (okButton.fetchText ?? okButton.text) }}
+        </el-button>
+      </div>
+    </div>
+  </el-dialog>
 </template>
