@@ -1,4 +1,4 @@
-import ClipboardJS from "clipboard";
+import ClipboardJS from 'clipboard'
 
 // 创建一个隐藏的按钮
 const copyButton = document.createElement('button')
@@ -10,6 +10,6 @@ const clipboard = new ClipboardJS(copyButton)
  * @param text 要复制到剪贴板的文本
  */
 export function copyTextToClipboard(text: string) {
-	(clipboard as any).text = () => text
-	copyButton.click()
+  (clipboard as any).text = () => text
+  copyButton.click()
 }
