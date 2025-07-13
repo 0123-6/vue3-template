@@ -73,6 +73,7 @@ props.formObject.list
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-mutating-props -->
   <el-form-item
     v-for="(item, index) in formObject.list.slice(range?.[0], range?.[1])"
     v-show="!(formObject.isFold.value && index >= formObject.foldNumber)"
