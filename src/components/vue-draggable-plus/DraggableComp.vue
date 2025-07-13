@@ -37,23 +37,25 @@ const { start } = useDraggable(elRef, list, {
 </script>
 
 <template>
-	<div class="hpj flex flex-col">
-		<button @click="start()">start</button>
-		<div class="flex">
-			<div
-				class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded"
-				ref="elRef"
-			>
-				<div
-					v-for="item in list"
-					:key="item.id"
-					class="h-30 bg-gray-500/5 rounded p-3 cursor-move"
-				>
-					{{ item.name }}
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="hpj flex flex-col">
+    <button @click="start()">
+      start
+    </button>
+    <div class="flex">
+      <div
+        ref="elRef"
+        class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded"
+      >
+        <div
+          v-for="item in list"
+          :key="item.id"
+          class="h-30 bg-gray-500/5 rounded p-3 cursor-move"
+        >
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
