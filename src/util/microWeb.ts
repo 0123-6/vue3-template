@@ -113,6 +113,7 @@ interface IMicroWebChild {
 }
 
 interface IAnyRouter {
+	currentRoute: any;
 	push: Function,
 	replace: Function,
 }
@@ -154,7 +155,6 @@ export const microWebChild = (props: IMicroWebChild): {
 			initEvent(eventData)
 			router.replace('/' + eventData.pathnameSuffix + eventData.search)
 		} else if (event.data.type === 'uri') {
-			// @ts-ignore
 			if (router.currentRoute.value.path === `/${eventData.pathnameSuffix}`) {
 				console.log(`子网站已经位于${eventData.pathnameSuffix}路径,忽略父网站的url命令`)
 				return
