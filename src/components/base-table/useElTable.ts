@@ -12,7 +12,6 @@ export interface IBaseTableColumn extends IBaseItem {
   align?: 'left' | 'center' | 'right',
   fixed?: 'left' | 'right',
   children?: IBaseTableColumn[],
-  hidden?: boolean | (() => boolean),
   // 操作列
   operatorList?: IOperatorItem[],
 }
