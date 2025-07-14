@@ -79,7 +79,7 @@ props.formObject.list
     v-for="(item, index) in formObject.list.slice(range?.[0], range?.[1])"
     v-show="!(formObject.isFold.value && index >= formObject.foldNumber)"
     :key="index"
-    :prop="item.prop"
+    :prop="Array.isArray(item.prop) ? item.prop[0] : item.prop"
     :label="isTrue(item.hiddenLabel) ? '' : item.label"
     :rules="getRules(item)"
   >

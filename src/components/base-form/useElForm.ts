@@ -118,7 +118,8 @@ export const useElForm = (props: IUseElFormProps)
     } else {
       // 重置
       resetData()
-      formRef.value!.clearValidate()
+      // ??? clearValidate or resetFields
+      formRef.value!.resetFields()
       // 执行订阅的函数
       for (const hook of resetHookSet) {
         hook()
