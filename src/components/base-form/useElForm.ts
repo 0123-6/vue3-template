@@ -31,6 +31,8 @@ export interface IElFormItem {
   rows?: number,
   minLength?: number,
   maxLength?: number,
+  // 日期组件专用
+  disabledDateFn?: (data: Date) => boolean,
 }
 
 export interface IUseElFormProps {
