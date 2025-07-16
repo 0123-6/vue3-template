@@ -43,7 +43,7 @@ export const selectOptionListToMap = (list: ISelectOption[])
   : Record<string | number, string | number> => {
   const map = Object.create(null)
   for (const item of list) {
-    map[item.value] = item.label
+    map[item.value as (string | number)] = item.label
   }
   return map
 }
