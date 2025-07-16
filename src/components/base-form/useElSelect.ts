@@ -6,7 +6,7 @@ import {ElMessage} from 'element-plus'
 // select的option的标准格式
 export interface ISelectOption {
   label: string,
-  value: string | number,
+  value: string | number | boolean,
   disabled?: boolean,
   children?: ISelectOption[],
   isLeaf?: boolean,
