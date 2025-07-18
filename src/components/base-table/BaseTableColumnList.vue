@@ -23,6 +23,7 @@ const getColumnProps = (item: IBaseTableColumn) => ({
   fixed: (item.type === 'selection' || item.prop === 'index') ? 'left'
     : item.operatorList?.length ? 'right'
       : item.fixed,
+  sortable: item.sortable,
 })
 </script>
 

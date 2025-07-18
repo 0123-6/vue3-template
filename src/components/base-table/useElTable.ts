@@ -14,6 +14,7 @@ export interface IBaseTableColumn extends IBaseItem {
   children?: IBaseTableColumn[],
   // 操作列
   operatorList?: IOperatorItem[],
+  sortable?: 'custom',
 }
 
 export interface IOperatorItem {
