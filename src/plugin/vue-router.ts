@@ -129,6 +129,7 @@ const routes: RouteRecordRaw[] = [
   // 404
   {
     path: '/:pathMatch(.*)*',
+    name: '404',
     component: () => import('@views/not-found/NotFound.vue'),
   },
   // 测试
@@ -153,15 +154,15 @@ const router: Router = createRouter({
 // 全局前置守卫
 router.beforeEach((to) => {
   console.log(to)
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const userStore = useUserStore()
-    if (userStore.user) {
-      return
-    }
+  // 不需要权限的页面,比如登录页面,注册页面
+  if (!to.meta.requiresAuth) {
+    return
+  }
 
-    if (history.length > 1) {
-      ElMessage.warning('账号超时,请重新登录')
-    }
+  // 需要权限的页面
+  // 用户未登录
+  const userStore = useUserStore()
+  if (!userStore.user) {
     return {
       path: '/auth/login',
       replace: true,
