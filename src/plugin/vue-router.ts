@@ -50,7 +50,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       // 首页
       {
-        path: '/index',
+        path: 'index',
         component: () => import('@views/index-page/IndexPage.vue'),
       },
       {
