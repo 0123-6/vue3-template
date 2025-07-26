@@ -51,21 +51,26 @@ const routes: RouteRecordRaw[] = [
       // 首页
       {
         path: 'index',
+        name: '首页',
         component: () => import('@views/index-page/IndexPage.vue'),
       },
       {
         path: 'system-manage',
+        name: '系统管理',
         children: [
           {
             path: 'user-manage',
+            name: '用户管理',
             component: () => import('@views/system-manage/user-manage/UserManage.vue'),
           },
           {
             path: 'role-manage',
+            name: '角色管理',
             component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
           },
           {
             path: 'permission-manage',
+            name: '权限管理',
             component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
           },
         ],
@@ -147,6 +152,7 @@ const router: Router = createRouter({
 
 // 全局前置守卫
 router.beforeEach((to) => {
+  console.log(to)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const userStore = useUserStore()
     if (userStore.user) {
