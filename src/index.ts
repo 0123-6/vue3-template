@@ -1,7 +1,7 @@
 // 导入Vue
 import {createApp} from 'vue'
-import {setDirectiveForApp} from "@/directive.ts";
-import {setPluginForApp} from "@/plugin";
+import {setDirectiveForApp} from '@/directive.ts'
+import {setPluginForApp} from '@/plugin'
 // tailwindcss入口文件，包含tailwindcss定义和全局base css
 // 放在后面,使其可以覆盖之前的CSS
 import '@/index.css'
