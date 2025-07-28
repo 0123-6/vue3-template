@@ -44,10 +44,7 @@ const fetchLogin = useBaseFetch({
     mockUrl: 'login',
     data: formObject.data,
   }),
-  transformResponseDataFn: (user) => {
-    // 保存到全局状态
-    const useStore = useUserStore()
-    useStore.user = user
+  transformResponseDataFn: () => {
     ElMessage.success('登录成功')
     router.replace('/index')
   },
