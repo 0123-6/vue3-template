@@ -55,6 +55,20 @@ export const userStatusList: ISelectOption[] = [
   },
 ]
 
+// true & false
+export const onlineSelectObject: ISelectOption[] = [
+  {
+    label: '在线',
+    value: true,
+    type: 'primary',
+  },
+  {
+    label: '不在线',
+    value: false,
+    type: 'text',
+  },
+]
+
 // 获取账号列表
 export const getUserAccountListSelectObject = useElSelect({
   fetchOptionFn: () => ({

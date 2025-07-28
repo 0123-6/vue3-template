@@ -9,7 +9,7 @@ import TableNoData from '@/components/base-table/TableNoData.vue'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {
-  getUserAccountListSelectObject,
+  getUserAccountListSelectObject, onlineSelectObject,
   sexList,
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
@@ -53,6 +53,12 @@ const formObject = useElForm({
       prop: 'status',
       type: 'select',
       selectObject: userStatusList,
+    },
+    {
+      label: '是否在线',
+      prop: 'isOnline',
+      type: 'select',
+      selectObject: onlineSelectObject,
     },
     {
       label: '简介',
@@ -106,6 +112,11 @@ const tableObject = useElTable({
       label: '状态',
       prop: 'status',
       list: userStatusList,
+    },
+    {
+      label: '是否在线',
+      prop: 'isOnline',
+      width: 120,
     },
     {
       label: '简介',
@@ -287,6 +298,42 @@ const fetchChangeStatusObject = useBaseFetch({
     tableObject.selectItem.status = tableObject.selectItem.status === 'normal' ? 'disabled' : 'normal'
   },
 })
+
+// 改变其它账号在线状态
+const clickSingleChangeIsOnlineButton = (item: any) => {
+  tableObject.resetType(item)
+  renderChangeIsOnlineDialog()
+}
+const renderChangeIsOnlineDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
+  width: 500,
+  title: '下线账号',
+  textList: [
+    '确定下线',
+    {
+      text: tableObject.selectItem.account as string,
+      color: 'primary',
+    },
+    '账号吗?',
+  ],
+  okButton: {
+    text: '下线',
+    fetchText: '下线中',
+  },
+  fetchObject: fetchChangeIsOnlineObject,
+}))
+const fetchChangeIsOnlineObject = useBaseFetch({
+  fetchOptionFn: () => ({
+    url: 'user/logout',
+    mockProd: true,
+    data: {
+      accountList: [tableObject.selectItem.account],
+    },
+  }),
+  transformResponseDataFn: () => {
+    ElMessage.success('下线成功')
+    tableObject.selectItem.isOnline = false
+  },
+})
 </script>
 
 <template>
@@ -386,6 +433,17 @@ const fetchChangeStatusObject = useBaseFetch({
             :width="36"
             :model-value="scope.row.status"
             @click="clickSingleChangeStatusButton(scope.row)"
+          />
+        </template>
+        <template #isOnline="scope">
+          <el-switch
+            v-if="scope.row.isOnline === true || scope.row.isOnline === false"
+            :active-value="true"
+            :inactive-value="false"
+            :width="36"
+            :model-value="scope.row.isOnline"
+            :disabled="!scope.row.isOnline"
+            @click="scope.row.isOnline ? clickSingleChangeIsOnlineButton(scope.row) : undefined"
           />
         </template>
       </base-table-column-list>
