@@ -31,8 +31,6 @@ export const setPluginForApp = (app: App) => {
   app.use(router)
   // 使用pinia
   const pinia = createPinia()
-  pinia.use(createPersistedState({
-    auto: true,
-  }))
+  pinia.use(createPersistedState())
   app.use(pinia)
 }
