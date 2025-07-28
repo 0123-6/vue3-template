@@ -20,6 +20,8 @@ export interface IUserInfo {
   createTime: string,
   // 权限信息
   permissionList: string[],
+  // 在线状态,动态设置,非用户自身信息
+  isOnline?: boolean,
 
   // 权限相关,分为前端权限+后端权限
   // 前端权限
