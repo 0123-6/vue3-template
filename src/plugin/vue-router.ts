@@ -2,8 +2,7 @@ import {createRouter, createWebHistory, Router, RouteRecordRaw} from 'vue-router
 import NProgress from 'nprogress'
 import '@/plugin/nprogress.css'
 import {projectConfig} from '../../project.config.ts'
-import {ElMessage} from 'element-plus'
-import {useUserStore} from '@/plugin/pinia.ts'
+import {fetchUserInfoObject, useUserStore} from '@/plugin/pinia.ts'
 
 NProgress.configure({showSpinner: false})
 
@@ -152,7 +151,7 @@ const router: Router = createRouter({
 })
 
 // 全局前置守卫
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   console.log(to)
   // 不需要权限的页面,比如登录页面,注册页面
   if (!to.meta.requiresAuth) {
@@ -162,12 +161,17 @@ router.beforeEach((to) => {
   // 需要权限的页面
   // 用户未登录
   const userStore = useUserStore()
-  if (!userStore.user) {
-    return {
+  if (userStore.user) {
+    return
+  }
+
+  await fetchUserInfoObject.doFetch()
+  return userStore.user
+    ? undefined
+    : {
       path: '/auth/login',
       replace: true,
     }
-  }
 })
 
 // 不是其它网站的子网站
