@@ -74,6 +74,50 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+      // 业务目录一
+      {
+        path: 'business-directory-one',
+        name: '业务目录一',
+        children: [
+          {
+            path: 'business-menu-one-one',
+            name: '业务菜单1-1',
+            component: () => import('@views/business-directory-one/business-menu-one-one/BusinessMenuOneOne.vue'),
+          },
+          {
+            path: 'business-menu-one-two',
+            name: '业务菜单1-2',
+            component: () => import('@views/business-directory-one/business-menu-one-two/BusinessMenuOneTwo.vue'),
+          },
+          {
+            path: 'business-menu-one-three',
+            name: '业务菜单1-3',
+            component: () => import('@views/business-directory-one/business-menu-one-three/BusinessMenuOneThree.vue'),
+          },
+          {
+            path: 'business-menu-one-four',
+            name: '业务菜单1-4',
+            component: () => import('@views/business-directory-one/business-menu-one-four/BusinessMenuOneFour.vue'),
+          },
+        ],
+      },
+      // 业务目录二
+      {
+        path: 'business-directory-two',
+        name: '业务目录二',
+        children: [
+          {
+            path: 'business-menu-two-one',
+            name: '业务菜单2-1',
+            component: () => import('@views/business-directory-two/business-menu-two-one/BusinessMenuTwoOne.vue'),
+          },
+          {
+            path: 'business-menu-two-two',
+            name: '业务菜单2-2',
+            component: () => import('@views/business-directory-two/business-menu-two-two/BusinessMenuTwoTwo.vue'),
+          },
+        ],
+      },
       {
         path: '/module-two',
         component: () => import('@views/module-two/ModuleTwo.vue'),
