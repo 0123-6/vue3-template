@@ -45,7 +45,7 @@ const fetchLogin = useBaseFetch({
   }),
   transformResponseDataFn: () => {
     ElMessage.success('登录成功')
-    router.replace('/index')
+    router.replace('/')
   },
 })
 const clickLogin = async () => {
