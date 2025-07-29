@@ -123,7 +123,6 @@ export const menuRouteList: RouteRecordRaw[] = [
 ]
 
 // 获取用户第1个有效的路由
-// 如何处理1个没有任何权限的用户???
 export const goFirstRoute = async () => {
   const userStore = useUserStore()
   if (!userStore.user) {
@@ -150,6 +149,10 @@ export const goFirstRoute = async () => {
       router.push(menuRouteList[i].path)
       ok = true
     }
+  }
+  // 没有任何权限,重定向到/index
+  if (!ok) {
+    router.push('/index')
   }
 }
 
