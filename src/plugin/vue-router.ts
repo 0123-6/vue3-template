@@ -3,11 +3,155 @@ import NProgress from 'nprogress'
 import '@/plugin/nprogress.css'
 import {projectConfig} from '../../project.config.ts'
 import {fetchUserInfoObject, useUserStore} from '@/plugin/pinia.ts'
+import {Discount, House, Key, Operation, User} from '@element-plus/icons-vue'
 
 NProgress.configure({showSpinner: false})
 
 // VueRouter规定 path最外层以'/'开头,
-// router.push和
+
+export const menuRouteList: RouteRecordRaw[] = [
+  // 首页
+  {
+    path: '/index',
+    name: '首页',
+    component: () => import('@views/index-page/IndexPage.vue'),
+    meta: {
+      icon: House,
+    },
+  },
+  {
+    path: '/system-manage',
+    name: '系统管理',
+    meta: {
+      icon: Operation,
+    },
+    children: [
+      {
+        path: '/system-manage/user-manage',
+        name: '用户管理',
+        component: () => import('@views/system-manage/user-manage/UserManage.vue'),
+        meta: {
+          icon: User,
+        },
+      },
+      {
+        path: '/system-manage/role-manage',
+        name: '角色管理',
+        component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
+        meta: {
+          icon: Discount,
+        },
+      },
+      {
+        path: '/system-manage/permission-manage',
+        name: '权限管理',
+        component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
+        meta: {
+          icon: Key,
+        },
+      },
+    ],
+  },
+  // 业务目录一
+  {
+    path: '/business-directory-one',
+    name: '业务目录一',
+    meta: {
+      icon: House,
+    },
+    children: [
+      {
+        path: '/business-directory-one/business-menu-one-one',
+        name: '业务菜单1-1',
+        component: () => import('@views/business-directory-one/business-menu-one-one/BusinessMenuOneOne.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+      {
+        path: '/business-directory-one/business-menu-one-two',
+        name: '业务菜单1-2',
+        component: () => import('@views/business-directory-one/business-menu-one-two/BusinessMenuOneTwo.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+      {
+        path: '/business-directory-one/business-menu-one-three',
+        name: '业务菜单1-3',
+        component: () => import('@views/business-directory-one/business-menu-one-three/BusinessMenuOneThree.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+      {
+        path: '/business-directory-one/business-menu-one-four',
+        name: '业务菜单1-4',
+        component: () => import('@views/business-directory-one/business-menu-one-four/BusinessMenuOneFour.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+    ],
+  },
+  // 业务目录二
+  {
+    path: '/business-directory-two',
+    name: '业务目录二',
+    meta: {
+      icon: House,
+    },
+    children: [
+      {
+        path: '/business-directory-two/business-menu-two-one',
+        name: '业务菜单2-1',
+        component: () => import('@views/business-directory-two/business-menu-two-one/BusinessMenuTwoOne.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+      {
+        path: '/business-directory-two/business-menu-two-two',
+        name: '业务菜单2-2',
+        component: () => import('@views/business-directory-two/business-menu-two-two/BusinessMenuTwoTwo.vue'),
+        meta: {
+          icon: House,
+        },
+      },
+    ],
+  },
+]
+
+// 获取用户第1个有效的路由
+export const goFirstRoute = async () => {
+  const userStore = useUserStore()
+  if (!userStore.user) {
+    await fetchUserInfoObject.doFetch()
+  }
+  let ok = false
+  for (let i = 0; i < menuRouteList.length && !ok; i++) {
+    if (!userStore.user.permissionList.includes(menuRouteList[i].name as string)) {
+      continue
+    }
+
+    // 目录
+    if (menuRouteList[i].children?.length) {
+      for (let j = 0; j < menuRouteList[i].children.length && !ok; j++) {
+        if (!userStore.user.permissionList.includes(menuRouteList[i].children[j].name as string)) {
+          continue
+        }
+
+        router.push(menuRouteList[i].children[j].path)
+        ok = true
+      }
+    } else if (menuRouteList[i].component) {
+      // 菜单
+      router.push(menuRouteList[i].path)
+      ok = true
+    }
+  }
+}
+
 const routes: RouteRecordRaw[] = [
   // 登录相关
   {
@@ -45,79 +189,8 @@ const routes: RouteRecordRaw[] = [
       requiresAuth: true,
     },
 
-    redirect: '/index',
     children: [
-      // 首页
-      {
-        path: 'index',
-        name: '首页',
-        component: () => import('@views/index-page/IndexPage.vue'),
-      },
-      {
-        path: 'system-manage',
-        name: '系统管理',
-        children: [
-          {
-            path: 'user-manage',
-            name: '用户管理',
-            component: () => import('@views/system-manage/user-manage/UserManage.vue'),
-          },
-          {
-            path: 'role-manage',
-            name: '角色管理',
-            component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
-          },
-          {
-            path: 'permission-manage',
-            name: '权限管理',
-            component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
-          },
-        ],
-      },
-      // 业务目录一
-      {
-        path: 'business-directory-one',
-        name: '业务目录一',
-        children: [
-          {
-            path: 'business-menu-one-one',
-            name: '业务菜单1-1',
-            component: () => import('@views/business-directory-one/business-menu-one-one/BusinessMenuOneOne.vue'),
-          },
-          {
-            path: 'business-menu-one-two',
-            name: '业务菜单1-2',
-            component: () => import('@views/business-directory-one/business-menu-one-two/BusinessMenuOneTwo.vue'),
-          },
-          {
-            path: 'business-menu-one-three',
-            name: '业务菜单1-3',
-            component: () => import('@views/business-directory-one/business-menu-one-three/BusinessMenuOneThree.vue'),
-          },
-          {
-            path: 'business-menu-one-four',
-            name: '业务菜单1-4',
-            component: () => import('@views/business-directory-one/business-menu-one-four/BusinessMenuOneFour.vue'),
-          },
-        ],
-      },
-      // 业务目录二
-      {
-        path: 'business-directory-two',
-        name: '业务目录二',
-        children: [
-          {
-            path: 'business-menu-two-one',
-            name: '业务菜单2-1',
-            component: () => import('@views/business-directory-two/business-menu-two-one/BusinessMenuTwoOne.vue'),
-          },
-          {
-            path: 'business-menu-two-two',
-            name: '业务菜单2-2',
-            component: () => import('@views/business-directory-two/business-menu-two-two/BusinessMenuTwoTwo.vue'),
-          },
-        ],
-      },
+      ...menuRouteList,
       {
         path: '/module-two',
         component: () => import('@views/module-two/ModuleTwo.vue'),
@@ -200,6 +273,10 @@ router.beforeEach(async (to) => {
   // 不需要权限的页面,比如登录页面,注册页面
   if (!to.meta.requiresAuth) {
     return
+  }
+  if (to.path === '/') {
+    goFirstRoute()
+    return false
   }
 
   // 需要权限的页面

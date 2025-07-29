@@ -7,12 +7,12 @@ import {useRenderComp} from '@/components/base-dialog/useRenderComp.ts'
 import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
 import {IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import router from '@/plugin/vue-router.ts'
+import router, {menuRouteList} from '@/plugin/vue-router.ts'
 import {onMounted, ref, useTemplateRef} from 'vue'
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
-import {Discount, House, Key, Operation, Search, User} from '@element-plus/icons-vue'
+import { Search} from '@element-plus/icons-vue'
 
 const isChildWeb = window !== window.parent
 
@@ -167,57 +167,46 @@ onMounted(() => {
           :router="true"
           :default-active="activeMenu"
         >
-          <el-menu-item
-            v-if="userStore.user.permissionList.includes('首页')"
-            index="/index"
-            route="/index"
+          <template
+            v-for="item in menuRouteList.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
+            :key="item.name"
           >
-            <template #title>
-              <el-icon><House /></el-icon>
-              <span>首页</span>
-            </template>
-          </el-menu-item>
-          <el-sub-menu
-            v-if="userStore.user.permissionList.includes('系统管理')"
-            index="系统管理"
-          >
-            <template #title>
-              <el-icon><Operation /></el-icon>
-              <span>系统管理</span>
-            </template>
-            <template #default>
-              <el-menu-item
-                v-if="userStore.user.permissionList.includes('用户管理')"
-                index="/system-manage/user-manage"
-                route="/system-manage/user-manage"
-              >
-                <template #title>
-                  <el-icon><User /></el-icon>
-                  <span>用户管理</span>
+            <el-sub-menu
+              v-if="item.children?.length"
+              :index="item.path"
+            >
+              <template #title>
+                <el-icon><component :is="item.meta.icon" /></el-icon>
+                <span>{{ item.name }}</span>
+              </template>
+              <template #default>
+                <template
+                  v-for="item2 in item.children.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
+                  :key="item2.name"
+                >
+                  <el-menu-item
+                    :index="item2.path"
+                    :route="item2.path"
+                  >
+                    <template #title>
+                      <el-icon><component :is="item2.meta.icon" /></el-icon>
+                      <span>{{ item2.name }}</span>
+                    </template>
+                  </el-menu-item>
                 </template>
-              </el-menu-item>
-              <el-menu-item
-                v-if="userStore.user.permissionList.includes('角色管理')"
-                index="/system-manage/role-manage"
-                route="/system-manage/role-manage"
-              >
-                <template #title>
-                  <el-icon><Discount /></el-icon>
-                  <span>角色管理</span>
-                </template>
-              </el-menu-item>
-              <el-menu-item
-                v-if="userStore.user.permissionList.includes('权限管理')"
-                index="/system-manage/permission-manage"
-                route="/system-manage/permission-manage"
-              >
-                <template #title>
-                  <el-icon><Key /></el-icon>
-                  <span>权限管理</span>
-                </template>
-              </el-menu-item>
-            </template>
-          </el-sub-menu>
+              </template>
+            </el-sub-menu>
+            <el-menu-item
+              v-else-if="item.component"
+              :index="item.path"
+              :route="item.path"
+            >
+              <template #title>
+                <el-icon><component :is="item.meta.icon" /></el-icon>
+                <span>{{ item.name }}</span>
+              </template>
+            </el-menu-item>
+          </template>
         </el-menu>
       </div>
       <div
