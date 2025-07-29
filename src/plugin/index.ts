@@ -7,8 +7,6 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn.mjs'
 import 'dayjs/locale/zh-cn'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-// Element Plus图标
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import router from '@/plugin/vue-router.ts'
 import {createPinia} from 'pinia'
@@ -23,10 +21,6 @@ export const setPluginForApp = (app: App) => {
   app.use(ElementPlus, {
     locale: zhCn,
   })
-  // 设置Element Plus图标
-  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
-  }
   // 使用路由
   app.use(router)
   // 使用pinia
