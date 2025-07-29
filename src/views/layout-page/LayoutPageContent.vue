@@ -12,6 +12,7 @@ import {onMounted, ref, useTemplateRef} from 'vue'
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
+import {Discount, House, Key, Operation, Search, User} from '@element-plus/icons-vue'
 
 const isChildWeb = window !== window.parent
 
@@ -115,7 +116,10 @@ onMounted(() => {
           <template #reference>
             <button class="w-[44px] h-[44px] flex justify-center items-center hover:bg-disabled rounded-full">
               <div class="w-[32px] h-[32px] rounded-full overflow-hidden">
-                <img src="/default_avatar.jpg">
+                <img
+                  src="/default_avatar.jpg"
+                  alt=""
+                >
               </div>
             </button>
           </template>
@@ -169,7 +173,7 @@ onMounted(() => {
             route="/index"
           >
             <template #title>
-              <el-icon><component is="House" /></el-icon>
+              <el-icon><House /></el-icon>
               <span>首页</span>
             </template>
           </el-menu-item>
@@ -178,7 +182,7 @@ onMounted(() => {
             index="系统管理"
           >
             <template #title>
-              <el-icon><component is="Operation" /></el-icon>
+              <el-icon><Operation /></el-icon>
               <span>系统管理</span>
             </template>
             <template #default>
@@ -188,7 +192,7 @@ onMounted(() => {
                 route="/system-manage/user-manage"
               >
                 <template #title>
-                  <el-icon><component is="User" /></el-icon>
+                  <el-icon><User /></el-icon>
                   <span>用户管理</span>
                 </template>
               </el-menu-item>
@@ -198,7 +202,7 @@ onMounted(() => {
                 route="/system-manage/role-manage"
               >
                 <template #title>
-                  <el-icon><component is="Discount" /></el-icon>
+                  <el-icon><Discount /></el-icon>
                   <span>角色管理</span>
                 </template>
               </el-menu-item>
@@ -208,7 +212,7 @@ onMounted(() => {
                 route="/system-manage/permission-manage"
               >
                 <template #title>
-                  <el-icon><component is="Key" /></el-icon>
+                  <el-icon><Key /></el-icon>
                   <span>权限管理</span>
                 </template>
               </el-menu-item>
@@ -239,6 +243,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .el-menu {
-	border-right: unset;
+  border-right: unset;
 }
 </style>
