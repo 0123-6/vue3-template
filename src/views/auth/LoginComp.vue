@@ -8,7 +8,6 @@ import IconGithub from '@views/auth/icon/IconGithub.vue'
 import IconGoogle from '@views/auth/icon/IconGoogle.vue'
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
-import {useUserStore} from '@/plugin/pinia.ts'
 
 const formObject = useElForm({
   list: [
