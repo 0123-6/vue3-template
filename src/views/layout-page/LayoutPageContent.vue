@@ -180,20 +180,17 @@ onMounted(() => {
                 <span>{{ item.name }}</span>
               </template>
               <template #default>
-                <template
+                <el-menu-item
                   v-for="item2 in item.children.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
                   :key="item2.name"
+                  :index="item2.path"
+                  :route="item2.path"
                 >
-                  <el-menu-item
-                    :index="item2.path"
-                    :route="item2.path"
-                  >
-                    <template #title>
-                      <el-icon><component :is="item2.meta.icon" /></el-icon>
-                      <span>{{ item2.name }}</span>
-                    </template>
-                  </el-menu-item>
-                </template>
+                  <template #title>
+                    <el-icon><component :is="item2.meta.icon" /></el-icon>
+                    <span>{{ item2.name }}</span>
+                  </template>
+                </el-menu-item>
               </template>
             </el-sub-menu>
             <el-menu-item
