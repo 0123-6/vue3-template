@@ -1,4 +1,6 @@
 import {ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
+import {useResetRef} from '@/util/hooks/useResetState.ts'
+import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 
 // 用户的信息
 export interface IUserInfo {
@@ -28,6 +30,18 @@ export interface IUserInfo {
   // 权限相关,分为前端权限+后端权限
   // 前端权限
   // roleList?: string[],
+}
+
+// 权限基本结构
+type IPermissionType = 'directory' | 'menu' | 'button'
+
+export interface IPermission {
+  // 唯一的名字
+  name: string,
+  // 类型
+  type: IPermissionType,
+  // 父节点,不存在代表顶层结构
+  parent?: string,
 }
 
 export const sexList: ISelectOption[] = [
@@ -77,4 +91,21 @@ export const getUserAccountListSelectObject = useElSelect({
     url: 'user/getAccountList',
     mockProd: true,
   }),
+})
+
+// 获取全量权限列表
+const {
+  state: allPermissionList,
+  resetState: resetAllPermissionList,
+} = useResetRef((): IPermission[] => [])
+const fetchAllPermissionList = useBaseFetch({
+  beforeFetchResetFn: resetAllPermissionList,
+  fetchOptionFn: () => ({
+    url: 'getAllPermissionList',
+    mockProd: true,
+  }),
+  transformResponseDataFn: (responseData: IPermission[]) => {
+    allPermissionList.value = responseData
+  },
+  microTask: true,
 })
