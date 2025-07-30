@@ -129,6 +129,11 @@ const tableObject = useElTable({
       width: 200,
     },
     {
+      label: '最新活跃时间',
+      prop: 'lastActiveTime',
+      width: 200,
+    },
+    {
       label: '操作',
       operatorList: [
         {

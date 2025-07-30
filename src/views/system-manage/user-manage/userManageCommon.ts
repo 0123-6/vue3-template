@@ -18,6 +18,8 @@ export interface IUserInfo {
   description?: string,
   // 创建日期
   createTime: string,
+  // 最新活跃时间
+  lastActiveTime: string,
   // 权限信息
   permissionList: string[],
   // 在线状态,动态设置,非用户自身信息
