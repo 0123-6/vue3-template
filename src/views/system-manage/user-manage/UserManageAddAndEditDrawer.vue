@@ -2,6 +2,7 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
+  allPermissionList,
   getUserAccountListSelectObject,
   sexList,
   userStatusList,
@@ -174,6 +175,14 @@ const fetchUpdate = useBaseFetch({
       >
         <base-form-item-list :form-object="formObject" />
       </el-form>
+      <el-tree
+        :data="allPermissionList"
+        node-key="name"
+        :props="{label: 'name',}"
+        default-expand-all
+        show-checkbox
+        :default-checked-keys="props.item?.permissionList"
+      />
     </template>
     <template #footer>
       <el-button
