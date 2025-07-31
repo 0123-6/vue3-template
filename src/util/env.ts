@@ -57,6 +57,10 @@ export const goLoginPage = () => {
     }, location.origin)
   } else {
     ElMessage.warning('请重新登录')
-    location.href = location.origin + projectConfig.loginUrl
+    if (projectConfig.loginMode === 'router') {
+      router.push(projectConfig.loginRoutePath)
+    } else {
+      location.href = location.origin + projectConfig.loginUrl
+    }
   }
 }
