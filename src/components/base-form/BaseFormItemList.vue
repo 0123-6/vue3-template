@@ -208,7 +208,7 @@ props.formObject.list
       :start-placeholder="(item.type === 'daterange') ? '开始日期' : '开始时间'"
       :end-placeholder="(item.type === 'daterange') ? '结束日期' : '结束时间'"
       unlink-panels
-      :shortcuts="(item.type === 'daterange' || item.type === 'datetimerange') ? dateShortcutsWeekAndMonthAndYear : undefined"
+      :shortcuts="item.shortcuts ?? dateShortcutsWeekAndMonthAndYear"
       :format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
       :value-format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
       @change="emit('change')"

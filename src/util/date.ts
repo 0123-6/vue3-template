@@ -10,8 +10,8 @@ export const dateToYYYYMMDDHHMMSS = (date: (string | Date | Dayjs) = new Date())
 }
 
 // Element Plus日期快捷方式
-// 快捷方式周和月
-export const dateShortcutsWeekAndMonth = [
+// 快捷方式周
+export const dateShortcutsWeek = [
   {
     text: '最近一周',
     value: () => {
@@ -21,6 +21,11 @@ export const dateShortcutsWeekAndMonth = [
       return [start, end]
     },
   },
+]
+
+// 快捷方式周和月
+export const dateShortcutsWeekAndMonth = [
+  ...dateShortcutsWeek,
   {
     text: '最近一月',
     value: () => {
@@ -34,24 +39,7 @@ export const dateShortcutsWeekAndMonth = [
 
 // 快捷方式周月年
 export const dateShortcutsWeekAndMonthAndYear = [
-  {
-    text: '最近一周',
-    value: () => {
-      const start = new Date()
-      const end = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近一月',
-    value: () => {
-      const start = new Date()
-      const end = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-      return [start, end]
-    },
-  },
+  ...dateShortcutsWeekAndMonth,
   {
     text: '最近一年',
     value: () => {
