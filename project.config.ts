@@ -19,8 +19,12 @@ interface IProjectConfig {
     success: (number | string)[],
     notLogin: (number | string)[],
   },
+  // 登录使用路由还是直接修改url
+  loginMode?: 'router' | 'url',
+  // 路由路径
+  loginRoutePath?: string,
   // 登录页面网址
-  loginUrl: string,
+  loginUrl?: string,
   // vite配置
   viteConfig: {
     // 构建目标环境
@@ -51,7 +55,8 @@ export const projectConfig: IProjectConfig = {
     'success': [200, '200'],
     'notLogin': [901, '901'],
   },
-  loginUrl: '/auth/login',
+  loginMode: 'router',
+  loginRoutePath: '/auth/login',
   viteConfig: {
     proxy: {
       '/api': {
