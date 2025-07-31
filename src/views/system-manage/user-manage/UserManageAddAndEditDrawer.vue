@@ -8,11 +8,12 @@ import {
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {ElMessage, FormInstance} from 'element-plus'
+import {ElMessage, FormInstance, TreeInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'
 import BaseTitle from '@/components/base-drawer/BaseTitle.vue'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
 import {useUserStore} from '@/plugin/pinia.ts'
+import {ref} from 'vue'
 
 interface IProps {
   props: {
@@ -112,6 +113,7 @@ const formObject = useElForm({
     },
   ],
 })
+const treeInstance = ref<TreeInstance>()
 
 // 新增和编辑的初始化
 if (props.isAddOrEdit === 'add') {
@@ -146,7 +148,10 @@ const fetchAdd = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/addUser',
     mockProd: true,
-    data: formObject.data,
+    data: {
+      ...formObject.data,
+      permissionList: treeInstance.value.getCheckedKeys(),
+    },
   }),
   transformResponseDataFn: () => {
     ElMessage.success('新增用户成功')
@@ -158,7 +163,10 @@ const fetchUpdate = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/editUser',
     mockProd: true,
-    data: formObject.data,
+    data: {
+      ...formObject.data,
+      permissionList: treeInstance.value.getCheckedKeys(),
+    },
   }),
   transformResponseDataFn: () => {
     ElMessage.success('更新用户成功')
@@ -182,14 +190,19 @@ const fetchUpdate = useBaseFetch({
       >
         <base-form-item-list :form-object="formObject" />
       </el-form>
-      <el-tree
-        :data="allPermissionList"
-        node-key="name"
-        :props="{label: 'name',}"
-        default-expand-all
-        show-checkbox
-        :default-checked-keys="props.item?.permissionList"
-      />
+      <div class="w-full flex">
+        <span class="w-[90px] text-right text-sm text-text-title">权限信息</span>
+        <el-tree
+          :ref="(el: TreeInstance) => treeInstance = el"
+          :data="allPermissionList"
+          node-key="name"
+          :props="{label: 'name',}"
+          default-expand-all
+          show-checkbox
+          check-strictly
+          :default-checked-keys="props.item?.permissionList"
+        />
+      </div>
     </template>
     <template #footer>
       <el-button
