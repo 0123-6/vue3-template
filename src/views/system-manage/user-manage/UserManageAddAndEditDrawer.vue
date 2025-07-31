@@ -119,7 +119,14 @@ if (props.isAddOrEdit === 'add') {
     status: 'normal',
   })
 } else {
-  formObject.reset(props.item)
+  formObject.reset({
+    account: props.item.account,
+    nickname: props.item.nickname,
+    sex: props.item.sex,
+    phone: props.item.phone,
+    status: props.item.status,
+    description: props.item.description,
+  })
 }
 
 const clickOk = async () => {
