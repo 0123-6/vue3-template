@@ -5,5 +5,6 @@ export default function (message: string) {
     type: 'error',
     message,
     showClose: true,
+    duration: 0,
   })
 }
