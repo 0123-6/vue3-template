@@ -1,7 +1,6 @@
 import {ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {arrayToTree} from '@/util/tree.ts'
 
 // 用户的信息
 export interface IUserInfo {
@@ -33,16 +32,10 @@ export interface IUserInfo {
   // roleList?: string[],
 }
 
-// 权限基本结构
-type IPermissionType = 'directory' | 'menu' | 'button'
-
 export interface IPermission {
   // 唯一的名字
   name: string,
-  // 类型
-  type: IPermissionType,
-  // 父节点,不存在代表顶层结构
-  parent?: string,
+  children?: IPermission[],
 }
 
 export const sexList: ISelectOption[] = [
