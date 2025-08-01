@@ -22,6 +22,7 @@ const tableObject = useElTable({
       label: '名字',
       prop: 'name',
       minWidth: 160,
+      align: 'left',
     },
     {
       label: '操作',
