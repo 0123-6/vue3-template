@@ -191,7 +191,7 @@ const fetchUpdate = useBaseFetch({
         <base-form-item-list :form-object="formObject" />
       </el-form>
       <div class="w-full flex">
-        <span class="w-[90px] text-right text-sm text-text-title">权限信息</span>
+        <span class="w-[90px] pr-3 text-right text-sm text-text-title">权限信息</span>
         <el-tree
           :ref="(el: TreeInstance) => treeInstance = el"
           :data="allPermissionList"
