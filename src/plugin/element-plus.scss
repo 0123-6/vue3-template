@@ -271,6 +271,14 @@
 			padding: 0 12px !important;
 		}
 
+		.el-table__body-wrapper {
+			.cell {
+				display: flex !important;
+				justify-content: center !important;
+				align-items: center !important;
+			}
+		}
+
 		.el-table__inner-wrapper::before {
 			height: 0 !important;
 		}
