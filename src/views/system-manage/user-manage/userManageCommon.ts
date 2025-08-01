@@ -102,18 +102,15 @@ export const {
 const fetchAllPermissionList = useBaseFetch({
   beforeFetchResetFn: resetAllPermissionList,
   fetchOptionFn: () => ({
-    url: 'getAllPermissionList',
+    url: 'getPermissionList',
+    data: {
+      pageNum: 1,
+      pageSize: 9999,
+    },
     mockProd: true,
   }),
-  transformResponseDataFn: (responseData: IPermission[]) => {
-    console.log(responseData)
-    allPermissionList.value = arrayToTree(
-      responseData,
-      {
-        idKey: 'name',
-        parentKey: 'parent',
-      },
-    )
+  transformResponseDataFn: (responseData: any) => {
+    allPermissionList.value = responseData.list
   },
   microTask: true,
 })
