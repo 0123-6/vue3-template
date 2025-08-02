@@ -10,6 +10,10 @@ import {Search} from '@element-plus/icons-vue'
 import BaseTableColumnList from '@/components/base-table/BaseTableColumnList.vue'
 import TableNoData from '@/components/base-table/TableNoData.vue'
 import BaseSpanTooltip from '@/components/base-span-tooltip/BaseSpanTooltip.vue'
+import {useResetRef} from '@/util/hooks/useResetState.ts'
+import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
+import PermissionManageAddAndEditDrawer
+  from '@views/system-manage/permission-manage/PermissionManageAddAndEditDrawer.vue'
 
 const tableObject = useElTable({
   fetchOptionFn: () => ({
@@ -43,6 +47,15 @@ const tableObject = useElTable({
       label: '操作',
       operatorList: [
         {
+          text: '编辑',
+          type: 'primary',
+          onClick: (item: any) => {
+            tableObject.resetType(item)
+            resetIsAddOrEdit('edit')
+            drawerObject.isShow = true
+          },
+        },
+        {
           text: '删除',
           type: 'error',
           onClick: (item: any) => {
@@ -50,6 +63,7 @@ const tableObject = useElTable({
             renderDeleteDialog()
           },
           disabled: (item: any) => item.children?.length,
+          hidden: false,
         },
       ],
     },
@@ -60,7 +74,19 @@ const clickSearch = async () => {
   tableObject.doFetch()
 }
 
-// 新增
+// 新增和编辑
+const {
+  state: isAddOrEdit,
+  resetState: resetIsAddOrEdit,
+} = useResetRef((): 'add' | 'edit' => 'add')
+const clickBatchAdd = () => {
+  tableObject.resetType('batch')
+  resetIsAddOrEdit('add')
+  drawerObject.isShow = true
+}
+const drawerObject = useElFeedback({
+  okHook: tableObject.doFetch,
+})
 
 // 删除
 const renderDeleteDialog = useRenderComp(PromptDialog, (): IPromptDialog => ({
@@ -109,6 +135,15 @@ const fetchDeleteObject = useBaseFetch({
         </el-button>
       </div>
     </div>
+    <!--操作行-->
+    <div class="flex items-center gap-x-4">
+      <el-button
+        type="primary"
+        @click="clickBatchAdd"
+      >
+        新增
+      </el-button>
+    </div>
     <!--表格-->
     <el-table
       :ref="(el: TableInstance) => tableObject.tableRef.value = el"
@@ -143,6 +178,25 @@ const fetchDeleteObject = useBaseFetch({
         @change="tableObject.doFetch"
       />
     </div>
+    <!--feedback组件-->
+    <el-drawer
+      v-model="drawerObject.isShow"
+      :append-to-body="true"
+      :title="isAddOrEdit === 'add' ? '新增' : '编辑'"
+      :close-on-click-modal="true"
+      :close-on-press-escape="false"
+      :destroy-on-close="true"
+      :size="500"
+      modal-class="hpj"
+      @close="drawerObject.onCancel"
+    >
+      <PermissionManageAddAndEditDrawer
+        :is-add-or-edit="isAddOrEdit"
+        :item="tableObject.selectItem"
+        @ok="drawerObject.onOk"
+        @cancel="drawerObject.onCancel"
+      />
+    </el-drawer>
   </div>
 </template>
 
