@@ -99,7 +99,7 @@ export const {
   state: allPermissionList,
   resetState: resetAllPermissionList,
 } = useResetRef((): IPermission[] => [])
-const fetchAllPermissionList = useBaseFetch({
+export const fetchAllPermissionList = useBaseFetch({
   beforeFetchResetFn: resetAllPermissionList,
   fetchOptionFn: () => ({
     url: 'getPermissionList',
