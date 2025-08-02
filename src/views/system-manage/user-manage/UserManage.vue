@@ -126,12 +126,12 @@ const tableObject = useElTable({
     {
       label: '创建时间',
       prop: 'createTime',
-      width: 200,
+      width: 160,
     },
     {
       label: '最新活跃时间',
       prop: 'lastActiveTime',
-      width: 200,
+      width: 160,
     },
     {
       label: '操作',
