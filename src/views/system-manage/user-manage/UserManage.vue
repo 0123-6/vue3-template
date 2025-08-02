@@ -382,12 +382,8 @@ const fetchChangeIsOnlineObject = useBaseFetch({
       </div>
     </div>
     <!--操作行-->
-    <div
-      v-if="true"
-      class="flex items-center gap-x-4"
-    >
+    <div class="flex items-center gap-x-4">
       <el-button
-        v-if="true"
         type="primary"
         @click="clickBatchAdd"
       >
