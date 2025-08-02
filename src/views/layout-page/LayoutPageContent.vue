@@ -212,7 +212,7 @@ onMounted(() => {
         style="width: calc(100% - 222px);"
       >
         <div
-          class="w-full min-w-[1440px] h-full min-h-[700px] flex flex-col"
+          class="w-full min-w-[1218px] h-full min-h-[700px] flex flex-col"
           style="padding: 16px 24px 0 16px;"
         >
           <RouterView v-if="userStore.user.permissionList.includes(router.currentRoute.value.name as string)" />
