@@ -19,10 +19,25 @@ const tableObject = useElTable({
   rowHeight: 30,
   list: [
     {
-      label: '名字',
+      label: '权限名称',
       prop: 'name',
-      minWidth: 160,
+      width: 200,
       align: 'left',
+    },
+    {
+      label: '权限描述',
+      prop: 'description',
+      minWidth: 200,
+    },
+    {
+      label: '创建时间',
+      prop: 'createTime',
+      width: 160,
+    },
+    {
+      label: '更新时间',
+      prop: 'lastChangeTime',
+      width: 160,
     },
     {
       label: '操作',

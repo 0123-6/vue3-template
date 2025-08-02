@@ -16,7 +16,7 @@ export interface IUserInfo {
   phone?: string,
   // 状态
   status: 'normal' | 'disabled',
-  // 说明
+  // 描述
   description?: string,
   // 创建日期
   createTime: string,
@@ -32,10 +32,17 @@ export interface IUserInfo {
   // roleList?: string[],
 }
 
+// 权限相关
 export interface IPermission {
   // 唯一的名字
   name: string,
   children?: IPermission[],
+  // 创建日期
+  createTime: string,
+  // 最后修改时间
+  lastChangeTime: string,
+  // 描述
+  description: string,
 }
 
 export const sexList: ISelectOption[] = [
