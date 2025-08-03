@@ -2,7 +2,7 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
-  allPermissionList,
+  allPermissionListSelectObject,
   getUserAccountListSelectObject,
   sexList,
   userStatusList,
@@ -194,9 +194,7 @@ const fetchUpdate = useBaseFetch({
         <span class="w-[90px] pr-3 text-right text-sm text-text-title">权限信息</span>
         <el-tree
           :ref="(el: TreeInstance) => treeInstance = el"
-          :data="allPermissionList"
-          node-key="name"
-          :props="{label: 'name',}"
+          :data="allPermissionListSelectObject.data"
           default-expand-all
           show-checkbox
           check-strictly
