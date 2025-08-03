@@ -1,6 +1,4 @@
 import {ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
-import {useResetRef} from '@/util/hooks/useResetState.ts'
-import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 
 // 用户的信息
 export interface IUserInfo {
@@ -95,22 +93,13 @@ export const getUserAccountListSelectObject = useElSelect({
 })
 
 // 获取全量权限列表
-export const {
-  state: allPermissionList,
-  resetState: resetAllPermissionList,
-} = useResetRef((): IPermission[] => [])
-export const fetchAllPermissionList = useBaseFetch({
-  beforeFetchResetFn: resetAllPermissionList,
+export const allPermissionListSelectObject = useElSelect({
+  config: {
+    labelName: 'name',
+    valueName: 'name',
+  },
   fetchOptionFn: () => ({
-    url: 'getPermissionList',
-    data: {
-      pageNum: 1,
-      pageSize: 9999,
-    },
+    url: 'getAllPermissionList',
     mockProd: true,
   }),
-  transformResponseDataFn: (responseData: any) => {
-    allPermissionList.value = responseData.list
-  },
-  microTask: true,
 })
