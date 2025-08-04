@@ -14,8 +14,9 @@ import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import PermissionManageAddAndEditDrawer
   from '@views/system-manage/permission-manage/PermissionManageAddAndEditDrawer.vue'
+import {IPermission} from '@views/system-manage/user-manage/userManageCommon.ts'
 
-const tableObject = useElTable({
+const tableObject = useElTable<IPermission>({
   fetchOptionFn: () => ({
     url: 'getPermissionList',
     mockProd: true,
@@ -49,7 +50,7 @@ const tableObject = useElTable({
         {
           text: '编辑',
           type: 'primary',
-          onClick: (item: any) => {
+          onClick: (item) => {
             tableObject.resetType(item)
             resetIsAddOrEdit('edit')
             drawerObject.isShow = true
@@ -58,11 +59,11 @@ const tableObject = useElTable({
         {
           text: '删除',
           type: 'error',
-          onClick: (item: any) => {
+          onClick: (item) => {
             tableObject.resetType(item)
             renderDeleteDialog()
           },
-          disabled: (item: any) => item.children?.length,
+          disabled: item => !!item.children?.length,
           hidden: false,
         },
       ],
