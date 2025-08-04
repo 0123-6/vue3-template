@@ -23,7 +23,7 @@ const formObject = useElForm({
       selectObject: undefined,
       multiple: undefined,
       required: true,
-      disabled: undefined,
+      disabled: props.isAddOrEdit === 'edit',
       hidden: undefined,
     },
     {
@@ -88,7 +88,7 @@ const fetchAdd = useBaseFetch({
 })
 const fetchUpdate = useBaseFetch({
   fetchOptionFn: () => ({
-    url: 'permission/edit',
+    url: 'permission/update',
     mockProd: true,
     data: formObject.data,
   }),
