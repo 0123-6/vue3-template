@@ -44,16 +44,16 @@ export interface IUseElFormProps {
   mode?: 'query' | 'edit',
 }
 
-export interface IUseElFormReturn {
+export interface IUseElFormReturn<T extends Record<string, any>> {
   formRef: Ref<FormInstance>,
   list: IElFormItem[],
   canFold: boolean,
   isFold: Ref<boolean>,
   foldNumber: number,
-  data: Record<string, any>,
-  reset: (newValue?: Record<string, any>) => void,
+  data: T,
+  reset: (newValue?: Partial<T>) => void,
   addResetHook: (fn: Function) => void,
-  validate: (propertyList?: string[]) => Promise<boolean>,
+  validate: (propertyList?: (keyof T)[]) => Promise<boolean>,
 }
 
 const getItemDefaultValue = (item: IElFormItem): any => {
@@ -70,8 +70,8 @@ const getItemDefaultValue = (item: IElFormItem): any => {
   return null
 }
 
-export const useElForm = (props: IUseElFormProps)
-  : IUseElFormReturn => {
+export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
+  : IUseElFormReturn<T> => {
   const {
     foldNumber = 4,
     mode = 'query',
@@ -83,13 +83,13 @@ export const useElForm = (props: IUseElFormProps)
 
   list = list.filter(Boolean).filter(_item => isFalse(_item.hidden))
 
-  const dataFn = (): Record<string, any> => {
-    const data = Object.create(null)
+  const dataFn = (): T => {
+    const data = Object.create(null) as T
     for (const item of list.filter(Boolean).filter(_item => isFalse(_item.hidden))) {
       if (Array.isArray(item.prop)) {
-        item.prop.forEach(_item => data[_item] = undefined)
+        item.prop.forEach(_item => data[_item as keyof T] = undefined)
       } else {
-        data[item.prop] = mode === 'query'
+        data[item.prop as keyof T] = mode === 'query'
           ? undefined
           : getItemDefaultValue(item)
       }
@@ -116,7 +116,7 @@ export const useElForm = (props: IUseElFormProps)
   }
 
   // 重置表单组件
-  const reset = (newValue?: Record<string, any>) => {
+  const reset = (newValue?: Partial<T>) => {
     // 赋值
     if (newValue) {
       resetData(newValue)
@@ -131,10 +131,10 @@ export const useElForm = (props: IUseElFormProps)
     }
   }
 
-  const validate = async (propertyList?: string[]): Promise<boolean> => {
+  const validate = async (propertyList?: (keyof T)[]): Promise<boolean> => {
     try {
       if (propertyList) {
-        await formRef.value!.validateField(propertyList)
+        await formRef.value!.validateField(propertyList as string[])
         return true
       } else {
         await formRef.value!.validate()
