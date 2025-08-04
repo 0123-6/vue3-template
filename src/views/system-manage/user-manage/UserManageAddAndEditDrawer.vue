@@ -3,7 +3,7 @@ import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
   allPermissionListSelectObject,
-  getUserAccountListSelectObject,
+  getUserAccountListSelectObject, IUserInfo,
   sexList,
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
@@ -18,7 +18,7 @@ import {ref} from 'vue'
 interface IProps {
   props: {
     isAddOrEdit: 'add' | 'edit',
-    item: any,
+    item: IUserInfo,
   },
 }
 

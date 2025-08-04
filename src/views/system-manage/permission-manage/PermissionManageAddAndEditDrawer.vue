@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useElForm} from '@/components/base-form/useElForm.ts'
-import {allPermissionListSelectObject} from '@views/system-manage/user-manage/userManageCommon.ts'
+import {allPermissionListSelectObject, IPermission} from '@views/system-manage/user-manage/userManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {ElMessage, FormInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'
@@ -9,7 +9,7 @@ import BaseTitle from '@/components/base-drawer/BaseTitle.vue'
 
 interface IProps {
   isAddOrEdit: 'add' | 'edit',
-  item: any,
+  item: IPermission,
 }
 const props = defineProps<IProps>()
 const emits = defineEmits(['ok', 'cancel'])
