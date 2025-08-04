@@ -25,7 +25,7 @@ interface IProps {
 const {props} = defineProps<IProps>()
 const emits = defineEmits(['ok', 'cancel'])
 
-const formObject = useElForm({
+const formObject = useElForm<IUserInfo & {password2: string}>({
   list: [
     {
       label: '账号',
