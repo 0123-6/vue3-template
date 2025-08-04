@@ -5,28 +5,28 @@ import {IUseBaseFetchReturn, useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {camelToSnake} from '@/util/stringUtil.ts'
 import {useResetReactive, useResetRef} from '@/util/hooks/useResetState.ts'
 
-export interface IBaseTableColumn extends IBaseItem {
+export interface IBaseTableColumn<T = any> extends IBaseItem {
   type?: 'selection',
   width?: number,
   minWidth?: number,
   align?: 'left' | 'center' | 'right',
   fixed?: 'left' | 'right',
-  children?: IBaseTableColumn[],
+  children?: IBaseTableColumn<T>[],
   // 操作列
-  operatorList?: IOperatorItem[],
+  operatorList?: IOperatorItem<T>[],
   sortable?: 'custom',
 }
 
-export interface IOperatorItem {
+export interface IOperatorItem<T> {
   text: string,
   type: 'primary' | 'success' | 'warning' | 'error' | 'text',
   hidden?: boolean | (() => boolean),
-  disabled?: (item: any) => boolean,
-  disabledText?: string | ((item: any) => string),
-  onClick?: (item: any, index: number) => void,
+  disabled?: (item: T) => boolean,
+  disabledText?: string | ((item: T) => string),
+  onClick?: (item: T, index: number) => void,
 }
 
-export interface IUseElTableProps {
+export interface IUseElTableProps<T extends Record<string, any> = any> {
   // 行高
   rowHeight?: number,
   // 分页
@@ -36,9 +36,9 @@ export interface IUseElTableProps {
   fetchOptionFn?: () => IBaseFetch,
   microTask?: boolean,
   // 现成的数据
-  preparedData?: any[],
+  preparedData?: T[],
   // 列属性数组,支持嵌套1次(二维数组)
-  list: IBaseTableColumn[],
+  list: IBaseTableColumn<T>[],
 }
 
 type IParams = {
@@ -50,25 +50,25 @@ type IParams = {
   orderStatus: string,
 }
 
-export interface IUseElTableReturn {
+export interface IUseElTableReturn<T extends Record<string, any> = any> {
   tableRef: Ref<TableInstance>,
   rowHeight: number,
   pageSizeList: number[],
-  list: IBaseTableColumn[],
+  list: IBaseTableColumn<T>[],
   params: IParams,
   reset: (newValue?: Partial<IParams> | 'pageNum') => void,
   data: {
     total: number,
-    list: any[],
+    list: T[],
   },
   changeSort: (args: { prop: string; order?: string }) => Promise<void>,
 
   // 用来为表格的单个 / 批量操作服务
   readonly type: 'single' | 'batch' | undefined,
-  readonly selectItem: Record<string, string | number | boolean>,
-  readonly selectItemList: Record<string, string | number | boolean>[],
-  resetSelectItemList: (newVlaue?: Record<string, string | number | boolean>[]) => void,
-  resetType: (newValue ?: 'batch' | Record<string, string | number | boolean>) => void,
+  readonly selectItem: T,
+  readonly selectItemList: T[],
+  resetSelectItemList: (newVlaue?: T[]) => void,
+  resetType: (newValue ?: 'batch' | T) => void,
 
   beforeFetchHookSet: Set<Function>,
   readonly isFetching: boolean,
@@ -76,8 +76,8 @@ export interface IUseElTableReturn {
   doFetch: () => Promise<boolean>,
 }
 
-export const useElTable = (props: IUseElTableProps)
-  : IUseElTableReturn => {
+export const useElTable = <T extends Record<string, any>>(props: IUseElTableProps<T>)
+  : IUseElTableReturn<T> => {
   const {
     rowHeight = 48,
     pageSizeList = [10, 20, 30],
@@ -130,7 +130,7 @@ export const useElTable = (props: IUseElTableProps)
   const {
     state: data,
     resetState: resetData,
-  } = useResetReactive(() => ({
+  } = useResetReactive((): {total: number, list: T[],} => ({
     total: 0,
     list: [],
   }))
@@ -162,7 +162,7 @@ export const useElTable = (props: IUseElTableProps)
       return
     }
 
-    responseData.list = (responseData.list as Array<Record<string, any>>)
+    responseData.list = (responseData.list as Array<T>)
       .filter(Boolean)
       .map((item, index) => ({
         ...transformValue(item, list),
@@ -235,12 +235,12 @@ export const useElTable = (props: IUseElTableProps)
   const {
     state: selectItem,
     resetState: resetSelectItem,
-  } = useResetRef((): Record<string, string | number | boolean> => null)
+  } = useResetRef((): T => null)
   const {
     state: selectItemList,
     resetState: resetSelectItemList,
-  } = useResetRef((): Record<string, string | number | boolean>[] => [])
-  const resetType = (newValue ?: 'batch' | Record<string, string | number | boolean>) => {
+  } = useResetRef((): T[] => [])
+  const resetType = (newValue ?: 'batch' | T) => {
     if (newValue === undefined) {
       resetInnerType()
       resetSelectItem()
