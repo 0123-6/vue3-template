@@ -129,6 +129,11 @@ const tableObject = useElTable({
       width: 160,
     },
     {
+      label: '最后修改时间',
+      prop: 'lastChangeTime',
+      width: 160,
+    },
+    {
       label: '最新活跃时间',
       prop: 'lastActiveTime',
       width: 160,
