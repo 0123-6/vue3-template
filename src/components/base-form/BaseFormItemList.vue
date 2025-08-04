@@ -152,9 +152,7 @@ props.formObject.list
       :render-after-expand="false"
       :lazy="item.lazy"
       :load="item.load"
-      :props="{
-        isLeaf: 'isLeaf',
-      }"
+      :default-expand-all="item.defaultExpandAll"
       @change="emit('change')"
     />
     <el-radio-group

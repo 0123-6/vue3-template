@@ -27,6 +27,7 @@ export interface IElFormItem {
   // tree专用
   lazy?: boolean,
   load?: (node: any, resolve: (data: []) => void) => void,
+  defaultExpandAll?: boolean,
   // textarea专用
   rows?: number,
   minLength?: number,
