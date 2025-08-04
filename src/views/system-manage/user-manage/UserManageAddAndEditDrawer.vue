@@ -196,6 +196,7 @@ const fetchUpdate = useBaseFetch({
           :ref="(el: TreeInstance) => treeInstance = el"
           :data="allPermissionListSelectObject.data"
           default-expand-all
+          node-key="value"
           show-checkbox
           check-strictly
           :default-checked-keys="props.item?.permissionList"
