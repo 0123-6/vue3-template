@@ -9,7 +9,7 @@ import TableNoData from '@/components/base-table/TableNoData.vue'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {
-  getUserAccountListSelectObject, onlineSelectObject,
+  getUserAccountListSelectObject, IUserInfo, onlineSelectObject,
   sexList,
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
@@ -74,7 +74,7 @@ const formObject = useElForm({
 })
 
 // 表格部分
-const tableObject = useElTable({
+const tableObject = useElTable<IUserInfo>({
   fetchOptionFn: () => ({
     url: 'user/getUserList',
     mockProd: true,
@@ -144,7 +144,7 @@ const tableObject = useElTable({
         {
           text: '编辑',
           type: 'primary',
-          onClick: (item: any) => {
+          onClick: (item) => {
             tableObject.resetType(item)
             resetIsAddOrEdit('edit')
             drawerObject.isShow = true
@@ -153,7 +153,7 @@ const tableObject = useElTable({
         {
           text: '删除',
           type: 'error',
-          onClick: (item: any) => {
+          onClick: (item) => {
             tableObject.resetType(item)
             renderDeleteDialog()
           },
