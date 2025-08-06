@@ -6,7 +6,7 @@ import {FormItemRule} from 'element-plus'
 import {computed} from 'vue'
 
 interface IProps {
-  formObject: IUseElFormReturn,
+  formObject: IUseElFormReturn<Record<string, any>>,
   range?: number[],
 }
 
