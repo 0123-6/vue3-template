@@ -120,6 +120,8 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
     // 赋值
     if (newValue) {
       resetData(newValue)
+      // ??? 需要这样吗,感觉不优雅
+      validate(Object.keys(newValue))
     } else {
       // ??? clearValidate or resetFields
       formRef.value!.resetFields()
