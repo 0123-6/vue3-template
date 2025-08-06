@@ -3,7 +3,7 @@ import {IUseElFormReturn} from '@/components/base-form/useElForm.ts'
 import {ArrowDown, ArrowUp} from '@element-plus/icons-vue'
 
 interface IProps {
-  formObject: IUseElFormReturn,
+  formObject: IUseElFormReturn<Record<string, any>>,
 }
 
 const props = defineProps<IProps>()
