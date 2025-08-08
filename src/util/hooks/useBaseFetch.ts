@@ -14,7 +14,6 @@ export interface IUseBaseFetch {
 }
 
 export interface IUseBaseFetchReturn {
-  beforeFetchHookSet: Set<Function>,
   readonly isFetching: boolean,
   beforeFetch: () => void,
   doFetch: () => Promise<boolean>,
@@ -31,7 +30,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
   } = props
 
   // 前置hook函数
-  const beforeFetchHookSet = new Set<Function>()
   let abortController: AbortController = new AbortController()
   const {
     state: isFetching,
@@ -41,9 +39,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
     const permission = fetchOptionFn().permission ?? true
     if (isFalse(permission)) {
       return
-    }
-    for (const beforeFetchHook of beforeFetchHookSet) {
-      beforeFetchHook()
     }
     abortController.abort()
     abortController = new AbortController()
@@ -80,7 +75,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
   }
 
   return {
-    beforeFetchHookSet,
     get isFetching() {
       return isFetching.value
     },

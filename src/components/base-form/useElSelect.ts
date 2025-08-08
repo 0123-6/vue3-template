@@ -32,7 +32,6 @@ export interface IUseElSelectProps {
 export interface IUseElSelectReturn {
   data: ISelectOption[],
 
-  beforeFetchHookSet: Set<Function>,
   readonly isFetching: boolean,
   beforeFetch: () => void,
   doFetch: () => Promise<boolean>,
@@ -139,7 +138,6 @@ export const useElSelect = (props: IUseElSelectProps)
       return selectOptionList.value
     },
 
-    beforeFetchHookSet: fetchSelectOption.beforeFetchHookSet,
     get isFetching() {
       return fetchSelectOption.isFetching
     },

@@ -70,7 +70,6 @@ export interface IUseElTableReturn<T extends Record<string, any> = any> {
   resetSelectItemList: (newVlaue?: T[]) => void,
   resetType: (newValue ?: 'batch' | T) => void,
 
-  beforeFetchHookSet: Set<Function>,
   readonly isFetching: boolean,
   beforeFetch: () => void,
   doFetch: () => Promise<boolean>,
@@ -189,7 +188,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     })
   } else {
     fetchTable = {
-      beforeFetchHookSet: undefined,
       isFetching: false,
       beforeFetch: () => {
       },
@@ -278,7 +276,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     resetSelectItemList,
     resetType,
 
-    beforeFetchHookSet: fetchTable.beforeFetchHookSet,
     get isFetching() {
       return fetchTable.isFetching
     },
