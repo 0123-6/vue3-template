@@ -38,6 +38,8 @@ interface IProjectConfig {
   },
   // 是否有自己的菜单和最外层布局
   isShowMenu?: boolean,
+  // 全局错误停留时间,不配置默认3s
+  errorMessageDuration?: number,
 }
 
 // 项目的配置文件
