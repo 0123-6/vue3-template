@@ -52,7 +52,6 @@ export interface IUseElFormReturn<T extends Record<string, any>> {
   foldNumber: number,
   data: T,
   reset: (newValue?: Partial<T>) => void,
-  addResetHook: (fn: Function) => void,
   validate: (propertyList?: (keyof T)[]) => Promise<boolean>,
 }
 
@@ -105,16 +104,6 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
   const isFold = ref<boolean>(false)
   const canFold = list.length > foldNumber
 
-  // 订阅reset的函数,在reset执行时自动执行
-  const resetHookSet = new Set<Function>()
-  const addResetHook = (fn: Function) => {
-    if (resetHookSet.has(fn)) {
-      console.log(fn, '该函数已添加到hookSet,无需重复添加,请检查代码逻辑!')
-      return
-    }
-    resetHookSet.add(fn)
-  }
-
   // 重置表单组件
   const reset = (newValue?: Partial<T>) => {
     // 赋值
@@ -126,10 +115,6 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
       // ??? clearValidate or resetFields
       formRef.value!.resetFields()
       resetData()
-      // 执行订阅的函数
-      for (const hook of resetHookSet) {
-        hook()
-      }
     }
   }
 
@@ -156,7 +141,6 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
     foldNumber,
     data,
     reset,
-    addResetHook,
     validate,
   }
 }

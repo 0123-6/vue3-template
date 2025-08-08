@@ -164,7 +164,6 @@ const tableObject = useElTable<IUserInfo>({
     },
   ],
 })
-formObject.addResetHook(tableObject.reset)
 const clickSearch = async () => {
   if (!await formObject.validate()) {
     return
@@ -174,6 +173,7 @@ const clickSearch = async () => {
 }
 const clickReset = () => {
   formObject.reset()
+  tableObject.reset()
   tableObject.doFetch()
 }
 
