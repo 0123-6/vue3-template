@@ -71,7 +71,6 @@ export interface IUseElTableReturn<T extends Record<string, any> = any> {
   resetType: (newValue ?: 'batch' | T) => void,
 
   readonly isFetching: boolean,
-  beforeFetch: () => void,
   doFetch: () => Promise<boolean>,
 }
 
@@ -189,8 +188,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
   } else {
     fetchTable = {
       isFetching: false,
-      beforeFetch: () => {
-      },
       doFetch: async ()
         : Promise<boolean> => {
         return new Promise((resolve) => {
@@ -279,7 +276,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     get isFetching() {
       return fetchTable.isFetching
     },
-    beforeFetch: fetchTable.beforeFetch,
     doFetch: fetchTable.doFetch,
   }
 }

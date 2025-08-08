@@ -15,7 +15,6 @@ export interface IUseBaseFetch {
 
 export interface IUseBaseFetchReturn {
   readonly isFetching: boolean,
-  beforeFetch: () => void,
   doFetch: () => Promise<boolean>,
 }
 
@@ -35,11 +34,12 @@ export const useBaseFetch = (props: IUseBaseFetch)
     state: isFetching,
     resetState: resetIsFetching,
   } = useResetRef(() => false)
-  const beforeFetch = () => {
+  const doFetch = async (): Promise<boolean> => {
     const permission = fetchOptionFn().permission ?? true
     if (isFalse(permission)) {
-      return
+      return false
     }
+
     abortController.abort()
     abortController = new AbortController()
 
@@ -47,13 +47,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
     if (beforeFetchResetFn) {
       beforeFetchResetFn()
     }
-  }
-  const doFetch = async (): Promise<boolean> => {
-    const permission = fetchOptionFn().permission ?? true
-    if (isFalse(permission)) {
-      return false
-    }
-    beforeFetch()
     const fetchObject = await baseFetch({
       signal: abortController.signal,
       ...fetchOptionFn(),
@@ -78,7 +71,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
     get isFetching() {
       return isFetching.value
     },
-    beforeFetch,
     doFetch,
   }
 }
