@@ -69,6 +69,7 @@ const formObject = useElForm({
       label: '创建时间',
       prop: ['createTimeBegin', 'createTimeEnd'],
       type: 'daterange',
+      required: true,
     },
   ],
 })
