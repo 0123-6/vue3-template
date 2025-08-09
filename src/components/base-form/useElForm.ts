@@ -106,15 +106,14 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
 
   // 重置表单组件
   const reset = (newValue?: Partial<T>) => {
+    resetData(newValue)
     // 赋值
     if (newValue) {
-      resetData(newValue)
       // ??? 需要这样吗,感觉不优雅
       validate(Object.keys(newValue))
     } else {
       // ??? clearValidate or resetFields
       formRef.value!.resetFields()
-      resetData()
     }
   }
 
