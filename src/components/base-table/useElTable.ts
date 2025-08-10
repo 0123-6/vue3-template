@@ -106,7 +106,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     // '', asc升序,desc降序
     orderStatus: '',
   }))
-
   watch(
     params,
     async () => {
@@ -123,6 +122,7 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
       flush: 'post',
     },
   )
+
   // 只重置params,不重置data,因为分页器依赖total属性
   // undefined: 重置一切
   // object: 更新params
