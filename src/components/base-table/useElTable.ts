@@ -1,9 +1,10 @@
-import {Ref, ref} from 'vue'
+import {Ref, ref, watch} from 'vue'
 import {ElMessage, TableInstance} from 'element-plus'
 import {generateMockObject, IBaseFetch, IBaseItem, transformValue} from '@/util/api.ts'
 import {IUseBaseFetchReturn, useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {camelToSnake} from '@/util/stringUtil.ts'
 import {useResetReactive, useResetRef} from '@/util/hooks/useResetState.ts'
+import {IUseElFormReturn} from '@/components/base-form/useElForm.ts'
 
 export interface IBaseTableColumn<T = any> extends IBaseItem {
   type?: 'selection',
@@ -31,6 +32,8 @@ export interface IUseElTableProps<T extends Record<string, any> = any> {
   rowHeight?: number,
   // 分页
   pageSizeList?: number[],
+  // formObject对象
+  formObject?: IUseElFormReturn<Record<string, any>> | (() => IUseElFormReturn<Record<string, any>>),
   // 因为这是要多次执行的,所以不能传递一个一次性值,而是一个函数,获取当时的期待值
   // 通过接口获取数据时必填
   fetchOptionFn?: () => IBaseFetch,
@@ -61,7 +64,7 @@ export interface IUseElTableReturn<T extends Record<string, any> = any> {
     total: number,
     list: T[],
   },
-  changeSort: (args: { prop: string; order?: string }) => Promise<void>,
+  changeSort: (args: { prop: string; order?: string }) => void,
 
   // 用来为表格的单个 / 批量操作服务
   readonly type: 'single' | 'batch' | undefined,
@@ -84,6 +87,12 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     list,
     preparedData = [],
   } = props
+  let formObject: IUseElFormReturn<Record<string, any>>
+  if (props.formObject) {
+    formObject = typeof props.formObject === 'function'
+      ? props.formObject()
+      : props.formObject
+  }
   const tableRef = ref<TableInstance>(null)
 
   const {
@@ -97,6 +106,22 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     // '', asc升序,desc降序
     orderStatus: '',
   }))
+
+  watch(
+    params,
+    async () => {
+      // 存在formObject,先校验
+      if (formObject && !await formObject.validate()) {
+        ElMessage.warning('查询表单校验失败')
+        return
+      }
+
+      fetchTable.doFetch()
+    },
+    {
+      deep: true,
+    },
+  )
   // 只重置params,不重置data,因为分页器依赖total属性
   // undefined: 重置一切
   // object: 更新params
@@ -207,7 +232,7 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
   }
 
   // 排序
-  const changeSort = async ({prop, order = ''}) => {
+  const changeSort = ({prop, order = ''}) => {
     if (order === 'ascending') {
       order = 'asc'
     } else if (order === 'descending') {
@@ -219,7 +244,6 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
       orderFiled: order ? camelToSnake(prop) : '',
       orderStatus: order,
     })
-    await fetchTable.doFetch()
   }
 
   // 用来为表格的单个 / 批量操作服务
