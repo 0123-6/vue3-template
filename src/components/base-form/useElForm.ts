@@ -78,7 +78,7 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
   let {
     list = [] as IElFormItem[],
   } = props
-  const formRef = ref<FormInstance>(null)
+  const formRef = ref<FormInstance>()
 
   list = list.filter(Boolean).filter(_item => isFalse(_item.hidden))
 
@@ -110,7 +110,9 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
     // 赋值
     if (newValue) {
       // ??? 需要这样吗,感觉不优雅
-      validate(Object.keys(newValue))
+      if (formRef.value) {
+        validate(Object.keys(newValue))
+      }
     } else {
       // ??? clearValidate or resetFields
       formRef.value!.resetFields()
@@ -118,12 +120,17 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
   }
 
   const validate = async (propertyList?: (keyof T)[]): Promise<boolean> => {
+    if (!formRef.value) {
+      console.warn('formRef.value不存在,请检查代码')
+      return false
+    }
+
     try {
       if (propertyList) {
-        await formRef.value!.validateField(propertyList as string[])
+        await formRef.value.validateField(propertyList as string[])
         return true
       } else {
-        await formRef.value!.validate()
+        await formRef.value.validate()
         return true
       }
     } catch (error) {
