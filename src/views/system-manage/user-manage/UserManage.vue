@@ -22,6 +22,7 @@ import {ElMessage, FormInstance, TableInstance} from 'element-plus'
 import {useUserStore} from '@/plugin/pinia.ts'
 import {excelExport} from '@/util/excel.ts'
 import UserManageUploadDialog from '@views/system-manage/user-manage/UserManageUploadDialog.vue'
+import dayjs from 'dayjs'
 
 // 表格部分
 const formObject = useElForm({
@@ -72,6 +73,10 @@ const formObject = useElForm({
       required: true,
     },
   ],
+})
+formObject.reset({
+  createTimeBegin: dayjs().subtract(1, 'year').format('YYYY-MM-DD'),
+  createTimeEnd: dayjs().format('YYYY-MM-DD'),
 })
 
 // 表格部分
