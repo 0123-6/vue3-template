@@ -120,7 +120,7 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     },
     {
       deep: true,
-      flush: 'sync',
+      flush: 'post',
     },
   )
   // 只重置params,不重置data,因为分页器依赖total属性
