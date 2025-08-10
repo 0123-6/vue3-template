@@ -176,7 +176,6 @@ const fetchDeleteObject = useBaseFetch({
         :background="true"
         :total="tableObject.data.total"
         :page-sizes="tableObject.pageSizeList"
-        @change="tableObject.doFetch"
       />
     </div>
     <!--feedback组件-->

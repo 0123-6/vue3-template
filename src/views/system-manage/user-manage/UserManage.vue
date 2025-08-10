@@ -81,6 +81,7 @@ formObject.reset({
 
 // 表格部分
 const tableObject = useElTable<IUserInfo>({
+  formObject,
   fetchOptionFn: () => ({
     url: 'user/getUserList',
     mockProd: true,
@@ -478,7 +479,6 @@ const fetchChangeIsOnlineObject = useBaseFetch({
         :background="true"
         :total="tableObject.data.total"
         :page-sizes="tableObject.pageSizeList"
-        @change="tableObject.doFetch"
       />
     </div>
     <!--feedback组件-->
