@@ -179,6 +179,10 @@ const clickSearch = async () => {
 }
 const clickReset = () => {
   formObject.reset()
+  formObject.reset({
+    createTimeBegin: dayjs().subtract(1, 'year').format('YYYY-MM-DD'),
+    createTimeEnd: dayjs().format('YYYY-MM-DD'),
+  })
   tableObject.reset()
   tableObject.doFetch()
 }
