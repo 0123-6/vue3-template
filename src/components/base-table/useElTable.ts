@@ -115,6 +115,12 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
         return
       }
 
+      // params由一个变动引起,而这个变动同时也直接查询了接口,
+      // 导致的params变动无需再次发起请求
+      if (fetchTable.isFetching) {
+        return
+      }
+
       fetchTable.doFetch()
     },
     {
