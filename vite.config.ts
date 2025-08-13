@@ -8,6 +8,7 @@ import {Plugin as cdn} from 'vite-plugin-cdn-import'
 import vue from '@vitejs/plugin-vue'
 import zlib from 'node:zlib'
 import {projectConfig} from './project.config.ts'
+import tailwindcss from '@tailwindcss/vite'
 
 const cdnMap = new Map()
 
@@ -243,6 +244,7 @@ const vuePlugin = vue({
 // 全部的plugins
 const plugins: PluginOption[] = [
   compressionPlugin,
+  tailwindcss(),
 ]
 if (projectConfig.isUseCdn) {
   plugins.push(cdnPlugin)
