@@ -1,7 +1,7 @@
 import {defineConfig, PluginOption} from 'vite'
 import path from 'node:path'
 // 压缩代码插件
-import {compression} from 'vite-plugin-compression2'
+import {compression, defineAlgorithm} from 'vite-plugin-compression2'
 // cdn插件
 import {Plugin as cdn} from 'vite-plugin-cdn-import'
 // vue3的单文件组件支持插件
@@ -218,14 +218,16 @@ const cdnPlugin = cdn({
 
 // 压缩插件
 const compressionPlugin = compression({
-  // 算法
-  algorithm: 'brotliCompress',
-  // 压缩选项
-  compressionOptions: {
-    params: {
-      [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-    },
-  },
+  algorithms: [
+    defineAlgorithm(
+      'brotliCompress',
+      {
+        params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+        },
+      },
+    ),
+  ],
   // 压缩后的文件名称
   filename: '[path][base].br',
 })
@@ -293,7 +295,6 @@ export default defineConfig({
       scss: {
         // 关闭warning
         quietDeps: true,
-        api: 'modern-compiler',
       },
     },
   },
