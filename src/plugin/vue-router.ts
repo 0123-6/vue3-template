@@ -125,13 +125,6 @@ export const menuRouteList: RouteRecordRaw[] = [
 // 获取用户第1个有效的路由
 export const goFirstRoute = async () => {
   const userStore = useUserStore()
-  if (!userStore.user) {
-    await fetchUserInfoObject.doFetch()
-  }
-  // 如果获取用户信息失败(未登录或登录超时,直接return,api的901会重定向到login页面,这里无需处理)
-  if (!userStore.user) {
-    return
-  }
   let ok = false
   for (let i = 0; i < menuRouteList.length && !ok; i++) {
     if (!userStore.user.permissionList.includes(menuRouteList[i].name as string)) {
@@ -282,25 +275,25 @@ router.beforeEach(async (to) => {
   if (!to.meta.requiresAuth) {
     return
   }
+
+  // 需要权限的页面
+  const userStore = useUserStore()
+  // 用户未登录
+  if (!userStore.user) {
+    await fetchUserInfoObject.doFetch()
+  }
+
+  if (!userStore.user) {
+    return {
+      path: '/auth/login',
+      replace: true,
+    }
+  }
+
   if (to.path === '/') {
     goFirstRoute()
     return false
   }
-
-  // 需要权限的页面
-  // 用户未登录
-  const userStore = useUserStore()
-  if (userStore.user) {
-    return
-  }
-
-  await fetchUserInfoObject.doFetch()
-  return userStore.user
-    ? undefined
-    : {
-      path: '/auth/login',
-      replace: true,
-    }
 })
 
 // 不是其它网站的子网站
