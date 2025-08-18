@@ -128,6 +128,10 @@ export const goFirstRoute = async () => {
   if (!userStore.user) {
     await fetchUserInfoObject.doFetch()
   }
+  // 如果获取用户信息失败(未登录或登录超时,直接return,api的901会重定向到login页面,这里无需处理)
+  if (!userStore.user) {
+    return
+  }
   let ok = false
   for (let i = 0; i < menuRouteList.length && !ok; i++) {
     if (!userStore.user.permissionList.includes(menuRouteList[i].name as string)) {
