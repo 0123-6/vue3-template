@@ -272,24 +272,25 @@ const router: Router = createRouter({
 })
 
 // 全局前置守卫
-router.beforeEach(async (to) => {
-  console.log(to)
+router.beforeEach(async (to, form) => {
+  console.log(to, form)
   // 不需要权限的页面,比如登录页面,注册页面
   if (!to.meta.requiresAuth) {
     return
   }
-  if (to.path === '/') {
-    goFirstRoute()
-    return false
-  }
 
   // 需要权限的页面
-  // 用户未登录
+  // 用户已经登录
   const userStore = useUserStore()
   if (userStore.user) {
+    if (to.path === '/') {
+      goFirstRoute()
+      return false
+    }
     return
   }
 
+  // 用户未登录
   await fetchUserInfoObject.doFetch()
   return userStore.user
     ? undefined
