@@ -99,3 +99,9 @@ export const setHms = (date, hour, minute, second) => {
 export const getBeforeMonthFirstDate = (date) => {
   return dayjs(date).subtract(1, 'month').startOf('month')
 }
+
+// 用来为时间范围组件提供默认时间
+export const defaultTime: Date[] = [
+  new Date(2000, 1, 1, 0, 0, 0),
+  new Date(2000, 1, 1, 23, 59, 59),
+]

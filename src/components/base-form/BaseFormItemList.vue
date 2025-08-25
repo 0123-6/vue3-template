@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {IElFormItem, IUseElFormReturn} from '@/components/base-form/useElForm.ts'
-import {dateShortcutsWeekAndMonthAndYear} from '@/util/date.ts'
+import {dateShortcutsWeekAndMonthAndYear, defaultTime} from '@/util/date.ts'
 import {isTrue} from '@/util/validator.ts'
 import {FormItemRule} from 'element-plus'
 import {computed} from 'vue'
@@ -209,6 +209,7 @@ props.formObject.list
       :shortcuts="item.shortcuts ?? dateShortcutsWeekAndMonthAndYear"
       :format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
       :value-format="(item.type === 'daterange') ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm:ss'"
+      :default-time="defaultTime"
       @change="emit('change')"
     />
   </el-form-item>
