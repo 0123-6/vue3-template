@@ -17,20 +17,19 @@ export interface IUserInfo extends IEntity {
   status: 'normal' | 'disabled',
   // 最新活跃时间
   lastActiveTime: string,
-  // 权限信息
-  permissionList: string[],
+  // 所属角色
+  roleList: string[],
   // 在线状态,动态设置,非用户自身信息
-  isOnline?: boolean,
-
-  // 权限相关,分为前端权限+后端权限
-  // 前端权限
-  // roleList?: string[],
+  readonly isOnline?: boolean,
+  // 权限,动态设置,只读属性
+  readonly permissionList: string[],
 }
 
 // 权限相关
 export interface IPermission extends IEntity {
   // 唯一的名字
   name: string,
+  // 父节点,不存在代表顶层结构
   parent?: string,
   children?: IPermission[],
 }
