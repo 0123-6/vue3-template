@@ -7,14 +7,12 @@ import {
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
 import {allRoleListSelectObject} from '@views/system-manage/role-manage/roleManageCommon.ts'
-import {allPermissionListSelectObject} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {ElMessage, FormInstance, TreeInstance} from 'element-plus'
+import {ElMessage, FormInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'
 import BaseTitle from '@/components/base-drawer/BaseTitle.vue'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
 import {useUserStore} from '@/plugin/pinia.ts'
-import {ref} from 'vue'
 
 interface IProps {
   props: {
@@ -121,7 +119,6 @@ const formObject = useElForm<IUserInfo & {password2: string}>({
     },
   ],
 })
-const treeInstance = ref<TreeInstance>()
 
 // 新增和编辑的初始化
 if (props.isAddOrEdit === 'add') {
@@ -193,25 +190,6 @@ const fetchUpdate = useBaseFetch({
       >
         <base-form-item-list :form-object="formObject" />
       </el-form>
-      <div
-        v-if="false"
-        class="w-full flex"
-      >
-        <span class="w-[90px] pr-3 text-right text-sm text-text-title">权限信息</span>
-        <el-tree
-          :ref="(el: TreeInstance) => treeInstance = el"
-          :data="allPermissionListSelectObject.data"
-          default-expand-all
-          node-key="value"
-          show-checkbox
-          check-strictly
-          :default-checked-keys="props.item?.permissionList"
-          :props="{
-            disabled: () => true,
-          }"
-          class="grow"
-        />
-      </div>
     </template>
     <template #footer>
       <el-button
