@@ -20,18 +20,9 @@ export interface IUserInfo extends IEntity {
   // 所属角色
   roleList: string[],
   // 在线状态,动态设置,非用户自身信息
-  readonly isOnline?: boolean,
+  isOnline?: boolean,
   // 权限,动态设置,只读属性
   readonly permissionList: string[],
-}
-
-// 权限相关
-export interface IPermission extends IEntity {
-  // 唯一的名字
-  name: string,
-  // 父节点,不存在代表顶层结构
-  parent?: string,
-  children?: IPermission[],
 }
 
 export const sexList: ISelectOption[] = [
@@ -83,26 +74,3 @@ export const getUserAccountListSelectObject = useElSelect({
   }),
 })
 
-// 获取全量权限列表
-export const allPermissionListSelectObject = useElSelect({
-  config: {
-    labelName: 'name',
-    valueName: 'name',
-  },
-  fetchOptionFn: () => ({
-    url: 'getAllPermissionList',
-    mockProd: true,
-  }),
-})
-
-// 获取全量角色列表
-export const allRoleListSelectObject = useElSelect({
-  config: {
-    labelName: 'name',
-    valueName: 'name',
-  },
-  fetchOptionFn: () => ({
-    url: 'role/getAllRoleList',
-    mockProd: true,
-  }),
-})
