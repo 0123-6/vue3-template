@@ -2,7 +2,7 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
-  allPermissionListSelectObject,
+  allPermissionListSelectObject, allRoleListSelectObject,
   getUserAccountListSelectObject, IUserInfo,
   sexList,
   userStatusList,
@@ -74,6 +74,13 @@ const formObject = useElForm<IUserInfo & {password2: string}>({
       hidden: props.isAddOrEdit === 'edit',
     },
     {
+      label: '角色',
+      prop: 'roleList',
+      type: 'select',
+      selectObject: allRoleListSelectObject,
+      required: true,
+    },
+    {
       label: '昵称',
       prop: 'nickname',
       type: 'input',
@@ -123,6 +130,7 @@ if (props.isAddOrEdit === 'add') {
 } else {
   formObject.reset({
     account: props.item.account,
+    roleList: props.item.roleList,
     nickname: props.item.nickname,
     sex: props.item.sex,
     phone: props.item.phone,
@@ -184,7 +192,10 @@ const fetchUpdate = useBaseFetch({
       >
         <base-form-item-list :form-object="formObject" />
       </el-form>
-      <div class="w-full flex">
+      <div
+        v-if="false"
+        class="w-full flex"
+      >
         <span class="w-[90px] pr-3 text-right text-sm text-text-title">权限信息</span>
         <el-tree
           :ref="(el: TreeInstance) => treeInstance = el"
