@@ -148,10 +148,7 @@ const fetchAdd = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/addUser',
     mockProd: true,
-    data: {
-      ...formObject.data,
-      permissionList: treeInstance.value.getCheckedKeys(),
-    },
+    data: formObject.data,
   }),
   transformResponseDataFn: () => {
     ElMessage.success('新增用户成功')
@@ -163,10 +160,7 @@ const fetchUpdate = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/editUser',
     mockProd: true,
-    data: {
-      ...formObject.data,
-      permissionList: treeInstance.value.getCheckedKeys(),
-    },
+    data: formObject.data,
   }),
   transformResponseDataFn: () => {
     ElMessage.success('更新用户成功')
@@ -200,6 +194,10 @@ const fetchUpdate = useBaseFetch({
           show-checkbox
           check-strictly
           :default-checked-keys="props.item?.permissionList"
+          :props="{
+            disabled: () => true,
+          }"
+          class="grow"
         />
       </div>
     </template>
