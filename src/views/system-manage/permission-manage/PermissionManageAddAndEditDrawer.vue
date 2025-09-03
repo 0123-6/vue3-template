@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import {useElForm} from '@/components/base-form/useElForm.ts'
-import {allPermissionListSelectObject, IPermission} from '@views/system-manage/user-manage/userManageCommon.ts'
+import {
+  allPermissionListSelectObject,
+  IPermission,
+} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {ElMessage, FormInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'

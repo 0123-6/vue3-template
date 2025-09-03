@@ -2,11 +2,12 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
-  allPermissionListSelectObject, allRoleListSelectObject,
   getUserAccountListSelectObject, IUserInfo,
   sexList,
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
+import {allRoleListSelectObject} from '@views/system-manage/role-manage/roleManageCommon.ts'
+import {allPermissionListSelectObject} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {ElMessage, FormInstance, TreeInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'

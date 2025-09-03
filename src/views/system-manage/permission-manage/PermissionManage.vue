@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// 表格部分
 import {useElTable} from '@/components/base-table/useElTable.ts'
 import {useRenderComp} from '@/components/base-dialog/useRenderComp.ts'
 import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
@@ -14,8 +13,9 @@ import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import PermissionManageAddAndEditDrawer
   from '@views/system-manage/permission-manage/PermissionManageAddAndEditDrawer.vue'
-import {IPermission} from '@views/system-manage/user-manage/userManageCommon.ts'
+import {IPermission} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 
+// 表格部分
 const tableObject = useElTable<IPermission>({
   fetchOptionFn: () => ({
     url: 'getPermissionList',
