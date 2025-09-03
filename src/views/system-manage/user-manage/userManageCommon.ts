@@ -94,3 +94,15 @@ export const allPermissionListSelectObject = useElSelect({
     mockProd: true,
   }),
 })
+
+// 获取全量角色列表
+export const allRoleListSelectObject = useElSelect({
+  config: {
+    labelName: 'name',
+    valueName: 'name',
+  },
+  fetchOptionFn: () => ({
+    url: 'role/getAllRoleList',
+    mockProd: true,
+  }),
+})
