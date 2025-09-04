@@ -95,7 +95,7 @@ cdnMap.set('vue-router', {
 cdnMap.set('pinia', {
   name: 'pinia',
   var: 'Pinia',
-  path: 'https://cdn.jsdelivr.net/npm/pinia@3.0.3/dist/pinia.iife.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/pinia@3.0.3/dist/pinia.iife.prod.js',
 })
 cdnMap.set('pinia-plugin-persistedstate', {
   name: 'pinia-plugin-persistedstate',
