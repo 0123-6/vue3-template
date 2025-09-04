@@ -16,7 +16,7 @@ const cdnMap = new Map()
 cdnMap.set('echarts', {
   name: 'echarts',
   var: 'echarts',
-  path: 'https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js',
 })
 cdnMap.set('vanilla-lazyload', {
   name: 'vanilla-lazyload',
@@ -39,13 +39,13 @@ cdnMap.set('clipboard', {
 cdnMap.set('dayjs', {
   name: 'dayjs',
   var: 'dayjs',
-  path: 'https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/dayjs@1.11.18/dayjs.min.js',
 })
 // 图片裁剪
 cdnMap.set('cropperjs', {
   name: 'cropperjs',
   var: 'Cropper',
-  path: 'https://cdn.jsdelivr.net/npm/cropperjs@2.0.0-rc.2/dist/cropper.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/cropperjs@2.0.1/dist/cropper.min.js',
   // 自定义，不使用CDN
   // css: 'https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css',
 })
@@ -59,54 +59,54 @@ cdnMap.set('xlsx', {
 cdnMap.set('overlayscrollbars', {
   name: 'overlayscrollbars',
   var: 'OverlayScrollbarsGlobal',
-  path: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@2.12.0/browser/overlayscrollbars.browser.es6.min.js',
   // 我感觉这个css文件没有需要自定义配置的地方，所以就引入CDN CSS了
-  css: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css',
+  css: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@2.12.0/styles/overlayscrollbars.min.css',
 })
 cdnMap.set('@antv/g6', {
   name: '@antv/g6',
   var: 'G6',
-  path: 'https://cdn.jsdelivr.net/npm/@antv/g6@5.0.44/dist/g6.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/@antv/g6@5.0.49/dist/g6.min.js',
 })
 
 // Vue3库
 cdnMap.set('vue', {
   name: 'vue',
   var: 'Vue',
-  path: 'https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.runtime.global.prod.js',
+  path: 'https://cdn.jsdelivr.net/npm/vue@3.5.21/dist/vue.runtime.global.prod.js',
 })
 cdnMap.set('element-plus', {
   name: 'element-plus',
   var: 'ElementPlus',
-  path: 'https://cdn.jsdelivr.net/npm/element-plus@2.9.3/dist/index.full.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/element-plus@2.10.7/dist/index.full.min.js',
   // 自定义主题，不使用默认主题
   // css: 'https://cdn.jsdelivr.net/npm/element-plus@2.9.3/dist/index.min.css',
 })
 cdnMap.set('@element-plus/icons-vue', {
   name: '@element-plus/icons-vue',
   var: 'ElementPlusIconsVue',
-  path: 'https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.2/dist/index.iife.min.js',
 })
 cdnMap.set('vue-router', {
   name: 'vue-router',
   var: 'VueRouter',
-  path: 'https://cdn.jsdelivr.net/npm/vue-router@4.5.0/dist/vue-router.global.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/vue-router@4.5.1/dist/vue-router.global.min.js',
 })
 cdnMap.set('pinia', {
   name: 'pinia',
   var: 'Pinia',
-  path: 'https://cdn.jsdelivr.net/npm/pinia@3.0.2/dist/pinia.iife.prod.js',
+  path: 'https://cdn.jsdelivr.net/npm/pinia@3.0.3/dist/pinia.iife.min.js',
 })
 cdnMap.set('pinia-plugin-persistedstate', {
   name: 'pinia-plugin-persistedstate',
   var: 'piniaPluginPersistedstate',
-  path: 'https://cdn.jsdelivr.net/npm/pinia-plugin-persistedstate@4.3.0/dist/index.global.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/pinia-plugin-persistedstate@4.5.0/dist/index.global.min.js',
 })
 cdnMap.set('@vueuse/core', {
   name: '@vueuse/core',
   var: 'VueUse',
   // 12.5.0有bug,无法使用
-  path: 'https://cdn.jsdelivr.net/npm/@vueuse/core@12.4.0/index.iife.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/@vueuse/core@13.9.0/index.iife.min.js',
 })
 cdnMap.set('vue-draggable-plus', {
   name: 'vue-draggable-plus',
@@ -128,7 +128,7 @@ cdnMap.set('react-dom', {
 cdnMap.set('antd', {
   name: 'antd',
   var: 'antd',
-  path: 'https://cdn.jsdelivr.net/npm/antd@5.20.2/dist/antd.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/antd@5.27.2/dist/antd.min.js',
   // reset css不大，无需通过cdn引入，本地打包即可
   // css: 'https://cdn.jsdelivr.net/npm/antd@5.15.3/dist/reset.min.css',
 })
