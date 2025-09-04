@@ -13,7 +13,7 @@ const formObject = useElForm({
   list: [
     {
       label: '账号',
-      placeholder: '请输入账号,admin可用',
+      placeholder: '请输入账号,dev(开发人员), admin(管理员)可用',
       hiddenLabel: true,
       prop: 'account',
       type: 'input',
