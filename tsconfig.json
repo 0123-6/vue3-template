@@ -20,7 +20,7 @@
     "jsx": "preserve",
 
     /* Linting */
-    "strict": false,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -28,6 +28,7 @@
     "noUncheckedSideEffectImports": true,
     "esModuleInterop": true,
     "types": ["vue"],
+    "erasableSyntaxOnly": true,
 
 
     "paths": {
