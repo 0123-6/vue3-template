@@ -48,7 +48,8 @@ const fetchLogin = useBaseFetch({
 const countdownObject = useCountdown()
 const fetchSendCode = useBaseFetch({
   fetchOptionFn: () => ({
-    url: 'mock_',
+    url: 'auth/getCode',
+    mockProd: true,
     data: {
       phone: formObject.data.phone,
     },
