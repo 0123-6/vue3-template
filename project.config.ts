@@ -1,9 +1,6 @@
-import {ProxyOptions} from 'vite'
+import type {ProxyOptions} from 'vite'
 
 interface IProjectConfig {
-  // Vue项目 or React项目
-  isVueProject: boolean,
-  isReactProject: boolean,
   // 项目的名称,用来唯一标识此项目,小写加中划线,因为可能出现在url,所以不可以使用大写
   projectName: string,
   // 项目部署的路径,默认为'/',如果为非根路径,则为对应的非根路径,以'/'开头,以'/'结尾
@@ -44,8 +41,6 @@ interface IProjectConfig {
 
 // 项目的配置文件
 export const projectConfig: IProjectConfig = {
-  isVueProject: true,
-  isReactProject: false,
   projectName: 'vue-template-one',
   baseUrl: '/',
   isUseCdn: true,
