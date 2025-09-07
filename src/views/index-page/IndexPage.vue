@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 import * as echarts from 'echarts'
-import {copyTextToClipboard} from '@/util/copyTextToClipboard.ts'
 import dayjs from 'dayjs'
 
 onMounted(() => {
@@ -26,7 +25,7 @@ onMounted(() => {
   }
 
   myChart.setOption(option)
-  copyTextToClipboard('你好，这是首页')
+  navigator.clipboard.writeText('你好，这是首页')
   const day = dayjs('2018-05-05').locale('zh-cn').format()
   console.log(day)
 })
