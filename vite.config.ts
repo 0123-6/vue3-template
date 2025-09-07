@@ -30,11 +30,6 @@ cdnMap.set('nprogress', {
   // 自定义css，下载下来作为本地css引入
   // css: 'https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js',
 })
-cdnMap.set('clipboard', {
-  name: 'clipboard',
-  var: 'ClipboardJS',
-  path: 'https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js',
-})
 // antd依赖dayjs
 cdnMap.set('dayjs', {
   name: 'dayjs',
@@ -175,7 +170,6 @@ const commonCdnList: string[] = [
   'echarts',
   'vanilla-lazyload',
   'nprogress',
-  'clipboard',
   'dayjs',
   'cropperjs',
   'xlsx',
