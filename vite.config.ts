@@ -1,4 +1,4 @@
-import {defineConfig, PluginOption} from 'vite'
+import {defineConfig, type PluginOption} from 'vite'
 import path from 'node:path'
 // 压缩代码插件
 import {compression, defineAlgorithm} from 'vite-plugin-compression2'
