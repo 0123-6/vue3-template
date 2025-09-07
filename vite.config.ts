@@ -193,53 +193,53 @@ const reactCdnList: string[] = [
   'react-beautiful-dnd',
 ]
 
-let projectCdnList: string[] = []
-if (projectConfig.isVueProject) {
-  projectCdnList = [...commonCdnList, ...vueCdnList ]
-} else if (projectConfig.isReactProject) {
-  projectCdnList = [...commonCdnList, ...reactCdnList ]
-}
+const projectCdnList: string[] = [...commonCdnList, ...vueCdnList]
 
 // cdn插件
 const cdnPlugin = cdn({
   modules: projectCdnList.map(cdnName => cdnMap.get(cdnName)),
 })
 
-// 压缩插件
-const compressionPlugin = compression({
-  algorithms: [
-    defineAlgorithm(
-      'brotliCompress',
-      {
-        params: {
-          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-        },
-      },
-    ),
-  ],
-  // 压缩后的文件名称
-  filename: '[path][base].br',
-})
-// vue3的单文件组件支持插件
-const vuePlugin = vue({
-  template: {
-    compilerOptions: {
-      isCustomElement: tag => customElementList.includes(tag),
-    },
-  },
-})
-
 // 全部的plugins
 const plugins: PluginOption[] = [
-  compressionPlugin,
+  // vue3的单文件组件支持插件
+  vue({
+    template: {
+      compilerOptions: {
+        isCustomElement: tag => customElementList.includes(tag),
+      },
+    },
+  }),
   tailwindcss(),
+  projectConfig.isUseCdn ? cdnPlugin : undefined,
+  {
+    name: 'remove-empty-chunks',
+    generateBundle(_, bundle) {
+      for (const file in bundle) {
+        const chunk = bundle[file]
+        if (chunk.type === 'chunk' && chunk.code.trim() === '') {
+          this.warn(`🧹 remove empty chunk: ${file}`)
+          delete bundle[file]
+        }
+      }
+    },
+  },
+  // 压缩插件
+  compression({
+    algorithms: [
+      defineAlgorithm(
+        'brotliCompress',
+        {
+          params: {
+            [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+          },
+        },
+      ),
+    ],
+    // 压缩后的文件名称
+    filename: '[path][base].br',
+  }),
 ]
-if (projectConfig.isUseCdn) {
-  plugins.push(cdnPlugin)
-}
-if (projectConfig.isVueProject) {
-  plugins.push(vuePlugin)
-}
 
 export default defineConfig({
   // 默认'/'
