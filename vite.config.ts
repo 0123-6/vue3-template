@@ -18,11 +18,6 @@ cdnMap.set('echarts', {
   var: 'echarts',
   path: 'https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js',
 })
-cdnMap.set('vanilla-lazyload', {
-  name: 'vanilla-lazyload',
-  var: 'LazyLoad',
-  path: 'https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js',
-})
 cdnMap.set('nprogress', {
   name: 'nprogress',
   var: 'NProgress',
@@ -168,7 +163,6 @@ const customElementList = [
 // 插件设置
 const commonCdnList: string[] = [
   'echarts',
-  'vanilla-lazyload',
   'nprogress',
   'dayjs',
   'cropperjs',
