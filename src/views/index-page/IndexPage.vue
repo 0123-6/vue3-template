@@ -45,7 +45,7 @@ const list = ref([])
         :key="index"
       >
         <img
-          v-lazyload
+          loading="lazy"
           :data-src="item"
           alt=""
           style="width: 100%;height: 600px;"
