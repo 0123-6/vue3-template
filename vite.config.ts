@@ -269,7 +269,9 @@ export default defineConfig({
             // return id.toString().split('node_modules/')[1].split('/')[0].toString();
             // 2选1，如果node_modules所有文件不大，可以合并为1个文件
             // return 'vendor';
-            return projectConfig.isUseCdn ? 'vendor' : id.toString().split('node_modules/')[1].split('/')[0].toString()
+            return projectConfig.isUseCdn
+              ? 'vendor'
+              : id.toString().replace('/node_modules/.pnpm/', '/node_modules/').split('node_modules/')[1].split('/')[0].toString()
           }
         },
       },
