@@ -104,50 +104,6 @@ cdnMap.set('vue-draggable-plus', {
   path: 'https://cdn.jsdelivr.net/npm/vue-draggable-plus@0.6.0/dist/vue-draggable-plus.iife.min.js',
 })
 
-// React库
-cdnMap.set('react', {
-  name: 'react',
-  var: 'React',
-  path: 'https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js',
-})
-cdnMap.set('react-dom', {
-  name: 'react-dom',
-  var: 'ReactDOM',
-  path: 'https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js',
-})
-cdnMap.set('antd', {
-  name: 'antd',
-  var: 'antd',
-  path: 'https://cdn.jsdelivr.net/npm/antd@5.27.2/dist/antd.min.js',
-  // reset css不大，无需通过cdn引入，本地打包即可
-  // css: 'https://cdn.jsdelivr.net/npm/antd@5.15.3/dist/reset.min.css',
-})
-cdnMap.set('@remix-run/router', {
-  name: '@remix-run/router',
-  var: 'RemixRouter',
-  path: 'https://cdn.jsdelivr.net/npm/@remix-run/router@1.19.1/dist/router.umd.min.js',
-})
-cdnMap.set('react-router', {
-  name: 'react-router',
-  var: 'ReactRouter',
-  path: 'https://cdn.jsdelivr.net/npm/react-router@6.26.1/dist/umd/react-router.production.min.js',
-})
-cdnMap.set('react-router-dom', {
-  name: 'react-router-dom',
-  var: 'ReactRouterDOM',
-  path: 'https://cdn.jsdelivr.net/npm/react-router-dom@6.26.1/dist/umd/react-router-dom.production.min.js',
-})
-cdnMap.set('react-draggable', {
-  name: 'react-draggable',
-  var: 'ReactDraggable',
-  path: 'https://cdn.jsdelivr.net/npm/react-draggable@4.4.6/build/web/react-draggable.min.js',
-})
-cdnMap.set('react-beautiful-dnd', {
-  name: 'react-beautiful-dnd',
-  var: 'ReactBeautifulDnd',
-  path: 'https://cdn.jsdelivr.net/npm/react-beautiful-dnd@13.1.1/dist/react-beautiful-dnd.min.js',
-})
-
 // 自定义原生
 const customElementList = [
   'cropper-canvas',
@@ -180,17 +136,6 @@ const vueCdnList: string[] = [
   'pinia-plugin-persistedstate',
   '@vueuse/core',
   'vue-draggable-plus',
-]
-
-const reactCdnList: string[] = [
-  'react',
-  'react-dom',
-  'antd',
-  '@remix-run/router',
-  'react-router',
-  'react-router-dom',
-  'react-draggable',
-  'react-beautiful-dnd',
 ]
 
 const projectCdnList: string[] = [...commonCdnList, ...vueCdnList]
