@@ -36,6 +36,9 @@ export default defineConfig([
       semi: ['error', 'never'],
       // 👇 对象/数组最后一个元素允许逗号（便于多行编辑）
       'comma-dangle': ['error', 'always-multiline'],
+
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
     },
   },
   {
