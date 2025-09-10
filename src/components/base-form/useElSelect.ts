@@ -1,4 +1,4 @@
-import {IBaseFetch} from '@/util/api.ts'
+import type {IBaseFetch} from '@/util/api.ts'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {ElMessage} from 'element-plus'

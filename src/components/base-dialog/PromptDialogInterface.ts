@@ -1,5 +1,5 @@
-import {IUseBaseFetchReturn} from '@/util/hooks/useBaseFetch.ts'
-import {IUseElFeedbackReturn} from '@/components/base-dialog/useElFeedback.ts'
+import {type IUseBaseFetchReturn} from '@/util/hooks/useBaseFetch.ts'
+import {type IUseElFeedbackReturn} from '@/components/base-dialog/useElFeedback.ts'
 
 export interface IPromptDialog {
   // 弹框标题, 默认为'提示'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {isFalse} from '@/util/validator.ts'
 import BaseTableColumn from '@/components/base-table/BaseTableColumn.vue'
-import {IBaseTableColumn} from '@/components/base-table/useElTable.ts'
+import {type IBaseTableColumn} from '@/components/base-table/useElTable.ts'
 
 interface IProps {
   list: IBaseTableColumn[],

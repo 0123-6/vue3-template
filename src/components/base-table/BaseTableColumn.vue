@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {isFalse} from '@/util/validator.ts'
-import {IBaseTableColumn} from '@/components/base-table/useElTable.ts'
+import {type IBaseTableColumn} from '@/components/base-table/useElTable.ts'
 import {nextTick, onMounted, ref, watch} from 'vue'
 
 interface IProps {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {IUseElFormReturn} from '@/components/base-form/useElForm.ts'
+import {type IUseElFormReturn} from '@/components/base-form/useElForm.ts'
 import {ArrowDown, ArrowUp} from '@element-plus/icons-vue'
 
 interface IProps {

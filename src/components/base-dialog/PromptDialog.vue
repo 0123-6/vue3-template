@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {IUseElFeedbackReturn, useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
+import {type IUseElFeedbackReturn, useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {ElDialog, ElButton} from 'element-plus'
-import {
+import type {
   IPromptDialog,
   IPromptDialogOkButton,
   IPromptDialogTextItem,

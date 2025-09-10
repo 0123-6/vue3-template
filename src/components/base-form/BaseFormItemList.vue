@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {IElFormItem, IUseElFormReturn} from '@/components/base-form/useElForm.ts'
+import type {IElFormItem, IUseElFormReturn} from '@/components/base-form/useElForm.ts'
 import {dateShortcutsWeekAndMonthAndYear, defaultTime} from '@/util/date.ts'
 import {isTrue} from '@/util/validator.ts'
-import {FormItemRule} from 'element-plus'
+import {type FormItemRule} from 'element-plus'
 import {computed} from 'vue'
 
 interface IProps {

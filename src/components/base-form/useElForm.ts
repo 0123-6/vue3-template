@@ -1,7 +1,7 @@
-import {FormInstance, FormItemRule} from 'element-plus'
-import {ref, Ref} from 'vue'
+import type {FormInstance, FormItemRule} from 'element-plus'
+import {ref, type Ref} from 'vue'
 import {useResetReactive} from '@/util/hooks/useResetState.ts'
-import {ISelectOption, IUseElSelectReturn} from '@/components/base-form/useElSelect.ts'
+import type {ISelectOption, IUseElSelectReturn} from '@/components/base-form/useElSelect.ts'
 import {isFalse} from '@/util/validator.ts'
 
 export interface IElFormItem {
