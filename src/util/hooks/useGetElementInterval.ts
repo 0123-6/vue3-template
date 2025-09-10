@@ -1,4 +1,4 @@
-import {onScopeDispose, Ref} from 'vue'
+import {onScopeDispose, type Ref} from 'vue'
 
 interface IUseGetElementInterval {
   // id优先级高
