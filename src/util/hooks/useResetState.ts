@@ -1,4 +1,4 @@
-import {reactive, Ref, ref} from 'vue'
+import {reactive, type Ref, ref} from 'vue'
 
 // 方便恢复ref定义的数据
 export const useResetRef = <T>(factory: () => T): {
