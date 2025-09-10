@@ -4,7 +4,7 @@ import {exportFile} from '@/util/file.ts'
 import {ElMessage} from 'element-plus'
 import {projectConfig} from '../../project.config.ts'
 import {isFalse} from '@/util/validator.ts'
-import {ISelectOption} from '@/components/base-form/useElSelect.ts'
+import type {ISelectOption} from '@/components/base-form/useElSelect.ts'
 
 // 防抖函数
 export function debounce(fn: () => void, delay: number = 1000) {
