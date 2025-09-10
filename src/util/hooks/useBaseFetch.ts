@@ -1,4 +1,4 @@
-import {baseFetch, IBaseFetch, IResponseData} from '@/util/api'
+import {baseFetch, type IBaseFetch, type IResponseData} from '@/util/api'
 import {useResetRef} from '@/util/hooks/useResetState'
 import {isFalse} from '@/util/validator.ts'
 
