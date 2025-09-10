@@ -1,10 +1,10 @@
-import {Ref, ref, watch} from 'vue'
-import {ElMessage, TableInstance} from 'element-plus'
-import {generateMockObject, IBaseFetch, IBaseItem, transformValue} from '@/util/api.ts'
-import {IUseBaseFetchReturn, useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
+import {type Ref, ref, watch} from 'vue'
+import {ElMessage, type TableInstance} from 'element-plus'
+import {generateMockObject, type IBaseFetch, type IBaseItem, transformValue} from '@/util/api.ts'
+import {type IUseBaseFetchReturn, useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {camelToSnake} from '@/util/stringUtil.ts'
 import {useResetReactive, useResetRef} from '@/util/hooks/useResetState.ts'
-import {IUseElFormReturn} from '@/components/base-form/useElForm.ts'
+import {type IUseElFormReturn} from '@/components/base-form/useElForm.ts'
 
 export interface IBaseTableColumn<T = any> extends IBaseItem {
   type?: 'selection',
@@ -117,9 +117,12 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
 
       // params由一个变动引起,而这个变动同时也直接查询了接口,
       // 导致的params变动无需再次发起请求
-      if (fetchTable.isFetching) {
-        return
-      }
+      // 不能这样,当params自身变化时会被错误return
+      // 不同来源都出发fetch,来源之间关系处理复杂且容易出bug
+      // 直接都正常fetch就好了,在fetch时再统一处理
+      // if (fetchTable.isFetching) {
+      //   return
+      // }
 
       fetchTable.doFetch()
     },
