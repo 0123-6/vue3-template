@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, Router, RouteRecordRaw} from 'vue-router'
+import {createRouter, createWebHistory, type Router, type RouteRecordRaw} from 'vue-router'
 import NProgress from 'nprogress'
 import '@/plugin/nprogress.css'
 import {projectConfig} from '../../project.config.ts'

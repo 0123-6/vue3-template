@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ElMessage, FormInstance} from 'element-plus'
+import {ElMessage, type FormInstance} from 'element-plus'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import router from '@/plugin/vue-router.ts'
 import IconWeiXin from '@views/auth/icon/IconWeiXin.vue'

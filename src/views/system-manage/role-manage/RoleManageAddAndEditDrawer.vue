@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {allRoleListSelectObject, IRole} from '@views/system-manage/role-manage/roleManageCommon.ts'
+import {allRoleListSelectObject, type IRole} from '@views/system-manage/role-manage/roleManageCommon.ts'
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {ref} from 'vue'
-import {ElMessage, FormInstance, TreeInstance} from 'element-plus'
+import {ElMessage, type FormInstance, type TreeInstance} from 'element-plus'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {allPermissionListSelectObject} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'

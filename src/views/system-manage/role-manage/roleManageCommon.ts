@@ -1,5 +1,5 @@
 import {useElSelect} from '@/components/base-form/useElSelect.ts'
-import {IEntity} from '@views/interfaceCommon.ts'
+import {type IEntity} from '@views/interfaceCommon.ts'
 
 // 角色信息
 export interface IRole extends IEntity {

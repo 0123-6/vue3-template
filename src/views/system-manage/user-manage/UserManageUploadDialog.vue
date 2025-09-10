@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {onMounted, onUnmounted, ref} from 'vue'
-import {ableSelectFileByClick, ableSelectFileByDrag, ISelectFileProps} from '@/util/file.ts'
+import {ableSelectFileByClick, ableSelectFileByDrag, type ISelectFileProps} from '@/util/file.ts'
 import {ElMessage} from 'element-plus'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import {Delete, UploadFilled} from '@element-plus/icons-vue'
-import {getUserAccountListSelectObject, IUserInfo} from '@views/system-manage/user-manage/userManageCommon.ts'
+import {getUserAccountListSelectObject, type IUserInfo} from '@views/system-manage/user-manage/userManageCommon.ts'
 import {excelParse} from '@/util/excel.ts'
 
 const emits = defineEmits(['ok', 'cancel'])

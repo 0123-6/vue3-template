@@ -1,5 +1,5 @@
-import {ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
-import {IEntity} from '@views/interfaceCommon.ts'
+import {type ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
+import type {IEntity} from '@views/interfaceCommon.ts'
 
 // 用户的信息
 export interface IUserInfo extends IEntity {

@@ -1,6 +1,6 @@
 import {ref} from 'vue'
 import {defineStore} from 'pinia'
-import {IUserInfo} from '@views/system-manage/user-manage/userManageCommon.ts'
+import {type IUserInfo} from '@views/system-manage/user-manage/userManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 
 export const useUserStore = defineStore('user', () => {

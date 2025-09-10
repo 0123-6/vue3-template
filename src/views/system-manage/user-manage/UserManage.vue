@@ -9,16 +9,18 @@ import TableNoData from '@/components/base-table/TableNoData.vue'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {
-  getUserAccountListSelectObject, IUserInfo, onlineSelectObject,
+  getUserAccountListSelectObject,
+  type IUserInfo,
+  onlineSelectObject,
   sexList,
   userStatusList,
 } from '@views/system-manage/user-manage/userManageCommon.ts'
 import UserManageAddAndEditDrawer from '@views/system-manage/user-manage/UserManageAddAndEditDrawer.vue'
 import {useRenderComp} from '@/components/base-dialog/useRenderComp.ts'
 import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
-import {IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
+import {type IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {ElMessage, FormInstance, TableInstance} from 'element-plus'
+import {ElMessage, type FormInstance, type TableInstance} from 'element-plus'
 import {useUserStore} from '@/plugin/pinia.ts'
 import {excelExport} from '@/util/excel.ts'
 import UserManageUploadDialog from '@views/system-manage/user-manage/UserManageUploadDialog.vue'
