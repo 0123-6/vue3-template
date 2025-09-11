@@ -1,5 +1,5 @@
 import {goLoginPage} from '@/util/env.ts'
-import errorMessage from '@/util/errorMessage.ts'
+import errorMessage from '@/util/message.ts'
 import {exportFile} from '@/util/file.ts'
 import {ElMessage} from 'element-plus'
 import {projectConfig} from '../../project.config.ts'
