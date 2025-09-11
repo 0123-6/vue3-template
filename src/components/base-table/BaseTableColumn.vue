@@ -53,7 +53,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
         item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'success' ? 'bg-success-light text-success' : '',
         item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'warning' ? 'bg-warning-light text-warning' : '',
         item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'error' ? 'bg-error-light text-error' : '',
-        item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'text' ? 'bg-text-ligth text-text-desc' : '',
+        item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.type === 'text' ? 'bg-text-light text-text-desc' : '',
       ]"
     >
       <span>{{ item.list[item.list.findIndex(_item => _item.value === scope.row[item.prop])]?.label }}</span>
