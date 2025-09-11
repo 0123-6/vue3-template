@@ -215,8 +215,8 @@ export async function baseFetch(props: IBaseFetch)
       const contentDisposition = response.headers.get('Content-Disposition')
       let fileName = 'downloaded-file' // 默认文件名
       if (contentDisposition) {
-        const match = contentDisposition.match(/filename\*=utf-8''([^;]+)$/i)
-        if (match && match[1]) {
+        const match = /filename\*=utf-8''([^;]+)$/i.exec(contentDisposition)
+        if (match?.[1]) {
           fileName = decodeURIComponent(match[1]) // 解码文件名，解决乱码
         }
       }
@@ -304,8 +304,8 @@ const dfsGenerateMockObject = (item: IBaseItem, mockObject: Record<string, any>)
 
 export const generateMockObject = (list: IBaseItem[]) => {
   const mockObject = Object.create(null)
-  for (let i = 0; i < list.length; i++) {
-    dfsGenerateMockObject(list[i], mockObject)
+  for (const item of list) {
+    dfsGenerateMockObject(item, mockObject)
   }
   return mockObject
 }
@@ -332,8 +332,8 @@ const dfsGenerateTransformMap = (item: IBaseItem, map: Record<string, any>) => {
 export const transformValue = (rawValue: Record<string, any>, list: IBaseItem[])
   : Record<string, any> => {
   const listMap = Object.create(null)
-  for (let i = 0; i < list.length; i++) {
-    dfsGenerateTransformMap(list[i], listMap)
+  for (const item of list) {
+    dfsGenerateTransformMap(item, listMap)
   }
   return Object.fromEntries(
     Object.entries(rawValue).map(([key, value]) => [
