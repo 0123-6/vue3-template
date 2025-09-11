@@ -31,6 +31,7 @@ export interface IUseElSelectProps {
 
 export interface IUseElSelectReturn {
   data: ISelectOption[],
+  dataToMap: Record<string | number, string | number>,
 
   readonly isFetching: boolean,
   doFetch: () => Promise<boolean>,
@@ -86,6 +87,9 @@ export const useElSelect = (props: IUseElSelectProps)
     state: selectOptionList,
     resetState: resetSelectOptionList,
   } = useResetRef((): ISelectOption[] => [])
+  const {
+    state: dataToMap,
+  } = useResetRef((): Record<string | number, string | number> => ({}))
   const fetchSelectOption = useBaseFetch({
     beforeFetchResetFn: resetSelectOptionList,
     fetchOptionFn: () => ({
@@ -128,6 +132,7 @@ export const useElSelect = (props: IUseElSelectProps)
         return
       }
       selectOptionList.value = responseData.map(dfs)
+      dataToMap.value = selectOptionListToMap(selectOptionList.value)
     },
     microTask,
   })
@@ -135,6 +140,9 @@ export const useElSelect = (props: IUseElSelectProps)
   return {
     get data() {
       return selectOptionList.value
+    },
+    get dataToMap() {
+      return dataToMap.value
     },
 
     get isFetching() {
