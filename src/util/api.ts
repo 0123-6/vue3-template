@@ -185,7 +185,7 @@ export async function baseFetch(props: IBaseFetch)
 
     // 如果是json格式
     const contentType = response.headers.get('Content-Type')
-    if (contentType && contentType.includes('application/json')) {
+    if (contentType?.includes('application/json')) {
       // 格式为{code:'',msg:'',data: object}
       const responseData: IResponseData = await response.json()
       // 正常情况为fetchApiResponseCodeMap.success数组的一个
