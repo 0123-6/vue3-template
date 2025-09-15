@@ -15,9 +15,7 @@ interface IFileAndData {
   list: IUserInfo[],
 }
 
-const {
-  state: fileList,
-} = useResetRef((): IFileAndData[] => [])
+const [fileList] = useResetRef((): IFileAndData[] => [])
 
 const fetchUploadFile = useBaseFetch({
   fetchOptionFn: () => ({

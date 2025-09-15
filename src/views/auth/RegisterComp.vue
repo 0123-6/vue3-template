@@ -57,9 +57,7 @@ const formObject = useElForm({
     },
   ],
 })
-const {
-  state: agree,
-} = useResetRef((): boolean => false)
+const [agree] = useResetRef((): boolean => false)
 const fetchRegister = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/addUser',

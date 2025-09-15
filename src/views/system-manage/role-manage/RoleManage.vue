@@ -85,7 +85,7 @@ const tableObject = useElTable<IRole>({
           type: 'primary',
           onClick: (item) => {
             tableObject.resetType(item)
-            resetIsAddOrEdit('edit')
+            isAddOrEdit.value = 'edit'
             drawerObject.isShow = true
           },
         },
@@ -117,13 +117,10 @@ const clickReset = () => {
 }
 
 // 新增和编辑
-const {
-  state: isAddOrEdit,
-  resetState: resetIsAddOrEdit,
-} = useResetRef((): 'add' | 'edit' => 'add')
+const [isAddOrEdit, resetIsAddOrEdit] = useResetRef((): 'add' | 'edit' => 'add')
 const clickBatchAdd = () => {
   tableObject.resetType('batch')
-  resetIsAddOrEdit('add')
+  isAddOrEdit.value = 'add'
   drawerObject.isShow = true
 }
 const drawerObject = useElFeedback({

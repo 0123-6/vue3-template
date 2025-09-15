@@ -2,9 +2,9 @@
 import {useElTable} from '@/components/base-table/useElTable.ts'
 import {useRenderComp} from '@/components/base-dialog/useRenderComp.ts'
 import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
-import {IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
+import {type IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {ElMessage, TableInstance} from 'element-plus'
+import {ElMessage, type TableInstance} from 'element-plus'
 import {Search} from '@element-plus/icons-vue'
 import BaseTableColumnList from '@/components/base-table/BaseTableColumnList.vue'
 import TableNoData from '@/components/base-table/TableNoData.vue'
@@ -13,7 +13,7 @@ import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import PermissionManageAddAndEditDrawer
   from '@views/system-manage/permission-manage/PermissionManageAddAndEditDrawer.vue'
-import {IPermission} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
+import {type IPermission} from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 
 // 表格部分
 const tableObject = useElTable<IPermission>({
@@ -52,7 +52,7 @@ const tableObject = useElTable<IPermission>({
           type: 'primary',
           onClick: (item) => {
             tableObject.resetType(item)
-            resetIsAddOrEdit('edit')
+            isAddOrEdit.value = 'edit'
             drawerObject.isShow = true
           },
         },
@@ -76,13 +76,10 @@ const clickSearch = async () => {
 }
 
 // 新增和编辑
-const {
-  state: isAddOrEdit,
-  resetState: resetIsAddOrEdit,
-} = useResetRef((): 'add' | 'edit' => 'add')
+const [isAddOrEdit] = useResetRef((): 'add' | 'edit' => 'add')
 const clickBatchAdd = () => {
   tableObject.resetType('batch')
-  resetIsAddOrEdit('add')
+  isAddOrEdit.value = 'add'
   drawerObject.isShow = true
 }
 const drawerObject = useElFeedback({
