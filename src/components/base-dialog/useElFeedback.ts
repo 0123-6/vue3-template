@@ -19,10 +19,7 @@ export const useElFeedback = (props: IUseElFeedbackProps = {})
     okHook = () => {},
   } = props
 
-  const {
-    state: isShow,
-    resetState: resetIsShow,
-  } = useResetRef((): boolean => false)
+  const [isShow, resetIsShow] = useResetRef((): boolean => false)
 
   const onOk = (...args: any[]) => {
     okHook(...args)
@@ -30,7 +27,7 @@ export const useElFeedback = (props: IUseElFeedbackProps = {})
   }
 
   const onCancel = () => {
-    resetIsShow(false)
+    resetIsShow()
     cancelHook()
   }
 
@@ -38,8 +35,8 @@ export const useElFeedback = (props: IUseElFeedbackProps = {})
     get isShow() {
       return isShow.value
     },
-    set isShow(newValue) {
-      resetIsShow(newValue)
+    set isShow(newValue: boolean) {
+      isShow.value = newValue
     },
     onOk,
     onCancel,

@@ -7,11 +7,8 @@ export interface IUseFullscreenReturn {
 }
 
 // 是否是全屏,单例模式
-const {
-  state: isFullScreen,
-  resetState: resetIsFullScreen,
-} = useResetRef((): boolean => false)
-resetIsFullScreen(!!document.fullscreenElement)
+const [isFullScreen] = useResetRef((): boolean => false)
+isFullScreen.value = !!document.fullscreenElement
 const appElement = document.documentElement
 let ischanging = false
 watch(isFullScreen, () => {

@@ -96,24 +96,22 @@ export const useElForm = <T extends Record<string, any>>(props: IUseElFormProps)
     return data
   }
 
-  const {
-    state: data,
-    resetState: resetData,
-  } = useResetReactive(dataFn)
+  const [data, resetData] = useResetReactive(dataFn)
 
   const isFold = ref<boolean>(false)
   const canFold = list.length > foldNumber
 
   // 重置表单组件
   const reset = (newValue?: Partial<T>) => {
-    resetData(newValue)
     // 赋值
     if (newValue) {
+      Object.assign(data, newValue)
       // ??? 需要这样吗,感觉不优雅
       if (formRef.value) {
         validate(Object.keys(newValue))
       }
     } else {
+      resetData()
       // ??? clearValidate or resetFields
       formRef.value!.resetFields()
     }

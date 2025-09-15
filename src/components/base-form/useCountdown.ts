@@ -12,14 +12,8 @@ export const useCountdown = (sum: number = 60)
   if (sum <= 0) {
     throw new Error('useCountdown的参数需为正整数,请检查参数')
   }
-  const {
-    state: countdown,
-    resetState: resetCountdown,
-  } = useResetRef((): number => Math.floor(sum))
-  const {
-    state: isRunning,
-    resetState: resetIsRunning,
-  } = useResetRef((): boolean => false)
+  const [countdown, resetCountdown] = useResetRef((): number => Math.floor(sum))
+  const [isRunning, resetIsRunning] = useResetRef((): boolean => false)
   let timer: ReturnType<typeof setInterval> | undefined = undefined
 
   const cancel = () => {
@@ -35,7 +29,7 @@ export const useCountdown = (sum: number = 60)
     if (isRunning.value) {
       return
     }
-    resetIsRunning(true)
+    isRunning.value = true
     timer = setInterval(() => {
       countdown.value -= 1
       if (countdown.value === 0) {

@@ -1,5 +1,5 @@
 import {baseFetch, type IBaseFetch, type IResponseData} from '@/util/api'
-import {useResetRef} from '@/util/hooks/useResetState'
+import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {isFalse} from '@/util/validator.ts'
 
 export interface IUseBaseFetch {
@@ -30,10 +30,7 @@ export const useBaseFetch = (props: IUseBaseFetch)
 
   // 前置hook函数
   let abortController: AbortController = new AbortController()
-  const {
-    state: isFetching,
-    resetState: resetIsFetching,
-  } = useResetRef(() => false)
+  const [isFetching, resetIsFetching] = useResetRef(() => false)
   const doFetch = async (): Promise<boolean> => {
     const permission = fetchOptionFn().permission ?? true
     if (isFalse(permission)) {

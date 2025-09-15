@@ -95,10 +95,7 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
   }
   const tableRef = ref<TableInstance>(null)
 
-  const {
-    state: params,
-    resetState: resetParams,
-  } = useResetReactive(() => ({
+  const [params, resetParams] = useResetReactive(() => ({
     pageNum: 1,
     pageSize: 10,
     // 排序属性
@@ -150,20 +147,15 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
       tableRef.value!.clearSort()
       tableRef.value!.clearFilter()
     } else if (typeof newValue === 'object') {
-      resetParams(newValue)
+      Object.assign(params, newValue)
     } else if (newValue === 'pageNum') {
-      resetParams({
-        pageNum: 1,
-      })
+      params.pageNum = 1
     } else if (newValue === true) {
       // do nothing
     }
   }
 
-  const {
-    state: data,
-    resetState: resetData,
-  } = useResetReactive((): {total: number, list: T[],} => ({
+  const [data, resetData] = useResetReactive((): {total: number, list: T[],} => ({
     total: 0,
     list: [],
   }))
@@ -201,7 +193,7 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
         ...transformValue(item, list),
         index: index + 1 + params.pageSize * (params.pageNum - 1),
       }))
-    resetData(responseData)
+    Object.assign(data, responseData)
   }
 
   let fetchTable: IUseBaseFetchReturn
@@ -257,30 +249,21 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
   }
 
   // 用来为表格的单个 / 批量操作服务
-  const {
-    state: innerType,
-    resetState: resetInnerType,
-  } = useResetRef((): 'single' | 'batch' | undefined => undefined)
-  const {
-    state: selectItem,
-    resetState: resetSelectItem,
-  } = useResetRef((): T => null)
-  const {
-    state: selectItemList,
-    resetState: resetSelectItemList,
-  } = useResetRef((): T[] => [])
+  const [innerType, resetInnerType] = useResetRef((): 'single' | 'batch' | undefined => undefined)
+  const [selectItem, resetSelectItem] = useResetRef((): T => null)
+  const [selectItemList, resetSelectItemList] = useResetRef((): T[] => [])
   const resetType = (newValue ?: 'batch' | T) => {
     if (newValue === undefined) {
       resetInnerType()
       resetSelectItem()
       resetSelectItemList()
     } else if (newValue === 'batch') {
-      resetInnerType('batch')
+      innerType.value = 'batch'
       // 单个选择是即时生效,不缓存
       resetSelectItem()
     } else {
-      resetSelectItem(newValue)
-      resetInnerType('single')
+      selectItem.value = newValue
+      innerType.value = 'single'
     }
   }
 

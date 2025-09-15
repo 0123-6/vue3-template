@@ -83,13 +83,8 @@ export const useElSelect = (props: IUseElSelectProps)
     return result
   }
 
-  const {
-    state: selectOptionList,
-    resetState: resetSelectOptionList,
-  } = useResetRef((): ISelectOption[] => [])
-  const {
-    state: dataToMap,
-  } = useResetRef((): Record<string | number, string | number> => ({}))
+  const [selectOptionList, resetSelectOptionList] = useResetRef((): ISelectOption[] => [])
+  const [dataToMap] = useResetRef((): Record<string | number, string | number> => ({}))
   const fetchSelectOption = useBaseFetch({
     beforeFetchResetFn: resetSelectOptionList,
     fetchOptionFn: () => ({
