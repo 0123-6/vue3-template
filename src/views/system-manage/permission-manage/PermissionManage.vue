@@ -150,7 +150,7 @@ const fetchDeleteObject = useBaseFetch({
       stripe
       :row-style="{height: `${tableObject.rowHeight}px!important`,}"
       row-key="name"
-      @selection-change="tableObject.resetSelectItemList($event)"
+      @selection-change="(_data: any[]) => tableObject.selectItemList = _data"
       @sort-change="tableObject.changeSort"
     >
       <base-table-column-list :list="tableObject.list">

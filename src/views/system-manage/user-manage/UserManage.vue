@@ -437,7 +437,7 @@ const fetchChangeIsOnlineObject = useBaseFetch({
       :data="tableObject.data.list"
       stripe
       :row-style="{height: `${tableObject.rowHeight}px!important`,}"
-      @selection-change="tableObject.resetSelectItemList($event)"
+      @selection-change="(_data: any[]) => tableObject.selectItemList = _data"
       @sort-change="tableObject.changeSort"
     >
       <base-table-column-list :list="tableObject.list">
