@@ -69,7 +69,7 @@ export interface IUseElTableReturn<T extends Record<string, any> = any> {
   // 用来为表格的单个 / 批量操作服务
   readonly type: 'single' | 'batch' | undefined,
   readonly selectItem: T,
-  readonly selectItemList: T[],
+  selectItemList: T[],
   resetType: (newValue ?: 'batch' | T) => void,
 
   readonly isFetching: boolean,
