@@ -70,7 +70,6 @@ export interface IUseElTableReturn<T extends Record<string, any> = any> {
   readonly type: 'single' | 'batch' | undefined,
   readonly selectItem: T,
   readonly selectItemList: T[],
-  resetSelectItemList: (newVlaue?: T[]) => void,
   resetType: (newValue ?: 'batch' | T) => void,
 
   readonly isFetching: boolean,
@@ -287,7 +286,9 @@ export const useElTable = <T extends Record<string, any>>(props: IUseElTableProp
     get selectItemList() {
       return selectItemList.value
     },
-    resetSelectItemList,
+    set selectItemList(newValue) {
+      selectItemList.value = newValue
+    },
     resetType,
 
     get isFetching() {
