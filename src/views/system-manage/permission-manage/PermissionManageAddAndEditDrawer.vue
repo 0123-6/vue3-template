@@ -2,10 +2,10 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {
   allPermissionListSelectObject,
-  IPermission,
+  type IPermission,
 } from '@views/system-manage/permission-manage/permissionManageCommon.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
-import {ElMessage, FormInstance} from 'element-plus'
+import {ElMessage, type FormInstance} from 'element-plus'
 import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
 import BaseTitle from '@/components/base-drawer/BaseTitle.vue'
