@@ -52,6 +52,7 @@ const formObject = useElForm({
       maxLength: 300,
     },
   ],
+  mode: 'edit',
 })
 
 // 新增和编辑的初始化
