@@ -355,7 +355,8 @@
 	span {
 		max-width: 400px !important;
 		word-break: break-all !important;
-		display: flex;
+		display: flex !important;
+		white-space: pre-line !important;
 	}
 }
 
