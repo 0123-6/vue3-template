@@ -86,7 +86,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
   <div
     v-else
     ref="divRef"
-    class="hpj relative w-full h-full flex justify-center items-center"
+    class="hpj group relative w-full h-full flex justify-center items-center"
   >
     <BaseCopy
       v-if="item.copy"
