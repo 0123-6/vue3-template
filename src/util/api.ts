@@ -271,6 +271,8 @@ export interface IBaseItem {
   // 适用于{label: '', value: ''}类固定信息展示
   list?: ISelectOption[],
   hidden?: boolean | (() => boolean),
+  // 特殊业务属性
+  copy?: boolean,
 }
 
 const dfsGenerateMockObject = (item: IBaseItem, mockObject: Record<string, any>) => {

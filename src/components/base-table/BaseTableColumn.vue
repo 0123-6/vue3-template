@@ -2,6 +2,7 @@
 import {isFalse} from '@/util/validator.ts'
 import {type IBaseTableColumn} from '@/components/base-table/useElTable.ts'
 import {nextTick, onMounted, ref, watch} from 'vue'
+import BaseCopy from '@/components/base-copy/BaseCopy.vue'
 
 interface IProps {
   item: IBaseTableColumn,
@@ -85,8 +86,13 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
   <div
     v-else
     ref="divRef"
-    class="hpj w-full h-full flex justify-center items-center"
+    class="hpj relative w-full h-full flex justify-center items-center"
   >
+    <BaseCopy
+      v-if="item.copy"
+      class="hidden group-hover:flex absolute right-0"
+      :value="item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop]"
+    />
     <el-tooltip
       effect="dark"
       placement="top"
