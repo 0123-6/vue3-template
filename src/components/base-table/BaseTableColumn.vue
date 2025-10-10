@@ -97,7 +97,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
       effect="dark"
       placement="top"
       :disabled="!isOverflow"
-      :content="scope.row[item.prop]+''"
+      :content="(item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop])+''"
       popper-class="hpj"
     >
       <span
