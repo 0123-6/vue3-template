@@ -124,6 +124,8 @@ props.formObject.list
       collapse-tags-tooltip
       :disabled="(!Array.isArray(item.selectObject) ? item.selectObject?.isFetching : false)
         || isTrue(item.disabled)"
+      default-first-option
+      :allow-create="item.allowCreate"
       @change="emit('change')"
     >
       <el-option

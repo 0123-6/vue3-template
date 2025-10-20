@@ -24,6 +24,7 @@ export interface IElFormItem {
   selectObject?: IUseElSelectReturn | ISelectOption[],
   // select, tree专用
   multiple?: boolean,
+  allowCreate?: boolean,
   // tree专用
   lazy?: boolean,
   load?: (node: any, resolve: (data: []) => void) => void,
