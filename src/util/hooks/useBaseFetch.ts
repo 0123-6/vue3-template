@@ -1,6 +1,5 @@
 import {baseFetch, type IBaseFetch, type IResponseData} from '@/util/api'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
-import {isFalse} from '@/util/validator.ts'
 
 export interface IUseBaseFetch {
   // 在beforeFetch中需要重置的状态的重置函数
@@ -32,11 +31,6 @@ export const useBaseFetch = (props: IUseBaseFetch)
   let abortController: AbortController = new AbortController()
   const [isFetching, resetIsFetching] = useResetRef(() => false)
   const doFetch = async (): Promise<boolean> => {
-    const permission = fetchOptionFn().permission ?? true
-    if (isFalse(permission)) {
-      return false
-    }
-
     abortController.abort()
     abortController = new AbortController()
 

@@ -1,7 +1,6 @@
 import {goLoginPage} from '@/util/env.ts'
 import {exportFile} from '@/util/file.ts'
 import {projectConfig} from '../../project.config.ts'
-import {isFalse} from '@/util/validator.ts'
 import type {ISelectOption} from '@/components/base-form/useElSelect.ts'
 import {errorMessage, successMessage, warningMessage} from '@/util/message.ts'
 
@@ -58,9 +57,6 @@ export interface IBaseFetch {
 
   // 返回的是不是文件流
   isFile?: boolean,
-
-  // 是否有接口权限
-  permission?: boolean | (() => boolean),
 }
 
 export interface IResponseData {
@@ -95,7 +91,6 @@ export async function baseFetch(props: IBaseFetch)
     signal,
     isFormData = false,
     isFile = false,
-    permission = true,
   } = props
   let {
     url,
@@ -117,11 +112,6 @@ export async function baseFetch(props: IBaseFetch)
   // 保证修改完全
   if (url.startsWith('/') || mockUrl.startsWith('/')) {
     errorMessage('请检查url或mockUrl,不能以/开头')
-    return {
-      isOk: false,
-    }
-  }
-  if (isFalse(permission)) {
     return {
       isOk: false,
     }
