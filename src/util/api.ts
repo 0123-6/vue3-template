@@ -2,7 +2,7 @@ import {goLoginPage} from '@/util/env.ts'
 import {exportFile} from '@/util/file.ts'
 import {projectConfig} from '../../project.config.ts'
 import type {ISelectOption} from '@/components/base-form/useElSelect.ts'
-import {errorMessage, successMessage, warningMessage} from '@/util/message.ts'
+import {errorMessage, successMessage} from '@/util/message.ts'
 
 // 防抖函数
 export function debounce(fn: () => void, delay: number = 1000) {
@@ -190,7 +190,7 @@ export async function baseFetch(props: IBaseFetch)
         }
       } else if (isFile) {
         // 文件类型得到json表示错误
-        warningMessage('文件下载失败: ' + responseData?.msg || responseData?.message || '')
+        errorMessage('文件下载失败: ' + responseData?.msg || responseData?.message || '')
         return {
           isOk: false,
         }
@@ -212,7 +212,7 @@ export async function baseFetch(props: IBaseFetch)
       }
       const responseBlob = await response.blob()
       if (responseBlob.size === 0) {
-        warningMessage('文件为空文件,无法下载')
+        errorMessage('文件为空文件,无法下载')
         return {
           isOk: false,
         }
