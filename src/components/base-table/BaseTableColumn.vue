@@ -97,7 +97,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
       effect="dark"
       placement="top"
       :disabled="!isOverflow"
-      :content="(item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop])+''"
+      :content="String(item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop] ?? '')"
       popper-class="hpj"
     >
       <span
@@ -111,7 +111,7 @@ if (!(props.item?.list?.length || props.item.operatorList?.length)) {
           lineClamp === 5 ? 'line-clamp-5' : '',
           lineClamp === 6 ? 'line-clamp-6' : '',
         ]"
-      >{{ (item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop]) + '' }}</span>
+      >{{ String(item.formatter?.(scope.row[item.prop]) ?? scope.row[item.prop] ?? '') }}</span>
     </el-tooltip>
   </div>
 </template>
