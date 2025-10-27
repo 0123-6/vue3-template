@@ -69,7 +69,7 @@ export interface IResponseData {
   data: Record<string, any>
 }
 
-interface IBaseFetchReturn {
+export interface IBaseFetchReturn {
   // 是否成功
   isOk: boolean,
   // 失败原因
@@ -107,6 +107,7 @@ export async function baseFetch(props: IBaseFetch)
     errorMessage('url不可以为\'\',请设置初始值为\'mock_\'')
     return {
       isOk: false,
+      reason: 'url不可以为\'\',请设置初始值为\'mock_\'',
     }
   }
   // 保证修改完全
@@ -114,6 +115,7 @@ export async function baseFetch(props: IBaseFetch)
     errorMessage('请检查url或mockUrl,不能以/开头')
     return {
       isOk: false,
+      reason: '请检查url或mockUrl,不能以/开头',
     }
   }
   // 特殊处理/mock
@@ -170,6 +172,7 @@ export async function baseFetch(props: IBaseFetch)
       errorMessage('api请求失败：' + response.status + ' 接口无效或服务器错误')
       return {
         isOk: false,
+        reason: 'api请求失败：' + response.status + ' 接口无效或服务器错误',
       }
     }
 
@@ -187,12 +190,14 @@ export async function baseFetch(props: IBaseFetch)
         }
         return {
           isOk: false,
+          reason: responseData.msg || responseData.message || `${url}接口异常`,
         }
       } else if (isFile) {
         // 文件类型得到json表示错误
         errorMessage('文件下载失败: ' + responseData?.msg || responseData?.message || '')
         return {
           isOk: false,
+          reason: '文件下载失败: ' + responseData?.msg || responseData?.message || '',
         }
       }
       return {
@@ -215,6 +220,7 @@ export async function baseFetch(props: IBaseFetch)
         errorMessage('文件为空文件,无法下载')
         return {
           isOk: false,
+          reason: '文件为空文件,无法下载',
         }
       }
 
@@ -243,6 +249,7 @@ export async function baseFetch(props: IBaseFetch)
       errorMessage('api请求失败：网络错误')
       return {
         isOk: false,
+        reason: 'api请求失败：网络错误',
       }
     }
   }

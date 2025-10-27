@@ -1,4 +1,4 @@
-import {baseFetch, type IBaseFetch, type IResponseData} from '@/util/api'
+import {baseFetch, type IBaseFetch, type IBaseFetchReturn, type IResponseData} from '@/util/api'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 
 export interface IUseBaseFetch {
@@ -10,6 +10,8 @@ export interface IUseBaseFetch {
   transformResponseDataFn?: (responseData: any, responseDataAll: IResponseData) => void,
   // 立即加入微任务队列
   microTask?: boolean,
+  // 统一处理
+  finalCallback?: (fetchObject: IBaseFetchReturn) => void,
 }
 
 export interface IUseBaseFetchReturn {
@@ -25,6 +27,7 @@ export const useBaseFetch = (props: IUseBaseFetch)
     fetchOptionFn,
     transformResponseDataFn,
     microTask = false,
+    finalCallback,
   } = props
 
   // 前置hook函数
@@ -46,12 +49,14 @@ export const useBaseFetch = (props: IUseBaseFetch)
       if (fetchObject.reason !== 'AbortError') {
         resetIsFetching()
       }
+      finalCallback?.(fetchObject)
       return false
     }
     if (transformResponseDataFn) {
       transformResponseDataFn(fetchObject.responseData?.data, fetchObject.responseData)
     }
     resetIsFetching()
+    finalCallback?.(fetchObject)
     return true
   }
   if (microTask) {
