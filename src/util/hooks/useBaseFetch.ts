@@ -38,9 +38,7 @@ export const useBaseFetch = (props: IUseBaseFetch)
     abortController = new AbortController()
 
     isFetching.value = true
-    if (beforeFetchResetFn) {
-      beforeFetchResetFn()
-    }
+    beforeFetchResetFn?.()
     const fetchObject = await baseFetch({
       signal: abortController.signal,
       ...fetchOptionFn(),
@@ -52,9 +50,7 @@ export const useBaseFetch = (props: IUseBaseFetch)
       finalCallback?.(fetchObject)
       return false
     }
-    if (transformResponseDataFn) {
-      transformResponseDataFn(fetchObject.responseData?.data, fetchObject.responseData)
-    }
+    transformResponseDataFn?.(fetchObject.responseData?.data, fetchObject.responseData)
     resetIsFetching()
     finalCallback?.(fetchObject)
     return true
