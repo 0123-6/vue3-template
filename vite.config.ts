@@ -253,11 +253,6 @@ export default defineConfig({
     // 不排除node_modules目录，方便调试源代码
     sourcemapIgnoreList: false,
     proxy: projectConfig.viteConfig.proxy,
-    // 配置HTTPS
-    https: projectConfig.viteConfig.https ? {
-      key: './localhost.key',
-      cert: './localhost.crt',
-    } : undefined,
     hmr: {
       overlay: false,
     },
