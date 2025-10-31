@@ -208,7 +208,7 @@ onMounted(() => {
       </div>
       <div
         ref="appElement"
-        class="h-full"
+        class="h-full bg-[#f7f7f7]"
         style="width: calc(100% - 222px);"
       >
         <div
