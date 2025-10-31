@@ -35,7 +35,7 @@ const formObject = useElForm({
     },
   ],
 })
-const fetchLogin = useBaseFetch({
+const fetchLoginObject = useBaseFetch({
   fetchOptionFn: () => ({
     // 登录相关接口直接调用线上接口,而不是mock接口
     mockProd: true,
@@ -52,7 +52,7 @@ const clickLogin = async () => {
   if (!await formObject.validate()) {
     return
   }
-  fetchLogin.doFetch()
+  fetchLoginObject.doFetch()
 }
 const clickLoginByPhone = () => {
   router.replace('/auth/login-by-phone')
@@ -102,11 +102,11 @@ const clickRegister = () => {
     </el-form>
     <el-button
       type="primary"
-      :loading="fetchLogin.isFetching"
+      :loading="fetchLoginObject.isFetching"
       style="height: 40px;"
       @click="clickLogin"
     >
-      {{ !fetchLogin.isFetching ? '登录' : '登录中' }}
+      {{ !fetchLoginObject.isFetching ? '登录' : '登录中' }}
     </el-button>
     <div class="mt-5 h-[40px] flex items-center gap-x-4">
       <el-button
