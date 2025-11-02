@@ -218,25 +218,6 @@ const routes: RouteRecordRaw[] = [
         path: '/learn-g6',
         component: () => import('@views/learn-g6/LearnG6.vue'),
       },
-      // 管理员页面
-      {
-        path: '/manage',
-        meta: {
-          onlyAdmin: true,
-        },
-        component: () => import('@views/admin/AdminPage.vue'),
-        // 路由独享守卫
-        // beforeEnter: () => {
-        //   const {user} = useUserStore()
-        //   if (user.value?.isAdmin) {
-        //     return
-        //   } else {
-        //     errorMessage('您没有管理员权限')
-        //     NProgress.done()
-        //     return false
-        //   }
-        // },
-      },
       {
         path: '/web-one',
         component: () => import('@views/web-one/WebOne.vue'),
