@@ -32,11 +32,6 @@ export const isPermission = permission => {
   return isPermission(permission)
 }
 
-// 添加浏览器事件,处理刷新和退出事件
-// window.addEventListener('beforeunload', () => {
-//   localStorage.setItem('vuexState', JSON.stringify(store.state))
-// })
-
 // 获取用户信息
 export const fetchUserInfoObject = useBaseFetch({
   fetchOptionFn: () => ({
