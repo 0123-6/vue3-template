@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
+import {onMounted} from 'vue'
 import * as echarts from 'echarts'
-import dayjs from 'dayjs'
 
 onMounted(() => {
   // 测试echarts
@@ -25,11 +24,7 @@ onMounted(() => {
   }
 
   myChart.setOption(option)
-  navigator.clipboard.writeText('你好，这是首页')
-  const day = dayjs('2018-05-05').locale('zh-cn').format()
-  console.log(day)
 })
-const list = ref([])
 </script>
 
 <template>
@@ -39,18 +34,5 @@ const list = ref([])
       id="test-echarts"
       class="w-[500px] h-[500px]"
     />
-    <div class="w-full flex flex-col">
-      <div
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <img
-          loading="lazy"
-          :data-src="item"
-          alt=""
-          style="width: 100%;height: 600px;"
-        >
-      </div>
-    </div>
   </div>
 </template>
