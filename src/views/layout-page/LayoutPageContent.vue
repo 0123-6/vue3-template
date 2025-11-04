@@ -13,6 +13,7 @@ import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
 import { Search} from '@element-plus/icons-vue'
+import BreadcrumbComp from '@views/layout-page/BreadcrumbComp.vue'
 
 const isChildWeb = window !== window.parent
 
@@ -90,11 +91,7 @@ onMounted(() => {
           class="object-cover"
         >
         <span class="ml-2 text-text-title text-lg font-semibold">Vue3模板网站</span>
-        <div class="ml-[50px] flex items-center gap-x-2">
-          <span>首页</span>
-          <span>/</span>
-          <span>首页</span>
-        </div>
+        <BreadcrumbComp class="ml-[50px]" />
       </div>
       <!--右-->
       <div class="flex items-center gap-x-3">
