@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
-import {ref} from 'vue'
+import {onUnmounted, ref} from 'vue'
 import router from '@/plugin/vue-router.ts'
 
 const menuList = ref<string[]>([])
@@ -9,8 +9,10 @@ const getMenuList = () => {
     menuList.value = router.currentRoute.value.matched.slice(1).map(route => (route.name as string))
   })
 }
-watchLocationPathname(getMenuList)
 getMenuList()
+const stop = watchLocationPathname(getMenuList)
+onUnmounted(stop)
+
 </script>
 
 <template>
