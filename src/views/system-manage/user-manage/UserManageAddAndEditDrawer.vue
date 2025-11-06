@@ -2,7 +2,6 @@
 import {useElForm} from '@/components/base-form/useElForm.ts'
 import {isPasswordRegExp, isPhoneRegExp} from '@/util/validator.ts'
 import {
-  getUserAccountListSelectObject,
   type IUserInfo,
   sexList,
   userStatusList,
@@ -159,7 +158,6 @@ const fetchAdd = useBaseFetch({
   }),
   transformResponseDataFn: () => {
     ElMessage.success('新增用户成功')
-    getUserAccountListSelectObject.doFetch()
     emits('ok')
   },
 })

@@ -9,7 +9,6 @@ import TableNoData from '@/components/base-table/TableNoData.vue'
 import {useResetRef} from '@/util/hooks/useResetState.ts'
 import {useElFeedback} from '@/components/base-dialog/useElFeedback.ts'
 import {
-  getUserAccountListSelectObject,
   type IUserInfo,
   onlineSelectObject,
   sexList,
@@ -25,8 +24,16 @@ import {useUserStore} from '@/plugin/pinia.ts'
 import {excelExport} from '@/util/excel.ts'
 import UserManageUploadDialog from '@views/system-manage/user-manage/UserManageUploadDialog.vue'
 import dayjs from 'dayjs'
+import {useElSelect} from '@/components/base-form/useElSelect.ts'
 
-// 表格部分
+// 获取账号列表
+const getUserAccountListSelectObject = useElSelect({
+  fetchOptionFn: () => ({
+    url: 'user/getAccountList',
+    mockProd: true,
+  }),
+})
+// 表单部分
 const formObject = useElForm({
   list: [
     {
@@ -198,7 +205,10 @@ const clickBatchAdd = () => {
   drawerObject.isShow = true
 }
 const drawerObject = useElFeedback({
-  okHook: tableObject.doFetch,
+  okHook: () => {
+    getUserAccountListSelectObject.doFetch()
+    tableObject.doFetch()
+  },
 })
 
 // 删除
@@ -245,7 +255,10 @@ const clickBatchImport = () => {
   uploadFileDialogObject.isShow = true
 }
 const uploadFileDialogObject = useElFeedback({
-  okHook: clickSearch,
+  okHook: () => {
+    getUserAccountListSelectObject.doFetch()
+    clickSearch()
+  },
 })
 
 // 导出
