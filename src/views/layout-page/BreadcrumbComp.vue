@@ -17,7 +17,7 @@ onUnmounted(stop)
 
 <template>
   <div class="flex items-center gap-x-2">
-    <span>{{ menuList[0] }}</span>
+    <span>{{ menuList?.[0] }}</span>
     <template
       v-for="(item, index) in menuList.slice(1)"
       :key="index"
