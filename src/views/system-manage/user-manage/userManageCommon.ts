@@ -1,4 +1,4 @@
-import {type ISelectOption, useElSelect} from '@/components/base-form/useElSelect.ts'
+import {type ISelectOption} from '@/components/base-form/useElSelect.ts'
 import type {IEntity} from '@views/interfaceCommon.ts'
 
 // 用户的信息
@@ -65,12 +65,4 @@ export const onlineSelectObject: ISelectOption[] = [
     type: 'text',
   },
 ]
-
-// 获取账号列表
-export const getUserAccountListSelectObject = useElSelect({
-  fetchOptionFn: () => ({
-    url: 'user/getAccountList',
-    mockProd: true,
-  }),
-})
 
