@@ -130,14 +130,14 @@ onMounted(() => {
                   >
                 </div>
                 <div class="grow h-[48px] flex flex-col justify-between">
-                  <base-span-tooltip
+                  <BaseSpanTooltip
                     style="width: 100px;"
                     :text="userStore.user?.account"
                   />
-                  <span
-                    class="w-full line-clamp-1 break-all text-xs"
-                    style="display: -webkit-box!important;"
-                  >{{ userStore.user?.phone }}</span>
+                  <BaseSpanTooltip
+                    class="text-xs"
+                    :text="userStore.user?.phone"
+                  />
                 </div>
               </div>
               <div
