@@ -12,13 +12,13 @@ const props = defineProps<IProps>()
 const textRef = ref<HTMLElement>()
 const isOverflow = ref(false)
 const lineClamp = props.lineClamp ?? 1
+const lineHeight = props.lineHeight ?? 20
 
 const checkOverflow = () => {
   if (!(textRef.value)) {
     return
   }
-  const maxHeight = lineClamp * (props.lineHeight ?? 20)
-  isOverflow.value = textRef.value.scrollHeight > maxHeight
+  isOverflow.value = textRef.value.scrollHeight > lineClamp * lineHeight
 }
 
 watch(() => props.text, async () => {
@@ -52,7 +52,7 @@ onMounted(() => {
         style="display: -webkit-box!important;-webkit-box-orient: vertical;"
         :style="{
           '-webkit-line-clamp': lineClamp,
-          'line-height': `${lineHeight ?? 20}px`,
+          'line-height': `${lineHeight}px`,
         }"
       >{{ text }}</span>
     </el-tooltip>
