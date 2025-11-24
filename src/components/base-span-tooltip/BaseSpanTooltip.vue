@@ -11,13 +11,13 @@ const props = defineProps<IProps>()
 
 const textRef = ref<HTMLElement>()
 const isOverflow = ref(false)
-const lineClamp = ref(props.lineClamp ?? 1)
+const lineClamp = props.lineClamp ?? 1
 
 const checkOverflow = () => {
   if (!(textRef.value)) {
     return
   }
-  const maxHeight = lineClamp.value * (props.lineHeight ?? 20)
+  const maxHeight = lineClamp * (props.lineHeight ?? 20)
   isOverflow.value = textRef.value.scrollHeight > maxHeight
 }
 
