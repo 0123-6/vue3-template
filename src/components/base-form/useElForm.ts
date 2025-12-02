@@ -37,6 +37,8 @@ export interface IElFormItem {
   disabledDateFn?: (data: Date) => boolean,
   // 默认最近1周,最近1月,最近1年
   shortcuts?: {text: string, value: Date | Function}[],
+  // number专用
+  precision?: number,
 }
 
 export interface IUseElFormProps {
