@@ -1,4 +1,3 @@
-import {warningMessage} from '@/util/message.ts'
 import {projectConfig} from '../../project.config.ts'
 import router from '@/plugin/vue-router.ts'
 
@@ -56,7 +55,6 @@ export const goLoginPage = () => {
       data: JSON.stringify(null),
     }, location.origin)
   } else {
-    warningMessage('请重新登录')
     if (projectConfig.loginMode === 'router') {
       router.push(projectConfig.loginRoutePath)
     } else {
