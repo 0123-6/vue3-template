@@ -70,6 +70,13 @@ onMounted(() => {
     })
   })
 })
+
+const leftElement = useTemplateRef('leftElement')
+onMounted(() => {
+  overlayScrollbar({
+    element: leftElement.value,
+  })
+})
 </script>
 
 <template>
@@ -158,50 +165,55 @@ onMounted(() => {
       style="height: calc(100% - 50px);"
     >
       <!--左边菜单-->
-      <div class="w-[222px] h-full flex flex-col bg-white border-r border-disabled">
-        <el-menu
-          v-if="userStore.user.permissionList.length"
-          :router="true"
-          :default-active="activeMenu"
-        >
-          <template
-            v-for="item in menuRouteList.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
-            :key="item.name"
+      <div
+        ref="leftElement"
+        class="w-[222px] h-full bg-white border-r border-disabled"
+      >
+        <div class="w-full flex flex-col">
+          <el-menu
+            v-if="userStore.user.permissionList.length"
+            :router="true"
+            :default-active="activeMenu"
           >
-            <el-sub-menu
-              v-if="item.children?.length"
-              :index="item.path"
+            <template
+              v-for="item in menuRouteList.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
+              :key="item.name"
             >
-              <template #title>
-                <el-icon><component :is="item.meta.icon" /></el-icon>
-                <span>{{ item.name }}</span>
-              </template>
-              <template #default>
-                <el-menu-item
-                  v-for="item2 in item.children.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
-                  :key="item2.name"
-                  :index="item2.path"
-                  :route="item2.path"
-                >
-                  <template #title>
-                    <el-icon><component :is="item2.meta.icon" /></el-icon>
-                    <span>{{ item2.name }}</span>
-                  </template>
-                </el-menu-item>
-              </template>
-            </el-sub-menu>
-            <el-menu-item
-              v-else-if="item.component"
-              :index="item.path"
-              :route="item.path"
-            >
-              <template #title>
-                <el-icon><component :is="item.meta.icon" /></el-icon>
-                <span>{{ item.name }}</span>
-              </template>
-            </el-menu-item>
-          </template>
-        </el-menu>
+              <el-sub-menu
+                v-if="item.children?.length"
+                :index="item.path"
+              >
+                <template #title>
+                  <el-icon><component :is="item.meta.icon" /></el-icon>
+                  <span>{{ item.name }}</span>
+                </template>
+                <template #default>
+                  <el-menu-item
+                    v-for="item2 in item.children.filter(_item => userStore.user.permissionList.includes(_item.name as string))"
+                    :key="item2.name"
+                    :index="item2.path"
+                    :route="item2.path"
+                  >
+                    <template #title>
+                      <el-icon><component :is="item2.meta.icon" /></el-icon>
+                      <span>{{ item2.name }}</span>
+                    </template>
+                  </el-menu-item>
+                </template>
+              </el-sub-menu>
+              <el-menu-item
+                v-else-if="item.component"
+                :index="item.path"
+                :route="item.path"
+              >
+                <template #title>
+                  <el-icon><component :is="item.meta.icon" /></el-icon>
+                  <span>{{ item.name }}</span>
+                </template>
+              </el-menu-item>
+            </template>
+          </el-menu>
+        </div>
       </div>
       <div
         ref="appElement"
