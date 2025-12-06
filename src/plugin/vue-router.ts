@@ -228,6 +228,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     name: '404',
+    meta: {
+      requiresAuth: true,
+    },
     component: () => import('@views/not-found/NotFound.vue'),
   },
   // 测试
