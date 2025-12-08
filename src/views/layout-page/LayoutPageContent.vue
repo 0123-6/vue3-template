@@ -8,12 +8,13 @@ import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
 import {type IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import router, {menuRouteList} from '@/plugin/vue-router.ts'
-import {onMounted, ref} from 'vue'
+import {onMounted, onUnmounted, ref} from 'vue'
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
 import { Search} from '@element-plus/icons-vue'
 import BreadcrumbComp from '@views/layout-page/BreadcrumbComp.vue'
+import type {OverlayScrollbars} from 'overlayscrollbars'
 
 const isChildWeb = window !== window.parent
 
@@ -57,25 +58,33 @@ watchLocationPathname(pathname => {
 
 // Vue无关，将滚动条改为好看的样式
 const appElement = ref<HTMLDivElement>(null)
+let appElementScrollbar: OverlayScrollbars
 onMounted(() => {
-  const instance = overlayScrollbar({
+  appElementScrollbar = overlayScrollbar({
     element: appElement.value,
     autoHide: false,
   })
 
   watchLocationPathname(() => {
-    instance.elements()?.scrollOffsetElement?.scrollTo({
+    appElementScrollbar.elements()?.scrollOffsetElement?.scrollTo({
       top: 0,
       left: 0,
     })
   })
 })
+onUnmounted(() => {
+  appElementScrollbar?.destroy()
+})
 
 const leftElement = ref<HTMLDivElement>(null)
+let leftElementScrollbar: OverlayScrollbars
 onMounted(() => {
-  overlayScrollbar({
+  leftElementScrollbar = overlayScrollbar({
     element: leftElement.value,
   })
+})
+onUnmounted(() => {
+  leftElementScrollbar?.destroy()
 })
 </script>
 
