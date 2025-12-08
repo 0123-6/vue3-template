@@ -8,7 +8,7 @@ import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
 import {type IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import router, {menuRouteList} from '@/plugin/vue-router.ts'
-import {onMounted, ref, useTemplateRef} from 'vue'
+import {onMounted, ref} from 'vue'
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
@@ -56,7 +56,7 @@ watchLocationPathname(pathname => {
 })
 
 // Vue无关，将滚动条改为好看的样式
-const appElement = useTemplateRef('appElement')
+const appElement = ref<HTMLDivElement>(null)
 onMounted(() => {
   const instance = overlayScrollbar({
     element: appElement.value,
@@ -71,7 +71,7 @@ onMounted(() => {
   })
 })
 
-const leftElement = useTemplateRef('leftElement')
+const leftElement = ref<HTMLDivElement>(null)
 onMounted(() => {
   overlayScrollbar({
     element: leftElement.value,
@@ -166,7 +166,7 @@ onMounted(() => {
     >
       <!--左边菜单-->
       <div
-        ref="leftElement"
+        :ref="(el: HTMLDivElement) => leftElement = el"
         class="w-[222px] h-full bg-white border-r border-disabled"
       >
         <div class="w-full flex flex-col">
@@ -216,7 +216,7 @@ onMounted(() => {
         </div>
       </div>
       <div
-        ref="appElement"
+        :ref="(el: HTMLDivElement) => appElement = el"
         class="h-full bg-[#f7f7f7]"
         style="width: calc(100% - 222px);"
       >
