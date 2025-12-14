@@ -68,7 +68,7 @@ cdnMap.set('vue', {
 cdnMap.set('element-plus', {
   name: 'element-plus',
   var: 'ElementPlus',
-  path: 'https://cdn.jsdelivr.net/npm/element-plus@2.10.7/dist/index.full.min.js',
+  path: 'https://cdn.jsdelivr.net/npm/element-plus@2.12.0/dist/index.full.min.js',
   // 自定义主题，不使用默认主题
   // css: 'https://cdn.jsdelivr.net/npm/element-plus@2.9.3/dist/index.min.css',
 })
