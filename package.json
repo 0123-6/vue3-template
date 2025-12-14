@@ -31,7 +31,7 @@
     "@eslint/js": "^9.39.2",
     "@tailwindcss/vite": "^4.1.18",
     "@tsconfig/node22": "^22.0.5",
-    "@types/node": "^25.0.1",
+    "@types/node": "^25.0.2",
     "@types/nprogress": "^0.2.3",
     "@typescript/native-preview": "7.0.0-dev.20251213.1",
     "@vitejs/plugin-vue": "^6.0.3",
