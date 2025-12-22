@@ -7,8 +7,9 @@ import {Discount, House, Key, Operation, User} from '@element-plus/icons-vue'
 
 NProgress.configure({showSpinner: false})
 
-// VueRouter规定 path最外层以'/'开头,
+export const hasNotRequiresAuthPage: boolean = true
 
+// VueRouter规定 path最外层以'/'开头,
 export const menuRouteList: RouteRecordRaw[] = [
   // 首页
   {
@@ -280,16 +281,23 @@ router.beforeEach(async (to) => {
     await fetchUserInfoObject.doFetch()
   }
 
-  if (!userStore.user) {
-    return {
-      path: '/auth/login',
-      replace: true,
+  if (!hasNotRequiresAuthPage) {
+    if (!userStore.user) {
+      return {
+        path: '/auth/login',
+        replace: true,
+      }
     }
-  }
 
-  if (to.path === '/') {
-    goFirstRoute()
-    return false
+    if (to.path === '/') {
+      goFirstRoute()
+      return false
+    }
+  } else {
+    if (to.path === '/') {
+      router.push('/index')
+      return false
+    }
   }
 })
 
