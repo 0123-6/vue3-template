@@ -28,11 +28,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-[600px] flex flex-col">
+  <div class="w-full h-150 flex flex-col">
     <span class="text-primary text-3xl">你好,vue-ts</span>
     <div
       id="test-echarts"
-      class="w-[500px] h-[500px]"
+      class="w-125 h-125"
     />
+    <div class="w-full flex items-center">
+      <span class="text-2xl">该页面不需要权限,不需要登录,是入口页</span>
+    </div>
   </div>
 </template>
