@@ -49,7 +49,7 @@ const clickLogout = () => {
   renderLogoutDialog()
 }
 
-// 菜单相关逻辑
+// 菜单相关逻辑,不可以是location.pathname,部署到非根路径,menu组件会匹配失败
 const activeMenu = ref(router.currentRoute.value.path)
 watchLocationPathname(pathname => {
   console.log(pathname)
