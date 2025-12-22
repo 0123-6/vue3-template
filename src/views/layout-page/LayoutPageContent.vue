@@ -50,7 +50,7 @@ const clickLogout = () => {
 }
 
 // 菜单相关逻辑
-const activeMenu = ref(location.pathname)
+const activeMenu = ref(router.currentRoute.value.path)
 watchLocationPathname(pathname => {
   console.log(pathname)
   activeMenu.value = pathname
