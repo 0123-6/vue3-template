@@ -16,6 +16,7 @@ import { Search} from '@element-plus/icons-vue'
 import BreadcrumbComp from '@views/layout-page/BreadcrumbComp.vue'
 import type {OverlayScrollbars} from 'overlayscrollbars'
 import {useRoute} from 'vue-router'
+import {goLoginPage} from '@/util/env.ts'
 
 const isChildWeb = window !== window.parent
 const route = useRoute()
@@ -120,8 +121,9 @@ onUnmounted(() => {
           <span class="ml-4">搜索菜单</span>
         </div>
         <base-fullscreen />
-        <!--个人图片-->
+        <!--个人图片 -->
         <el-popover
+          v-if="userStore.user"
           :width="240"
           placement="bottom-end"
           :show-arrow="false"
@@ -170,6 +172,17 @@ onUnmounted(() => {
             </div>
           </template>
         </el-popover>
+        <div
+          v-else
+          class="flex items-center gap-x-2"
+        >
+          <el-button
+            type="primary"
+            @click="goLoginPage"
+          >
+            登录
+          </el-button>
+        </div>
       </div>
     </div>
     <!--内容-->
