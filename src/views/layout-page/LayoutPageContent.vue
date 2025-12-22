@@ -8,15 +8,17 @@ import PromptDialog from '@/components/base-dialog/PromptDialog.vue'
 import {type IPromptDialog} from '@/components/base-dialog/PromptDialogInterface.ts'
 import {useBaseFetch} from '@/util/hooks/useBaseFetch.ts'
 import router, {menuRouteList} from '@/plugin/vue-router.ts'
-import {onMounted, onUnmounted, ref} from 'vue'
+import {onMounted, onUnmounted, ref, watch} from 'vue'
 import {watchLocationPathname} from '@/util/watchLocationPathname.ts'
 import overlayScrollbar from '@/util/overlayScrollbar.ts'
 import {useUserStore} from '@/plugin/pinia.ts'
 import { Search} from '@element-plus/icons-vue'
 import BreadcrumbComp from '@views/layout-page/BreadcrumbComp.vue'
 import type {OverlayScrollbars} from 'overlayscrollbars'
+import {useRoute} from 'vue-router'
 
 const isChildWeb = window !== window.parent
+const route = useRoute()
 
 // 用户相关
 const userStore = useUserStore()
@@ -50,11 +52,13 @@ const clickLogout = () => {
 }
 
 // 菜单相关逻辑,不可以是location.pathname,部署到非根路径,menu组件会匹配失败
-const activeMenu = ref(router.currentRoute.value.path)
-watchLocationPathname(pathname => {
-  console.log(pathname)
-  activeMenu.value = pathname
-})
+const activeMenu = ref(route.path)
+watch(
+  () => route.fullPath,
+  () => {
+    activeMenu.value = route.fullPath
+  },
+)
 
 // Vue无关，将滚动条改为好看的样式
 const appElement = ref<HTMLDivElement>(null)
@@ -233,7 +237,7 @@ onUnmounted(() => {
           class="w-full min-w-[1218px] h-full min-h-[700px] flex flex-col"
           style="padding: 16px 24px 0 16px;"
         >
-          <RouterView v-if="userStore.user?.permissionList?.includes?.(router.currentRoute.value.name as string)" />
+          <RouterView v-if="userStore.user?.permissionList?.includes?.(route.name as string)" />
           <span
             v-else
             class="text-[30px] text-warning"
