@@ -184,12 +184,11 @@ onUnmounted(() => {
       >
         <div class="w-full flex flex-col">
           <el-menu
-            v-if="userStore.user?.permissionList?.length"
             :router="true"
             :default-active="activeMenu"
           >
             <template
-              v-for="item in menuRouteList.filter(_item => userStore.user?.permissionList?.includes?.(_item.name as string))"
+              v-for="item in menuRouteList.filter(_item => _item.meta?.requiresAuth === false || userStore.user?.permissionList?.includes?.(_item.name as string))"
               :key="item.name"
             >
               <el-sub-menu
@@ -202,7 +201,7 @@ onUnmounted(() => {
                 </template>
                 <template #default>
                   <el-menu-item
-                    v-for="item2 in item.children.filter(_item => userStore.user?.permissionList?.includes?.(_item.name as string))"
+                    v-for="item2 in item.children.filter(_item => _item.meta?.requiresAuth === false || userStore.user?.permissionList?.includes?.(_item.name as string))"
                     :key="item2.name"
                     :index="item2.path"
                     :route="item2.path"
@@ -237,7 +236,7 @@ onUnmounted(() => {
           class="w-full min-w-[1218px] h-full min-h-[700px] flex flex-col"
           style="padding: 16px 24px 0 16px;"
         >
-          <RouterView v-if="userStore.user?.permissionList?.includes?.(route.name as string)" />
+          <RouterView v-if="route.meta?.requiresAuth === false || userStore.user?.permissionList?.includes?.(route.name as string)" />
           <span
             v-else
             class="text-[30px] text-warning"
