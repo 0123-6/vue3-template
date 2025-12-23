@@ -23,7 +23,6 @@ export const menuRouteList: RouteRecordRaw[] = [
     name: '系统管理',
     meta: {
       icon: Operation,
-      requiresAuth: true,
     },
     children: [
       {
@@ -32,7 +31,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/system-manage/user-manage/UserManage.vue'),
         meta: {
           icon: User,
-          requiresAuth: true,
         },
       },
       {
@@ -41,7 +39,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/system-manage/role-manage/RoleManage.vue'),
         meta: {
           icon: Discount,
-          requiresAuth: true,
         },
       },
       {
@@ -50,7 +47,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/system-manage/permission-manage/PermissionManage.vue'),
         meta: {
           icon: Key,
-          requiresAuth: true,
         },
       },
     ],
@@ -69,7 +65,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-one/business-menu-one-one/BusinessMenuOneOne.vue'),
         meta: {
           icon: House,
-          requiresAuth: true,
         },
       },
       {
@@ -78,7 +73,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-one/business-menu-one-two/BusinessMenuOneTwo.vue'),
         meta: {
           icon: House,
-          requiresAuth: true,
         },
       },
       {
@@ -95,7 +89,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-one/business-menu-one-four/BusinessMenuOneFour.vue'),
         meta: {
           icon: House,
-          requiresAuth: true,
         },
       },
     ],
@@ -106,7 +99,6 @@ export const menuRouteList: RouteRecordRaw[] = [
     name: '业务目录二',
     meta: {
       icon: House,
-      requiresAuth: true,
     },
     children: [
       {
@@ -115,7 +107,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-two/business-menu-two-one/BusinessMenuTwoOne.vue'),
         meta: {
           icon: House,
-          requiresAuth: true,
         },
       },
       {
@@ -124,7 +115,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-two/business-menu-two-two/BusinessMenuTwoTwo.vue'),
         meta: {
           icon: House,
-          requiresAuth: true,
         },
       },
     ],
@@ -282,6 +272,7 @@ router.beforeEach(async (to) => {
       replace: true,
     }
   }
+
   if (to.path === '/') {
     goFirstRoute()
     return false
