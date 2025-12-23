@@ -16,7 +16,6 @@ export const menuRouteList: RouteRecordRaw[] = [
     component: () => import('@views/index-page/IndexPage.vue'),
     meta: {
       icon: House,
-      requiresAuth: false,
     },
   },
   {
@@ -62,7 +61,6 @@ export const menuRouteList: RouteRecordRaw[] = [
     name: '业务目录一',
     meta: {
       icon: House,
-      requiresAuth: false,
     },
     children: [
       {
@@ -89,7 +87,6 @@ export const menuRouteList: RouteRecordRaw[] = [
         component: () => import('@views/business-directory-one/business-menu-one-three/BusinessMenuOneThree.vue'),
         meta: {
           icon: House,
-          requiresAuth: false,
         },
       },
       {
