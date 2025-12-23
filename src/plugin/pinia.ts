@@ -42,5 +42,4 @@ export const fetchUserInfoObject = useBaseFetch({
     const userStore = useUserStore()
     userStore.user = responseData
   },
-  microTask: true,
 })
