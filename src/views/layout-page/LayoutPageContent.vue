@@ -184,6 +184,7 @@ onUnmounted(() => {
       >
         <div class="w-full flex flex-col">
           <el-menu
+            v-if="userStore.user?.permissionList?.length"
             :router="true"
             :default-active="activeMenu"
           >
