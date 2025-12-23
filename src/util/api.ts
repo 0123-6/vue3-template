@@ -57,8 +57,6 @@ export interface IBaseFetch {
 
   // 返回的是不是文件流
   isFile?: boolean,
-  // ssr
-  ignoreFalse?: boolean,
 }
 
 export interface IResponseData {
@@ -93,7 +91,6 @@ export async function baseFetch(props: IBaseFetch)
     signal,
     isFormData = false,
     isFile = false,
-    ignoreFalse = false,
   } = props
   let {
     url,
@@ -186,13 +183,12 @@ export async function baseFetch(props: IBaseFetch)
       const responseData: IResponseData = await response.json()
       // 正常情况为fetchApiResponseCodeMap.success数组的一个
       if (!projectConfig.fetchApiResponseCodeMap.success.includes(responseData.code)) {
-        if (!ignoreFalse) {
-          errorMessage(responseData.msg || responseData.message || `${url}接口异常`)
-          // 账号超时，需要重新登录
-          if (projectConfig.fetchApiResponseCodeMap.notLogin.includes(responseData.code)) {
-            goLoginPage()
-          }
+        errorMessage(responseData.msg || responseData.message || `${url}接口异常`)
+        // 账号超时，需要重新登录
+        if (projectConfig.fetchApiResponseCodeMap.notLogin.includes(responseData.code)) {
+          goLoginPage()
         }
+
         return {
           isOk: false,
           reason: responseData.msg || responseData.message || `${url}接口异常`,

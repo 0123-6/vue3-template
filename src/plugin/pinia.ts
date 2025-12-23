@@ -37,7 +37,6 @@ export const fetchUserInfoObject = useBaseFetch({
   fetchOptionFn: () => ({
     url: 'user/getUserInfo',
     mockProd: true,
-    ignoreFalse: true,
   }),
   transformResponseDataFn: (responseData: IUserInfo) => {
     const userStore = useUserStore()
