@@ -34,8 +34,5 @@ onMounted(() => {
       id="test-echarts"
       class="w-125 h-125"
     />
-    <div class="w-full flex items-center">
-      <span class="text-2xl">该页面不需要权限,不需要登录,是入口页</span>
-    </div>
   </div>
 </template>
