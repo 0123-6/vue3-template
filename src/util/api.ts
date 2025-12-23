@@ -188,7 +188,6 @@ export async function baseFetch(props: IBaseFetch)
         if (projectConfig.fetchApiResponseCodeMap.notLogin.includes(responseData.code)) {
           goLoginPage()
         }
-
         return {
           isOk: false,
           reason: responseData.msg || responseData.message || `${url}接口异常`,
