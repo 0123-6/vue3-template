@@ -8,6 +8,7 @@ import {Discount, House, Key, Operation, User} from '@element-plus/icons-vue'
 NProgress.configure({showSpinner: false})
 
 // VueRouter规定 path最外层以'/'开头,
+
 export const menuRouteList: RouteRecordRaw[] = [
   // 首页
   {
@@ -295,4 +296,3 @@ if (window === window.parent) {
 
 // 无需使用useRouter(),直接使用导出的router即可
 export default router
-
