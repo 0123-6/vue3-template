@@ -11,11 +11,9 @@ export function debounce(fn: () => void, delay: number = 1000) {
   return function (this: any, ...args: any[]) {
     if (timer) {
       clearTimeout(timer)
-      timer = null
     }
     timer = setTimeout(() => {
       fn.apply(this, args)
-      clearTimeout(timer)
       timer = null
     }, delay)
   }
@@ -29,7 +27,6 @@ export function throttle(fn: () => void, delay: number = 1000) {
     if (!timer) {
       fn.apply(this, args)
       timer = setTimeout(() => {
-        clearTimeout(timer)
         timer = null
       }, delay)
     }
