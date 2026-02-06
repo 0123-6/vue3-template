@@ -42,7 +42,7 @@ interface IProjectConfig {
 // 项目的配置文件
 export const projectConfig: IProjectConfig = {
   projectName: 'vue-template-one',
-  baseUrl: '/vue',
+  baseUrl: '/vue/',
   isUseCdn: true,
   apiPrefix: {
     DEFAULT: '/api/',
