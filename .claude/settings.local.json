@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//mnt/d/front-end/**)",
+      "Bash(pnpm tsc:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(pnpm lint:*)"
+    ]
+  }
+}
