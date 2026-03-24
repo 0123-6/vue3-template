@@ -106,9 +106,14 @@ export const useElSelect = (props: IUseElSelectProps)
         return
       }
       if (!Array.isArray(responseData)) {
-        ElMessage.warning('表单请求接口返回值类型不合法,请检查接口')
-        resetSelectOptionList()
-        return
+        // 兼容表格形式{total: number, list: [], }的返回
+        if (Array.isArray(responseData.list)) {
+          responseData = responseData.list
+        } else {
+          ElMessage.warning('表单请求接口返回值类型不合法,请检查接口')
+          resetSelectOptionList()
+          return
+        }
       }
       // 转换和兼容非对象值
       for (let i = 0; i < (responseData as Array<any>).length; i++) {
