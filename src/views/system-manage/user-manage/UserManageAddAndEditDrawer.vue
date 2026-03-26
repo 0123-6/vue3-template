@@ -13,6 +13,23 @@ import BaseDrawerComp from '@/components/base-drawer/BaseDrawerComp.vue'
 import BaseTitle from '@/components/base-drawer/BaseTitle.vue'
 import BaseFormItemList from '@/components/base-form/BaseFormItemList.vue'
 import {useUserStore} from '@/plugin/pinia.ts'
+import DescriptionEditor from '@views/system-manage/user-manage/DescriptionEditor.vue'
+import type {IRichText} from '@views/system-manage/user-manage/IRichText.ts'
+
+function createDefaultRichText(): IRichText {
+  return {
+    header: {
+      tag: 'header',
+      color: '#ffffff',
+      text: {
+        tag: 'text',
+        content: '',
+        attr: { color: '#000000', weight: 0, alignment: 1 },
+      },
+    },
+    elements: [],
+  }
+}
 
 interface IProps {
   props: {
@@ -124,6 +141,7 @@ const formObject = useElForm<IUserInfo & {password2: string}>({
 if (props.isAddOrEdit === 'add') {
   formObject.reset({
     status: 'normal',
+    richText: createDefaultRichText(),
   })
 } else {
   formObject.reset({
@@ -134,6 +152,7 @@ if (props.isAddOrEdit === 'add') {
     phone: props.item.phone,
     status: props.item.status,
     description: props.item.description,
+    richText: props.item.richText ?? createDefaultRichText(),
   })
 }
 
@@ -189,6 +208,13 @@ const fetchUpdate = useBaseFetch({
       >
         <base-form-item-list :form-object="formObject" />
       </el-form>
+      <div class="mt-2 w-full flex">
+        <span class="w-[90px] flex-shrink-0 pr-3 text-right text-sm text-text-title">富文本</span>
+        <description-editor
+          v-model="formObject.data.richText"
+          class="grow"
+        />
+      </div>
     </template>
     <template #footer>
       <el-button
