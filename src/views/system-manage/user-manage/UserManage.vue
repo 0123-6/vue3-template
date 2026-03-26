@@ -501,7 +501,7 @@ const fetchChangeIsOnlineObject = useBaseFetch({
       :close-on-click-modal="true"
       :close-on-press-escape="false"
       :destroy-on-close="true"
-      :size="500"
+      :size="720"
       modal-class="hpj"
       @close="drawerObject.onCancel"
     >
