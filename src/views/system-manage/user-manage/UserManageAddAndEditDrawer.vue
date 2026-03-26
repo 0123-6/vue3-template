@@ -156,6 +156,7 @@ if (props.isAddOrEdit === 'add') {
   })
 }
 
+// eslint-disable-next-line no-useless-assignment
 const clickOk = async () => {
   if (!await formObject.validate()) {
     return
@@ -166,6 +167,7 @@ const clickOk = async () => {
     fetchUpdate.doFetch()
   }
 }
+// eslint-disable-next-line no-useless-assignment
 const clickCancel = () => {
   emits('cancel')
 }
