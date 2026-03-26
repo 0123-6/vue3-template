@@ -1,5 +1,6 @@
 import {type ISelectOption} from '@/components/base-form/useElSelect.ts'
 import type {IEntity} from '@views/interfaceCommon.ts'
+import type {IRichText} from '@views/system-manage/user-manage/IRichText.ts'
 
 // 用户的信息
 export interface IUserInfo extends IEntity {
@@ -23,6 +24,8 @@ export interface IUserInfo extends IEntity {
   isOnline?: boolean,
   // 权限,动态设置,只读属性
   readonly permissionList: string[],
+  // 富文本
+  richText?: IRichText,
 }
 
 export const sexList: ISelectOption[] = [
